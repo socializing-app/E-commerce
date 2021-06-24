@@ -12,3 +12,4 @@ mongoose.connect("mongodb+srv://admin:admin@e-commerce.ogm8y.mongodb.net/databas
 })
 
 module.exports.Product = require("./products/product");
+module.exports.Variant = require("./products/variant");
