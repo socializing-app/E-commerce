@@ -11,4 +11,5 @@ mongoose.connect("mongodb+srv://admin:admin@e-commerce.ogm8y.mongodb.net/databas
         console.log("You could not connect to the social-app database.", err);
 })
 
-mongoose.exports.Variant = require("./products/variant");
+module.exports.Product = require("./products/product");
+module.exports.Variant = require("./products/variant");
