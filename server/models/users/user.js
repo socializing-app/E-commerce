@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -16,49 +15,19 @@ const UserSchema = new mongoose.Schema(
       required: [true, "Email is required."],
       unique: true,
       lowercase: true,
-      validate: {
-        validator: validator.isEmail,
-        message: "Please provide a valid email address.",
-      },
     },
     profileImagePath: {
       type: String,
       default: "avatar.jpg",
     },
-    phone: {
-      type: String,
-      validate: {
-        validator: validator.isMobilePhone,
-        message: "Please provide a valid phone number",
-      },
-    },
-    countryCode: {
-      type: String, // example GB, HU, US
-      required: [true, "countryCode is required."],
-    },
-    carrierCode: {
-      type: String, // example +44 for GB
-      required: [true, "carrierCode is required."],
-    },
+    phone: String,
+    countryCode: String, // example GB, HU, US
+    carrierCode: String, // example +44 for GBd
     password: {
       type: String,
       required: [true, "Please provide a password."],
       minlength: [8, "The minimum length for password is 8 charachter."],
-      validate: {
-        validator: validator.isStrongPassword,
-        message: "Please provide a valid password.",
-      },
       select: false,
-    },
-    passwordConfirm: {
-      type: String,
-      required: [true, "Password confirmation field is required."],
-      validate: {
-        validator: function (value) {
-          return value === this.password;
-        },
-        message: "The passwords do not match.",
-      },
     },
     address: [
       {
@@ -97,6 +66,6 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-const UserModel = mongoose.model("User", UserSchema);
+const User = mongoose.model("User", UserSchema);
 
-module.exports = UserModel;
+module.exports = User;
