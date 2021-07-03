@@ -1,25 +1,27 @@
-import logo from '../logo.svg';
+import { connect, ConnectedProps, useSelector } from 'react-redux';
 import './App.css';
+import { Dispatch } from 'redux';
+import * as NotificationActions from "../store/actions/notification";
+import { NotificationMessage } from '../models/notification';
+import { getNotifications, State } from "../store/index";
 
-function App() {
+const App = ( props: Props ) => {
+  const notifications = useSelector(( state: State ) => getNotifications(state));
+  console.log(notifications)
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <button onClick={() => props.sendNotification({ title: "Example title", message: "Example message", success: true })}>Dispatch</button> 
   );
 }
 
-export default App;
+const mapDispatchToProps = ( dispatch: Dispatch ) => {
+  return {
+    sendNotification: (notification: NotificationMessage) => dispatch(NotificationActions.displayMessage(notification))
+  }
+}
+
+const connector = connect(null, mapDispatchToProps);
+
+type Props = ConnectedProps<typeof connector>;
+
+export default connector(App);
