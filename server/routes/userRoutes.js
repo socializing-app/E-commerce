@@ -1,6 +1,6 @@
 const express = require("express");
 // here we are going to import the handler functions
-const { signup } = require("../controllers/authController");
+const { signup, login } = require("../controllers/authController");
 const { generateRules, validate } = require("../utils/validators");
 
 const router = express.Router();
@@ -11,7 +11,7 @@ router.post(
   validate,
   signup
 );
-// router.post("/login", "login");
+router.post("/login", generateRules("email", "password"), validate, login);
 // router.post("/logout", "logout");
 // router.post("/forgetPassword", "forgetPassword");
 

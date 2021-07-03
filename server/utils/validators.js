@@ -37,7 +37,7 @@ const rules = {
     .withMessage("Field is required.")
     .escape()
     .isEmail()
-    .normalizeEmail(),
+    .normalizeEmail({ gmail_remove_dots: false }),
   password: body("password")
     .trim()
     .not()
