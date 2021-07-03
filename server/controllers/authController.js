@@ -27,14 +27,28 @@ exports.signup = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
   try {
-    // find the user based on the email address
-    // const user = UserModel.find({email: req.email})
-    // TODO: make sure the password matches the password in the db
+    const user = await User.findOne({ email: req.body.email }).select(
+      "+password"
+    );
+
+    if (
+      !user ||
+      !(await user.comparePassword(req.body.password, user.password))
+    ) {
+      return next({
+        statusCode: 401,
+        message: "Wrong email address or password.",
+      });
+    }
+
+    user.password = undefined;
+
+    return res.status(200).json({ user });
     // TODO: if thats true create a jwt and send it back with the user data
   } catch (error) {
     return next({
-      statusCode: 404,
-      message: "Wrong email address or passowrd.",
+      statusCode: 500,
+      message: error.message,
     });
   }
 };
