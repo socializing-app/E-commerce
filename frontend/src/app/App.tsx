@@ -1,26 +1,28 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+
+import { connect, ConnectedProps, useSelector } from 'react-redux';
 import './App.css';
-import { simpleModal } from "../services/modal.service";
+import { Dispatch } from 'redux';
+import * as NotificationActions from "../store/actions/notification.action";
+import { NotificationMessage } from '../models/notification.model';
+import { getNotifications, State } from "../store/index";
 
-function App() {
-  const [modalShow, setModalShow] = useState(false);
-
-  const handleSubmit = () => {
-    console.log("submitted.")
-    setModalShow(false);
-  }
-
+const App = ( props: Props ) => {
+  const notifications = useSelector(( state: State ) => getNotifications(state));
+  console.log(notifications)
+  
   return (
-    <div>
-      <Button variant="primary" onClick={() => setModalShow(true)}>
-        Launch vertically centered modal
-      </Button>
-      
-      { simpleModal(modalShow, "title", "text", () => setModalShow(false), () => handleSubmit()) }
-     
-    </div>
+    <button onClick={() => props.sendNotification({ title: "Example title", message: "Example message", success: true })}>Dispatch</button> 
   );
 }
 
-export default App;
+const mapDispatchToProps = ( dispatch: Dispatch ) => {
+  return {
+    sendNotification: (notification: NotificationMessage) => dispatch(NotificationActions.displayMessage(notification))
+  }
+}
+
+const connector = connect(null, mapDispatchToProps);
+
+type Props = ConnectedProps<typeof connector>;
+
+export default connector(App);
