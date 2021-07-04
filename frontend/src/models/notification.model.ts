@@ -8,7 +8,7 @@ export interface NotificationMessage {
     message?: string;
     success?: boolean;
     error?: boolean;
-    timestamp?: number;
+    timestamp?: string;
     systemNotification?: boolean;
 }
 

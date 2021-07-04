@@ -6,9 +6,9 @@ import storage from 'redux-persist/lib/storage';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createSelector } from "reselect";
 
-import { State as NotificationState, initialState as NotificationInitialState } from "../models/notification";
+import { State as NotificationState, initialState as NotificationInitialState } from "../models/notification.model";
 
-import * as fromNotifications from './reducers/notification';
+import * as fromNotifications from './reducers/notification.reducer';
 
 const rootPersistConfig = { key: "root", storage: storage }
 const notificationPersistConfig = { key: "notification", storage: storage }
@@ -19,12 +19,14 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
-export default () => {
+const Store = () => {
     const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk, logger)));
     const persistor = persistStore(store);
 
     return { store, persistor };
 };
+
+export default Store;
 
 export interface ActionWithPayload extends Action {
     payload?: any;

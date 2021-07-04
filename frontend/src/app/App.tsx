@@ -1,8 +1,8 @@
 import { connect, ConnectedProps, useSelector } from 'react-redux';
 import './App.css';
 import { Dispatch } from 'redux';
-import * as NotificationActions from "../store/actions/notification";
-import { NotificationMessage } from '../models/notification';
+import * as NotificationActions from "../store/actions/notification.action";
+import { NotificationMessage } from '../models/notification.model';
 import { getNotifications, State } from "../store/index";
 
 const App = ( props: Props ) => {

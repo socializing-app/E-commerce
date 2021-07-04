@@ -1,4 +1,4 @@
-import { NotificationMessage } from "../../models/notification";
+import { NotificationMessage } from "../../models/notification.model";
 
 export const ActionTypes = {
     DISPLAY: "[Notification] Display message"
