@@ -109,6 +109,14 @@ exports.login = async (req, res, next) => {
   }
 };
 
+module.exports.logout = (req, res, next) => {
+  sendRefreshToken(res, "", { maxAge: 1 });
+  return res.status(200).json({
+    message: "Logged out.",
+    accessToken: "",
+  });
+};
+
 module.exports.requireAuth = async (req, res, next) => {
   try {
     // Get the token from the request cookie
