@@ -54,8 +54,10 @@ const UserSchema = new mongoose.Schema(
     orders: [{}],
     productReviews: [{}],
     ordreReview: [{}],
-    token: String,
-    refreshToken: String,
+    tokenVersion: {
+      type: Number,
+      default: 0,
+    },
     active: {
       type: Boolean,
       default: true,

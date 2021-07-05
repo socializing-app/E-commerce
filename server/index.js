@@ -1,16 +1,22 @@
+require("dotenv/config");
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const db = require("./models");
 const userRouter = require("./routes/userRoutes");
+const { handleRefreshTokenRequest } = require("./controllers/authController");
 
 const server = express();
 const PORT = process.env.PORT || 3001;
 
 server.use(cors());
+server.use(cookieParser());
+
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
 // Routes
+server.post("/api/v1/refresh_token", handleRefreshTokenRequest);
 server.use("/api/v1/users", userRouter);
 
 server.all("*", (req, res, next) => {

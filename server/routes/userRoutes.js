@@ -1,6 +1,5 @@
 const express = require("express");
-// here we are going to import the handler functions
-const { signup, login } = require("../controllers/authController");
+const { signup, login, requireAuth } = require("../controllers/authController");
 const { generateRules, validate } = require("../utils/validators");
 
 const router = express.Router();
@@ -16,7 +15,7 @@ router.post("/login", generateRules("email", "password"), validate, login);
 // router.post("/forgetPassword", "forgetPassword");
 
 // // middleware for protected routs
-// router.use("chekcIfUserIsSignedIn");
+router.use("/auth", requireAuth);
 
 // router.get("/", "getAllUsers");
 // router.get("/:userID", "getUser");
