@@ -1,17 +1,21 @@
-
+import CarouselComponent from "../shared/carousel/carousel.component";
 import { connect, ConnectedProps, useSelector } from 'react-redux';
 import './App.css';
 import { Dispatch } from 'redux';
 import * as NotificationActions from "../store/actions/notification.action";
 import { NotificationMessage } from '../models/notification.model';
 import { getNotifications, State } from "../store/index";
+import { initialCarousel } from "../models/carousel.model";
 
 const App = ( props: Props ) => {
   const notifications = useSelector(( state: State ) => getNotifications(state));
   console.log(notifications)
   
   return (
-    <button onClick={() => props.sendNotification({ title: "Example title", message: "Example message", success: true })}>Dispatch</button> 
+    <>
+      <CarouselComponent { ...initialCarousel } />
+      <button onClick={() => props.sendNotification({ title: "Example title", message: "Example message", success: true })}>Dispatch</button> 
+    </>
   );
 }
 
