@@ -5,6 +5,7 @@ const {
   requireAuth,
   logout,
 } = require("../controllers/authController");
+const { getAllUser } = require("../controllers/userController");
 const { generateRules, validate } = require("../utils/validators");
 
 const router = express.Router();
@@ -15,14 +16,14 @@ router.post(
   validate,
   signup
 );
-router.post("/login", generateRules("email", "password"), validate, login);
+router.post("/login", login);
 router.post("/logout", logout);
 // router.post("/forgetPassword", "forgetPassword");
 
 // // middleware for protected routs
-router.use("/auth", requireAuth);
+router.use(requireAuth);
 
-router.get("/");
+router.get("/", getAllUser);
 // router.get("/:userID", "getUser");
 // router.put("/:userID/password", "updatePassword");
 // router.patch("/:userID", "updateUser");

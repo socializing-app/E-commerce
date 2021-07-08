@@ -13,7 +13,7 @@ exports.createRefreshToken = (userID, tokenVersion) => {
 };
 
 exports.sendRefreshToken = (res, token, options = {}) => {
-  return res.cookie("rtk", token, {
+  res.cookie("rtk", token, {
     httpOnly: true,
     path: "/api/v1/refresh_token",
     maxAge: process.env.REFRESH_TOKEN_COOKIE_EXPIRATION * 24 * 60 * 60 * 1000,

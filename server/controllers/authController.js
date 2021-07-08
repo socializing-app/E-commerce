@@ -79,7 +79,7 @@ exports.signup = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
   try {
-    console.log(typeof process.env.REFRESH_TOKEN_COOKIE_EXPIRATION);
+    console.log(req.body);
     const user = await User.findOne({ email: req.body.email }).select(
       "+password"
     );
@@ -121,7 +121,6 @@ module.exports.requireAuth = async (req, res, next) => {
   try {
     // Get the token from the request cookie
     const { authorization } = req.headers;
-    console.log(authorization);
     let token;
     if (authorization && authorization.startsWith("Bearer")) {
       token = authorization.split(" ")[1];
@@ -151,7 +150,7 @@ module.exports.requireAuth = async (req, res, next) => {
       }
 
       req.user = user;
-      return res.json("all good");
+      return next();
     });
   } catch (error) {
     return next({

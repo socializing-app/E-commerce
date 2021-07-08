@@ -9,7 +9,12 @@ const { handleRefreshTokenRequest } = require("./controllers/authController");
 const server = express();
 const PORT = process.env.PORT || 3001;
 
-server.use(cors());
+server.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 server.use(cookieParser());
 
 server.use(express.json());
