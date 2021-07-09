@@ -26,15 +26,15 @@ router.post("/logout", logout);
 // // middleware for protected routs
 router.use(requireAuth);
 
-router
-  .get("/", getAllUser)
-  .patch(
-    generateRules("email", "firstName", "lastName", "phone"),
-    validate,
-    updateUser
-  );
+router.get("/", getAllUser);
+router.patch(
+  "/updateMe",
+  generateRules("email", "firstName", "lastName", "phone"),
+  validate,
+  updateUser
+);
 router.get("/:userID", getUser);
-router.delete("/:userID", "delete");
+router.delete("/deleteMe", "delete");
 // router.put("/:userID/password", "updatePassword");
 // router.post("/forgetPassword", "forgetPassword");
 

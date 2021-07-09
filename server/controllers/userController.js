@@ -22,10 +22,10 @@ exports.getAllUser = async (req, res, next) => {
   }
 };
 
-exports.getUser = (req, res, next) => {
+exports.getUser = async (req, res, next) => {
   try {
     const { userID } = req.params;
-    const user = User.findById(userID);
+    const user = await User.findById(userID);
     if (!user) {
       return next({
         statusCode: 404,
@@ -39,7 +39,7 @@ exports.getUser = (req, res, next) => {
   }
 };
 
-exports.updateUser = (req, res, next) => {
+exports.updateUser = async (req, res, next) => {
   try {
     if (req.body.password || req.body.confirmPassword) {
       return next({
@@ -55,12 +55,25 @@ exports.updateUser = (req, res, next) => {
       }
       return acc;
     }, {});
-    const updatedUser = User.findByIdAndUpdate(req.user.id, filteredFields, {
-      new: true,
-      runValidators: true,
-    });
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      filteredFields,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
 
     return res.status(200).json({ user: updatedUser });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+exports.deleteUser = async (req, res, next) => {
+  try {
+    await User.findByIdAndUpdate(req.user.id, { active: false });
+    return res.status(204).json({ user: null });
   } catch (error) {
     return next(error);
   }
