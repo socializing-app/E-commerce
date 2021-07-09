@@ -1,11 +1,10 @@
 import CarouselComponent from "../shared/carousel/carousel.component";
 import { connect, ConnectedProps, useSelector } from 'react-redux';
-import './App.css';
 import { Dispatch } from 'redux';
 import * as NotificationActions from "../store/actions/notification.action";
 import { NotificationMessage } from '../models/notification.model';
 import { getNotifications, State } from "../store/index";
-import { initialCarousel } from "../models/carousel.model";
+import LandingComponent from './landing/landing.component';
 
 const App = ( props: Props ) => {
   const notifications = useSelector(( state: State ) => getNotifications(state));
@@ -13,9 +12,9 @@ const App = ( props: Props ) => {
   
   return (
     <>
-      <CarouselComponent { ...initialCarousel } />
-      <button onClick={() => props.sendNotification({ title: "Example title", message: "Example message", success: true })}>Dispatch</button> 
-    </>
+      <button onClick={() => props.sendNotification({ title: "Example title", message: "Example message", success: true })}>Dispatch</button>
+      <LandingComponent />
+    </> 
   );
 }
 
