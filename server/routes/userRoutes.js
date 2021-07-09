@@ -5,7 +5,11 @@ const {
   requireAuth,
   logout,
 } = require("../controllers/authController");
-const { getAllUser, getUser } = require("../controllers/userController");
+const {
+  getAllUser,
+  getUser,
+  updateUser,
+} = require("../controllers/userController");
 const { generateRules, validate } = require("../utils/validators");
 
 const router = express.Router();
@@ -18,15 +22,20 @@ router.post(
 );
 router.post("/login", login);
 router.post("/logout", logout);
-// router.post("/forgetPassword", "forgetPassword");
 
 // // middleware for protected routs
 router.use(requireAuth);
 
-router.get("/", getAllUser);
+router
+  .get("/", getAllUser)
+  .patch(
+    generateRules("email", "firstName", "lastName", "phone"),
+    validate,
+    updateUser
+  );
 router.get("/:userID", getUser);
+router.delete("/:userID", "delete");
 // router.put("/:userID/password", "updatePassword");
-// router.patch("/:userID", "updateUser");
-// router.delete("/:userID", "delete");
+// router.post("/forgetPassword", "forgetPassword");
 
 module.exports = router;

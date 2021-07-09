@@ -38,3 +38,30 @@ exports.getUser = (req, res, next) => {
     return next(error);
   }
 };
+
+exports.updateUser = (req, res, next) => {
+  try {
+    if (req.body.password || req.body.confirmPassword) {
+      return next({
+        statusCode: 400,
+        message:
+          "This route is not for password updates. Please use /updatePassowrd.",
+      });
+    }
+    const allowedFields = ["firstName", "lastName", "phone", "email"];
+    const filteredFields = Object.entries(req.body).reduce((acc, field) => {
+      if (allowedFields.includes(field[0])) {
+        acc[field[0]] = field[1];
+      }
+      return acc;
+    }, {});
+    const updatedUser = User.findByIdAndUpdate(req.user.id, filteredFields, {
+      new: true,
+      runValidators: true,
+    });
+
+    return res.status(200).json({ user: updatedUser });
+  } catch (error) {
+    return next(error);
+  }
+};
