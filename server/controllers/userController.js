@@ -21,3 +21,20 @@ exports.getAllUser = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.getUser = (req, res, next) => {
+  try {
+    const { userID } = req.params;
+    const user = User.findById(userID);
+    if (!user) {
+      return next({
+        statusCode: 404,
+        message: "The requested user does not exist;",
+      });
+    }
+
+    return res.status(200).json({ user });
+  } catch (error) {
+    return next(error);
+  }
+};

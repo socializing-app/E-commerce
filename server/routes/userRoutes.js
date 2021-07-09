@@ -5,7 +5,7 @@ const {
   requireAuth,
   logout,
 } = require("../controllers/authController");
-const { getAllUser } = require("../controllers/userController");
+const { getAllUser, getUser } = require("../controllers/userController");
 const { generateRules, validate } = require("../utils/validators");
 
 const router = express.Router();
@@ -24,7 +24,7 @@ router.post("/logout", logout);
 router.use(requireAuth);
 
 router.get("/", getAllUser);
-// router.get("/:userID", "getUser");
+router.get("/:userID", getUser);
 // router.put("/:userID/password", "updatePassword");
 // router.patch("/:userID", "updateUser");
 // router.delete("/:userID", "delete");
