@@ -5,6 +5,7 @@ const permissionSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, "Permission name is required."],
+      default: "",
     },
   },
   {
