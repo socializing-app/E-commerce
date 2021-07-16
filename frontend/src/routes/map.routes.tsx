@@ -15,8 +15,6 @@ const MapRoutes = (props: any) => {
                     </Route>
                 )
             })}
-
-            <Route path="*" exact render={() => <Redirect to="/" />}  />
         </Switch>
     )
 }

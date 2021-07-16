@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import * as NotificationActions from "../store/actions/notification.action";
 import { NotificationMessage } from '../models/notification.model';
 import { getNotifications, State } from "../store/index";
-import { Route, Switch, Router } from 'react-router-dom';
+import { Route, Switch, Router, Redirect } from 'react-router-dom';
 import React, { Suspense } from "react";
 import PrivateRoutes from "../routes/private.routes";
 import { createBrowserHistory } from 'history';
@@ -24,9 +24,12 @@ const App = ( props: Props ) => {
           <Route path="/">
             <Suspense fallback={<div>Loading...</div>}>
               <HeaderComponent />
-              <PrivateRoutes />
               <PublicRoutes />
+              <PrivateRoutes />
               <FooterComponent />
+
+              {/* Here we need to check all routes and if we don't have a match then redirect. */}
+              {/* <Route path="*" render={() => <Redirect to="/" />}  /> */}
             </Suspense>
           </Route>
         </Switch>

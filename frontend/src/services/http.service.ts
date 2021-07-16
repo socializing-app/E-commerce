@@ -1,5 +1,5 @@
-import { apiPath } from "./constants.service";
 import { Headers, initialHeaders } from "../models/http.model";
+import { getCurrentURL } from "../config/connection.config";
 import axios from "axios";
 
 export const get = ( url: string, 
@@ -8,7 +8,7 @@ export const get = ( url: string,
                      errorCallback?: Function ): Promise<unknown> => {
     return new Promise(async (resolve, reject) => {
         try {
-            const response = await axios.get(apiPath + url, { headers });
+            const response = await axios.get(getCurrentURL() + url, { headers });
             return resolve(successCallback ? successCallback(response.data) : response.data);
         } catch (error) {
             return reject(errorCallback ? errorCallback(error.response.data) : error.response.data);
@@ -23,7 +23,7 @@ export const post = ( url: string,
                       errorCallback?: Function ): Promise<unknown> => {
     return new Promise(async (resolve, reject) => {
         try {
-            const response = await axios.post(apiPath + url, data, { headers });
+            const response = await axios.post(getCurrentURL() + url, data, { headers });
             return resolve(successCallback ? successCallback(response.data) : response.data);
         } catch (error) {
             return reject(errorCallback ? errorCallback(error.response.data) : error.response.data);
@@ -38,7 +38,7 @@ export const put = ( url: string,
                      errorCallback?: Function ): Promise<unknown> => {
     return new Promise(async (resolve, reject) => {
         try {
-            const response = await axios.put(apiPath + url, data, { headers });
+            const response = await axios.put(getCurrentURL() + url, data, { headers });
             return resolve(successCallback ? successCallback(response.data) : response.data);
         } catch (error) {
             return reject(errorCallback ? errorCallback(error.response.data) : error.response.data);
@@ -52,7 +52,7 @@ export const destroy = ( url: string,
                          errorCallback?: Function ): Promise<unknown> => {
     return new Promise(async (resolve, reject) => {
         try {
-            const response = await axios.delete(apiPath + url, { headers });
+            const response = await axios.delete(getCurrentURL() + url, { headers });
             return resolve(successCallback ? successCallback(response.data) : response.data);
         } catch (error) {
             return reject(errorCallback ? errorCallback(error.response.data) : error.response.data);

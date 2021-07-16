@@ -8,6 +8,7 @@ const {
 const {
   getAllUser,
   getUser,
+  deleteUser,
   updateUser,
 } = require("../controllers/userController");
 const { generateRules, validate } = require("../utils/validators");
@@ -16,7 +17,7 @@ const router = express.Router();
 
 router.post(
   "/signup",
-  generateRules("email", "password", "passwordConfirm"),
+  generateRules("email", "password"),
   validate,
   signup
 );
@@ -29,12 +30,12 @@ router.use(requireAuth);
 router.get("/", getAllUser);
 router.patch(
   "/updateMe",
-  generateRules("email", "firstName", "lastName", "phone"),
+  generateRules("email"),
   validate,
   updateUser
 );
 router.get("/:userID", getUser);
-router.delete("/deleteMe", "delete");
+router.delete("/deleteMe", deleteUser);
 // router.put("/:userID/password", "updatePassword");
 // router.post("/forgetPassword", "forgetPassword");
 
