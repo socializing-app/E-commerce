@@ -20,3 +20,7 @@ module.exports.Product = require("./products/product");
 module.exports.Variant = require("./products/variant");
 module.exports.Permission = require("./users/permission");
 module.exports.User = require("./users/user");
+module.exports.ProductReview = require("./products/productReview");
+module.exports.SubCategory = require("./products/subCategory");
+module.exports.Category = require("./products/category");
+module.exports.Brand = require("./products/brand");
