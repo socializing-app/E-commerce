@@ -30,6 +30,19 @@ exports.validate = (req, res, next) => {
 ///////////////////////////////
 // Rules definitions
 const rules = {
+  firstName: body("firstName")
+    .trim()
+    .not()
+    .isEmpty()
+    .withMessage("Field is required.")
+    .escape(),
+  lastName: body("firstName")
+    .trim()
+    .not()
+    .isEmpty()
+    .withMessage("Field is required.")
+    .escape(),
+  phone: body("phone").trim().escape(),
   email: body("email")
     .trim()
     .not()

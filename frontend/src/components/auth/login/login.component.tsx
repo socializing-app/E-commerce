@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { initialLoginModel } from "../../../models/form.model";
 import { signin } from '../../../services/auth.service';
 
-const LoginComponent: React.FC<{}> = (): JSX.Element => {
+const LoginComponent: React.FC<any> = (props: any): JSX.Element => {
     const [loginForm, setLoginForm] = useState(initialLoginModel);
 
     const performChange = ( field: string, value: string ): void => {
@@ -37,10 +37,11 @@ const LoginComponent: React.FC<{}> = (): JSX.Element => {
             if ( !(loginForm as any)[field].valid ) return;
         }
 
-        signin(payload).then((res: any) => {
-            // Here we are going to show a message and redirect
-            console.log(res);
-        });
+        signin(payload, ( response: any ) => {
+            props.onSendNotification({ title: "Login success", message: "You have logged in successfully", success: true });
+        }, (response: any) => {
+            props.onSendNotification({ title: "Login error", message: response.error.message, error: true });
+        })
     };
 
     return <Container>

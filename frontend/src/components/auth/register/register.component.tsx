@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { initialRegisterModel } from "../../../models/form.model";
 import { signup } from '../../../services/auth.service';
 
-const RegisterComponent: React.FC<{}> = (): JSX.Element => {
+const RegisterComponent: React.FC<any> = (props: any): JSX.Element => {
     const [registerForm, setRegisterForm] = useState(initialRegisterModel);
 
     const performChange = ( field: string, value: string ): void => {
@@ -38,8 +38,9 @@ const RegisterComponent: React.FC<{}> = (): JSX.Element => {
         }
 
         signup(payload).then((res: any) => {
-            // Here we are going to show a message and redirect
-            console.log(res);
+            props.onSendNotification({ title: "Registration success", message: "You have registered successfully", success: true });
+        }, (response: any) => {
+            props.onSendNotification({ title: "Registration error", message: response.error.message, error: true });
         });
     };
 

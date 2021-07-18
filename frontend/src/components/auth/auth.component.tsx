@@ -3,8 +3,12 @@ import Button from 'react-bootstrap/esm/Button';
 import LoginComponent from './login/login.component';
 import RegisterComponent from './register/register.component';
 import { useState } from 'react';
+import { Dispatch } from 'redux';
+import { NotificationMessage } from '../../models/notification.model';
+import * as NotificationActions from "../../store/actions/notification.action";
+import { connect, ConnectedProps } from 'react-redux';
 
-const AuthComponent: React.FC<{}> = (): JSX.Element => {
+const AuthComponent: React.FC<Props> = ( props: Props ): JSX.Element => {
     const [isLogin, setIsLogin] = useState(false);
 
     const handleClick = ( value: boolean ): void => ( isLogin !== value ) ? setIsLogin(!isLogin) : undefined;
@@ -20,8 +24,19 @@ const AuthComponent: React.FC<{}> = (): JSX.Element => {
                     <Button onClick={() => handleClick(false)}>Register</Button>
                 </Container>
 
-                { !isLogin ? <RegisterComponent /> : <LoginComponent /> }
+                { !isLogin ? <RegisterComponent onSendNotification={props.sendNotification} /> : 
+                             <LoginComponent onSendNotification={props.sendNotification} /> }
            </Container>
 }
 
-export default AuthComponent;
+const mapDispatchToProps = ( dispatch: Dispatch ) => {
+    return {
+      sendNotification: (notification: NotificationMessage) => dispatch(NotificationActions.displayMessage(notification))
+    }
+}
+  
+const connector = connect(null, mapDispatchToProps);
+
+type Props = ConnectedProps<typeof connector>;
+
+export default connector(AuthComponent);

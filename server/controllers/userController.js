@@ -1,4 +1,5 @@
 const { User } = require("../models");
+const { sendRefreshToken } = require("../utils/auth");
 
 /**
  *
@@ -25,6 +26,7 @@ exports.getAllUser = async (req, res, next) => {
 exports.getUser = async (req, res, next) => {
   try {
     const { userID } = req.params;
+    console.log(userID);
     const user = await User.findById(userID);
     if (!user) {
       return next({
@@ -73,7 +75,8 @@ exports.updateUser = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
   try {
     await User.findByIdAndUpdate(req.user.id, { active: false });
-    return res.status(204).json({ user: null });
+    sendRefreshToken(res, "", { maxAge: 1 });
+    return res.status(204).json({ user: null, accessToken: null });
   } catch (error) {
     return next(error);
   }
