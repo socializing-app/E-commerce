@@ -8,8 +8,8 @@ const {
 const {
   getAllUser,
   getUser,
-  updateUser,
   deleteUser,
+  updateUser
 } = require("../controllers/userController");
 const { generateRules, validate } = require("../utils/validators");
 
@@ -31,7 +31,7 @@ router.get("/:userID", getUser);
 router.get("/", getAllUser);
 router.patch(
   "/updateMe",
-  generateRules("email", "firstName", "lastName", "phone"),
+  generateRules("email"),
   validate,
   updateUser
 );
