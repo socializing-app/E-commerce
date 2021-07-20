@@ -4,7 +4,7 @@ const stockSchema = new mongoose.Schema(
   {
     productID: {
       type: mongoose.Schema.Types.ObjectId,
-      rel: "Product",
+      ref: "Product",
     },
     quantity: Number,
   },
