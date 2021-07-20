@@ -24,3 +24,7 @@ module.exports.ProductReview = require("./products/productReview");
 module.exports.SubCategory = require("./products/subCategory");
 module.exports.Category = require("./products/category");
 module.exports.Brand = require("./products/brand");
+module.exports.RelatedProducts = require("./products/relatedProduct");
+module.exports.PricingHistory = require("./history/pricingHistory");
+module.exports.OrderHistory = require("./history/orderHistory");
+module.exports.Discount = require("./history/discount");
