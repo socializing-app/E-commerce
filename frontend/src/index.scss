@@ -1,4 +1,23 @@
-@import "./styles/colors.scss";
+@import '~bootstrap/scss/bootstrap.scss';
+
+$theme-colors: (
+  "orange": rgba(213,111,62, 1),
+  "orangeMedium": rgba(213,111,62, .7),
+  "orangeLight": rgba(213,111,62, .5),
+  "lightBlue": rgb(44,165,163),
+  "darkBlue": rgb(12,112,133),
+  "light": rgb(255,255,255),
+  "dark": rgb(23,34,46),
+  "grey": rgb(134,122,122),
+  "darkGrey": rgb(79,85,91)
+);
+
+.btn-action-blue {
+  background-color: theme-color("darkBlue") !important;
+  color: theme-color("light") !important;
+  border: 0 !important;
+  border-radius: 28px !important;
+}
 
 body {
   margin: 0;
