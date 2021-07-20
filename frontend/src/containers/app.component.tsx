@@ -7,6 +7,12 @@ import { createBrowserHistory } from 'history';
 import PublicRoutes from "../routes/public.routes";
 import HeaderComponent from "../components/header/header.component";
 import FooterComponent from "../components/footer/footer.component";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+
+library.add(fas, fab, far);
 
 const App = () => {
   const notifications = useSelector(( state: State ) => getNotifications(state));

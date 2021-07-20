@@ -1,0 +1,11 @@
+@import '../../../index.scss';
+
+.card_image {
+    width: 13rem;
+    height: 13rem;
+}
+
+.star {
+    color: theme-color("orange");
+    margin-right: .25rem;
+}
