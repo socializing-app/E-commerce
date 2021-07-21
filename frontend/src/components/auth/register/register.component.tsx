@@ -38,9 +38,9 @@ const RegisterComponent: React.FC<any> = (props: any): JSX.Element => {
         }
 
         signup(payload).then((res: any) => {
-            props.onSendNotification({ title: "Registration success", message: "You have registered successfully", success: true });
+            props.onSendNotification({ title: "Registration success", message: "You have registered successfully", type: "success" });
         }, (response: any) => {
-            props.onSendNotification({ title: "Registration error", message: response.error.message, error: true });
+            props.onSendNotification({ title: "Registration error", message: response.error.message, type: "error" });
         });
     };
 
