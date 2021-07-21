@@ -37,8 +37,15 @@ const productSchema = new mongoose.Schema(
         ref: "Variant",
       },
     ],
-    subCategoryID: {},
-    reviews: [{}],
+    subCategoryID: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "SubCategory",
+    },
+    brandID: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Brand",
+    },
+    reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "ProductReview" }],
     discounts: [{}],
   },
   {
