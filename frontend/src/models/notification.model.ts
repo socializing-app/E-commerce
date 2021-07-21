@@ -3,11 +3,10 @@ export interface State {
 }
 
 export interface NotificationMessage {
-    id?: number;
+    id: string;
     title?: string;
     message?: string;
-    success?: boolean;
-    error?: boolean;
+    type: string;
     timestamp?: string;
     systemNotification?: boolean;
 }

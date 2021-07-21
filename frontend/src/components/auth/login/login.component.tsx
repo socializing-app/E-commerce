@@ -38,9 +38,9 @@ const LoginComponent: React.FC<any> = (props: any): JSX.Element => {
         }
 
         signin(payload, ( response: any ) => {
-            props.onSendNotification({ title: "Login success", message: "You have logged in successfully", success: true });
+            props.onSendNotification({ title: "Login success", message: "You have logged in successfully", type: "success" });
         }, (response: any) => {
-            props.onSendNotification({ title: "Login error", message: response.error.message, error: true });
+            props.onSendNotification({ title: "Login error", message: response.error.message, type: "error" });
         })
     };
 

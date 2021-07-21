@@ -1,0 +1,15 @@
+.toast {
+    transition: transform .3s ease-in-out;
+	animation: toast-in-right .3s;
+}
+
+@keyframes toast-in-right {
+	from {
+	  transform: translateX(100%);
+	  opacity: 0.8;
+	}
+	to {
+	  transform: translateX(0);
+      opacity: 1;
+	}
+}
