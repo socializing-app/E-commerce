@@ -9,6 +9,7 @@ import HeaderComponent from "../components/header/header.component";
 import FooterComponent from "../components/footer/footer.component";
 import ToastComponent from '../shared/toast/toast.component';
 import { initialToaster } from '../models/toast.model';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from "@fortawesome/free-brands-svg-icons";
