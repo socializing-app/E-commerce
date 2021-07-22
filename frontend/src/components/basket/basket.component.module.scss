@@ -1,0 +1,9 @@
+.basket {
+    &__total {
+        background-color: grey;
+        display: flex;
+        justify-content: space-between;
+        padding: .5rem 1rem;
+        margin: .5rem 1rem;
+    }
+}
