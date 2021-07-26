@@ -5,7 +5,7 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: [true, "Category name is required."],
   },
-  discountID: [
+  discount: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Discount",

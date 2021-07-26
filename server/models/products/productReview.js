@@ -27,11 +27,11 @@ const productReviewSchema = new mongoose.Schema(
       },
     ],
     video: [{ type: String }],
-    userID: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    productID: {
+    product: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
     },
