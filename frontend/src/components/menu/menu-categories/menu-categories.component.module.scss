@@ -1,0 +1,24 @@
+.list {
+    border-radius: 0;
+}
+
+.listItem {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(0,0,0,.1);
+    }
+
+    &__span {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.link, .link:hover {
+    color: inherit;
+    text-decoration: inherit;
+}

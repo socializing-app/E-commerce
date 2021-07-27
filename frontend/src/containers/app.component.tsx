@@ -1,9 +1,8 @@
 import { useSelector } from 'react-redux';
 import { getNotifications, State } from "../store/index";
-import { Route, Switch, Router } from 'react-router-dom';
+import { Route, Switch, BrowserRouter as Router, useHistory } from 'react-router-dom';
 import React, { Suspense } from "react";
 import PrivateRoutes from "../routes/private.routes";
-import { createBrowserHistory } from 'history';
 import PublicRoutes from "../routes/public.routes";
 import HeaderComponent from "../components/header/header.component";
 import FooterComponent from "../components/footer/footer.component";
@@ -20,11 +19,11 @@ library.add(fas, fab, far);
 const App = () => {
   const notifications = useSelector(( state: State ) => getNotifications(state));
   console.log(notifications)
-  const history = createBrowserHistory({})
-  
+  const history = useHistory();
+    console.log(history)
   return (   
     <>
-      <Router history={history}>
+      <Router>
 			  <Switch>
           <Route path="/">
             <Suspense fallback={<div>Loading...</div>}>
