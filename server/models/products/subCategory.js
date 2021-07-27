@@ -5,7 +5,7 @@ const subCategorySchema = new mongoose.Schema({
     type: String,
     required: [true, "SubCategory name can not be empty."],
   },
-  categoryID: {
+  category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
   },

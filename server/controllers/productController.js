@@ -9,6 +9,40 @@ const {
   Brand,
 } = require("../models");
 
+exports.getProduct = async (req, res, next) => {
+  try {
+    const { productID } = req.params;
+    const product = await Product.findById(productID).populate(
+      "variants brandID subCategoryID"
+    );
+
+    if (!product) {
+      return next({
+        statusCode: 404,
+        message: "The product does not exists.",
+      });
+    }
+
+    const relatedProducts = await Product.find({
+      category: product.category._id,
+      subCategory: product.subCategory._id,
+    }).limit(10);
+
+    const reviews = await ProductReview.find({ product: productID })
+      .populate("userID")
+      .limit(5);
+
+    return res.status(200).json({
+      product,
+      reviews: reviews || [],
+      relatedProducts: relatedProducts || [],
+    });
+  } catch (error) {
+    console.log(error);
+    return next({ error });
+  }
+};
+
 exports.generateFakeProducts = async (req, res, next) => {
   try {
     const PRODUCT_COUNT = 10;
@@ -34,7 +68,7 @@ exports.generateFakeProducts = async (req, res, next) => {
       console.log("after product");
 
       const productStockData = {
-        productID: newProduct._id,
+        product: newProduct._id,
         quantity: faker.datatype.number(),
       };
       console.log("before stock");
@@ -67,7 +101,7 @@ exports.generateFakeProducts = async (req, res, next) => {
           deliveryRate: Math.floor(Math.random() * 5) + 1,
           experienceRate: Math.floor(Math.random() * 5) + 1,
           text: faker.lorem.paragraphs(3),
-          productID: newProduct._id,
+          product: newProduct._id,
         };
         console.log("before productReview");
         await ProductReview.create(reviewData);
@@ -90,19 +124,19 @@ exports.generateCategories = async (req, res, next) => {
 
     const subCatOne = await SubCategory.create({
       name: "SubCat One",
-      categoryID: categoryOne._id,
+      category: categoryOne._id,
     });
     const subCatTwo = await SubCategory.create({
       name: "SubCat Two",
-      categoryID: categoryOne._id,
+      category: categoryOne._id,
     });
     const subCatThree = await SubCategory.create({
       name: "SubCat Three",
-      categoryID: categoryTwo._id,
+      category: categoryTwo._id,
     });
     const subCatFour = await SubCategory.create({
       name: "SubCat Four",
-      categoryID: categoryOne._id,
+      category: categoryTwo._id,
     });
 
     const brandOne = await Brand.create({ name: "Brand One" });
@@ -112,14 +146,16 @@ exports.generateCategories = async (req, res, next) => {
     const productsTwo = await Product.find({}).skip(10);
 
     productsOne.forEach(async (product) => {
-      product.subCategoryID = subCatTwo._id;
-      product.brandID = brandOne._id;
+      product.category = categoryOne._id;
+      product.subCategory = subCatTwo._id;
+      product.brand = brandOne._id;
       await product.save();
     });
 
     productsTwo.forEach(async (product) => {
-      product.subCategoryID = subCatFour._id;
-      product.brandID = brandTwo._id;
+      product.category = categoryTwo._id;
+      product.subCategory = subCatFour._id;
+      product.brand = brandTwo._id;
       await product.save();
     });
 
