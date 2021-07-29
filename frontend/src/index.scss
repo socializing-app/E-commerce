@@ -1,16 +1,4 @@
-$theme-colors: (
-  "orange": rgba(213,111,62, 1),
-  "orangeMedium": rgba(213,111,62, .7),
-  "orangeLight": rgba(213,111,62, .5),
-  "lightBlue": rgb(44,165,163),
-  "darkBlue": rgb(12,112,133),
-  "light": rgb(255,255,255),
-  "dark": rgb(23,34,46),
-  "grey": rgb(134,122,122),
-  "darkGrey": rgb(79,85,91)
-);
-
-@import '~bootstrap/scss/bootstrap.scss';
+@import "./styles/colours.styles.scss";
 
 .btn-action-blue {
   background-color: theme-color("darkBlue") !important;
@@ -18,6 +6,15 @@ $theme-colors: (
   border: 0 !important;
   border-radius: 28px !important;
 }
+
+.btn-orange {
+  background-color: theme-color("orange") !important;
+  color: theme-color("light") !important;
+  border: 0 !important;
+  border-radius: 28px !important;
+}
+
+@import '~bootstrap/scss/bootstrap.scss';
 
 body {
   margin: 0;

@@ -16,11 +16,6 @@ const AuthComponent: React.FC<Props> = ( props: Props ): JSX.Element => {
     const handleClick = ( value: boolean ): void => ( isLogin !== value ) ? setIsLogin(!isLogin) : undefined;
 
     return <Container>
-                <button onClick={() => props.addBasketItem({ id: "3", name: "product", price: 10 })}>Add basket item</button>
-                <button onClick={() => props.increaseBasketItem("1")}>Increase basket item</button>
-                <button onClick={() => props.decreaseBasketItem("1")}>Decrease basket item</button>
-                <button onClick={() => props.removeBasketItem("2")}>Remove basket item</button>
-
                 <Container>
                     <h1>{ !isLogin ? 'Create a new account' : 'Please log into your account' }</h1>
                     <p>and never stop collecting points for your purchases.</p>

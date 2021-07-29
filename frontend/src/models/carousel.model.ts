@@ -37,3 +37,11 @@ export const initialCarousel = {
         }
     ]
 }
+
+export const getCarouselItems = (images: string[]): CarouselItem[] => {
+    if ( images && images.length ) {
+        return images.map((image: string) => { return { imageSource: image } });
+    } else {
+        return initialCarousel.items;
+    }
+}

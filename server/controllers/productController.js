@@ -29,8 +29,10 @@ exports.getProduct = async (req, res, next) => {
     }).limit(10);
 
     const reviews = await ProductReview.find({ product: productID })
-      .populate("userID")
+      .populate("user")
       .limit(5);
+
+      console.log(reviews)
 
     return res.status(200).json({
       product,

@@ -1,0 +1,57 @@
+@import '../../../styles/colours.styles.scss';
+
+.container {
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: .5rem;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+
+    &__image {
+        width: 5rem;
+        height: 5rem;
+        margin-right: 2rem;
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%;
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+
+        &_name {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        &_location {
+            color: rgba(0,0,0,.5);
+        }
+    }
+}
+
+.rating {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+
+    &__name {
+        position: absolute;
+        top: -1.5rem;
+        color: theme-color("orange");
+    }
+}
+
+.review {
+    width: 100%;
+    padding: 1rem 0;
+    padding-top: 0;
+}

@@ -1,0 +1,61 @@
+@import "../../../../styles/colours.styles.scss";
+
+.product__details {
+    padding: 1rem .5rem;
+}
+
+.product__related {
+    display: flex;
+    overflow-x: scroll;
+}
+
+.product {
+    margin: 1rem;
+}
+
+.variant__container {
+    border-top: 1px solid rgba(0,0,0,.1);
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    margin-bottom: .5rem;
+}
+
+.variant {
+    &__container {
+        display: flex;
+        padding: .5rem;
+    }
+
+    &__colour {
+        width: 3rem;
+        height: 3rem;
+        margin-right: .5rem;
+        cursor: pointer;
+    }
+}
+
+.title_container {
+    display: flex;
+    align-items: center;
+}
+
+.pricing {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    width: 100%;
+}
+
+.number {
+    display: flex;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 500;
+    padding-left: .5rem;
+
+    &__highlight {
+        color: theme-color("orange");
+    }
+}

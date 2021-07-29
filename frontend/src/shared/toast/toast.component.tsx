@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { getNotifications, State } from "../../store/index";
 import React, { useEffect, useState } from "react";
 import Toast from 'react-bootstrap/Toast';
-import { Toaster, initialToaster } from "../../models/toast.model";
+import { initialToaster } from "../../models/toast.model";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconName } from '@fortawesome/fontawesome-svg-core';
 import { NotificationMessage } from '../../models/notification.model';

@@ -6,6 +6,8 @@ import { Carousel as CarouselModel, CarouselItem } from "../../models/carousel.m
 const CarouselComponent = (props: CarouselModel) => {
     const { controls, defaultActiveIndex, fade, indicators, interval, items } = props;
     const [index, setIndex] = useState(defaultActiveIndex);
+
+    console.log("carousel: ", props)
     
     const handleSelect = (selectedIndex: number) => {
         setIndex(selectedIndex);
@@ -30,7 +32,7 @@ const CarouselComponent = (props: CarouselModel) => {
 
             <ListGroup horizontal>
                 { items.map((item: CarouselItem, index: number) => 
-                    <ListGroup.Item onClick={ () => handleSelect(index) } style={{ padding: ".1rem" }}>
+                    <ListGroup.Item onClick={ () => handleSelect(index) } style={{ padding: ".1rem" }} key={`list-item-${index}`}>
                         <img className="d-block w-100" src={item.imageSource} alt={`carousel-list-group-item-${index}`}/>
                     </ListGroup.Item>
                 )}
