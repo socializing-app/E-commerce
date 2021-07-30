@@ -4,8 +4,12 @@ import { useEffect, useState } from 'react';
 const NumberInputComponent = ( props: any ) => {
     const minOrderQty: number = props.min;
     const maxOrderQty: number = props.max;
+    const currentQuantity: number = props.currentQuantity;
+    
+    const [ num, setNum ] = useState(currentQuantity);
 
-    const [ num, setNum ] = useState(props.currentQuantity);
+    useEffect(() => { setNum(currentQuantity) }, [currentQuantity]);
+    useEffect(() => { props.onNumberChange(num) }, [num]);
 
     const handleReduce = () => {
         if ( num > minOrderQty ) setNum(num - 1);
@@ -14,10 +18,6 @@ const NumberInputComponent = ( props: any ) => {
     const handleIncrease = () => {
         if ( num < maxOrderQty ) setNum(num + 1);
     }
-
-    useEffect(() => {
-        props.onNumberChange(num);
-    }, [num]);
 
     return <div className={styles.container}>
                 <button onClick={handleReduce} className={`${styles.button} ${styles.button__left}`}></button>

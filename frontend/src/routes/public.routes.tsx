@@ -6,12 +6,16 @@ import BasketComponent from "../components/basket/basket.component";
 import { withRouter } from 'react-router-dom';
 import MenuComponent from "../components/menu/menu.component";
 import MenuCategoriesComponent from "../components/menu/menu-categories/menu-categories.component";
+import AuthComponent from "../components/auth/auth.component";
 
 const PublicRoutes = () => {
     return (
         <Switch>
             <Route path="/" exact>
                 <LandingComponent />
+            </Route>
+            <Route path="/auth" exact>
+                <AuthComponent />
             </Route>
             <Route path="/basket" exact>
                 <BasketComponent />

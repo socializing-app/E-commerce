@@ -1,53 +1,134 @@
-import Container from 'react-bootstrap/Container';
 import styles from "./product-view.component.module.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from 'react-bootstrap/Button';
 import CarouselComponent from "../../../../shared/carousel/carousel.component";
-import { initialCarousel } from '../../../../models/carousel.model';
+import { getCarouselItems, initialCarousel } from '../../../../models/carousel.model';
+import NumberInputComponent from "../../../../shared/number-input/number-input.component";
+import { getProduct } from '../../../../services/products.service';
+import { useEffect, useState } from 'react';
+import { initialProductVariant, initialServerProduct, Product, ProductVariant } from "../../../../models/product.model";
+import ProductComponent from "../product.component";
+import { Dispatch } from 'redux';
+import { NotificationMessage } from '../../../../models/notification.model';
+import * as NotificationActions from "../../../../store/actions/notification.action";
+import * as BasketActions from "../../../../store/actions/basket.action";
+import { connect, useSelector } from 'react-redux';
+import { BasketProduct } from '../../../../models/basket.model';
+import { getBasketProduct, State } from "../../../../store/index";
+import ReviewsComponent from "../../../reviews/reviews.component";
+import StarComponent from '../../../../shared/star/star.component';
 
 const ProductViewComponent = ( props: any ) => {
-    return <>
-                <div>Collections -&gt; Phones -&gt; <strong>Huawei P20</strong></div>
+    
+    const productID = "60fe57417ec2a78caf52b671";
+    const productRate = 3.5;
+    const [ serverProduct, setProduct ] = useState(initialServerProduct);
+    const [ activeVariant, setActiveVariant ] = useState(initialProductVariant);
+    const currentBasket = useSelector(( state: State ) => getBasketProduct(state, activeVariant._id));
 
-                <h1>Huawei P20</h1> 
+    const { product, reviews, relatedProducts } = serverProduct;
+    let carouselImages: string[] = activeVariant && activeVariant.images ? activeVariant.images : [];
 
-                <FontAwesomeIcon icon={['fas', 'star']} className={styles.star} />
-                <FontAwesomeIcon icon={['fas', 'star']} className={styles.star} />
-                <FontAwesomeIcon icon={['fas', 'star']} className={styles.star} />
-                <FontAwesomeIcon icon={['fas', 'star']} className={styles.star} />
-                <FontAwesomeIcon icon={['far', 'star']} className={styles.star} />
+    const handleNumberChange = (value: number) => {
+        const currentQuantity: number = currentBasket?.quantity || 0;
+        const action = value > currentQuantity ? "Increase" : value < currentQuantity ? "Decrease" : null;
+        switch ( action ) {
+            case "Increase": {
+                if ( currentQuantity === 0 ) return props.addBasketItem(activeVariant);
+                else return props.increaseBasketItem(currentBasket?._id);
+            }
+            case "Decrease": {
+                if ( currentQuantity === 1 ) return props.removeBasketItem(currentBasket?._id);
+                else return props.decreaseBasketItem(currentBasket?._id);
+            }
+        }
+    }
+
+    useEffect(() => {
+        getProduct(productID).then((response: any) => {
+            console.log(response)
+            setProduct(response);
+            setActiveVariant(response.product.variants[0]);
+        })
+    }, [])
+
+    useEffect(() => { 
+        carouselImages = activeVariant && activeVariant.images ? activeVariant.images : []
+     }, [activeVariant])
+
+    const handleChangeVariant = (index: number) => {
+        setActiveVariant(product.variants[index]);
+    }
+    
+    return (
+        <>
+            <div>Collections -&gt; Phones -&gt; <strong>Huawei P20</strong></div>
+
+            <div className={styles.title_container}>
+                <div className={styles.title}>Huawei P20</div>
+
+                <StarComponent rating={productRate} spacing={".1rem"} size={"1x"} />
 
                 <div>52 Reviews</div>
+            </div>
 
-                <CarouselComponent { ...initialCarousel } />
+            { activeVariant._id && <CarouselComponent { ...initialCarousel } items={getCarouselItems(carouselImages)} /> }
 
-                <h1>Price <strong>$299</strong></h1>
+            <div className={styles.pricing}>
+                <div className={styles.title}>Price: <strong className={styles.title__highlight}>£{ activeVariant.price }</strong></div>
+                <NumberInputComponent className={styles.number} min={0} max={10} currentQuantity={currentBasket?.quantity || 0} onNumberChange={(value: number) => handleNumberChange(value)} />
+            </div>
 
-                <Button>-</Button>
-                <input type="number" placeholder="0" />
-                <Button>+</Button>
+            <div className={styles.variant__container}>
+                { product.variants.map((variant: ProductVariant, index: number) => (
+                    <div key={`product-variant-${index}`} 
+                        onClick={() => handleChangeVariant(index)} 
+                        style={{ backgroundColor: variant.colour }}
+                        className={styles.variant__colour}></div>
+                )) }
+            </div>
 
-                <Button>Add to basket</Button>
+            <Button variant="orange" onClick={() => props.addBasketItem(activeVariant)}>Add to basket</Button>
 
-                <h1>Product Details</h1>
+            <div className={styles.title}>Product Details</div>
 
-                <div>Model: Huawei</div>
-                <div>Model: Huawei</div>
-                <div>Model: Huawei</div>
-                <div>Model: Huawei</div>
-                <div>Model: Huawei</div>
+            <div className={styles.product__details}>
+                <div>Model: { product.model }</div>
+                <div>Brand: { product.brand }</div>
+                <div>Manufacturer: { product.manufacturer }</div>
+                <div>Condition: { product.condition }</div>
+                <div>Category: { product.category }</div>
+            </div>
 
-                <h1>Description</h1>
+            <div className={styles.title}>Description</div>
 
-                <p>
-                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                </p>
+            <div className={styles.product__details}>{ product.description }</div>
 
-                Related Products
+            <div className={styles.title}>Related Products</div>
 
-                Reviews
+            <div className={styles.product__related}>
+                { relatedProducts.map((product: Product, index: number) => (
+                    <div className={styles.product} key={`related-product-${index}`}>
+                        <ProductComponent />
+                    </div>
+                )) }
+            </div>
 
-           </>
+            <div className={styles.title}>Reviews</div>
+
+            <ReviewsComponent reviews={reviews} />
+        </> 
+    )
 }
 
-export default ProductViewComponent;
+const mapDispatchToProps = ( dispatch: Dispatch ) => {
+    return {
+      sendNotification: (notification: NotificationMessage) => dispatch(NotificationActions.displayMessage(notification)),
+      addBasketItem: (item: BasketProduct) => dispatch(BasketActions.AddItem(item)),
+      increaseBasketItem: (basketID: string) => dispatch(BasketActions.IncreaseItem(basketID)),
+      decreaseBasketItem: (basketID: string) => dispatch(BasketActions.DecreaseItem(basketID)),
+      removeBasketItem: (basketID: string) => dispatch(BasketActions.RemoveItem(basketID))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ProductViewComponent);

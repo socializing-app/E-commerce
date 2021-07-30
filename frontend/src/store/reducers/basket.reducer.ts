@@ -14,7 +14,7 @@ export const reducer = (state: State = initialState, action: ActionWithPayload):
 }
 
 export const getBasket = (state: State) => state;
-export const getProduct = (state: State, productID: string) => state.products.find((product: BasketProduct) => productID === product.id) || null;
+export const getProduct = (state: State, productID: string) => state.products.find((product: BasketProduct) => productID === product._id) || null;
 export const getTotal = (state: State) => {
   return state.products.reduce(( total: number, current: BasketProduct ) => {
     return total += ( current.quantity || 0 ) * current.price;

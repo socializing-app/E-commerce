@@ -1,7 +1,7 @@
-import { Product } from "./product.model";
+import { ProductVariant } from "./product.model";
 
-export interface BasketProduct extends Product {
-    quantity?: number;
+export interface BasketProduct extends ProductVariant {
+    quantity: number;
 }
 
 export interface State {
