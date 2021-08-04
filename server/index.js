@@ -4,6 +4,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const db = require("./models");
 const userRouter = require("./routes/userRoutes");
+const configRouter = require("./routes/configRoutes");
 const productRouter = require("./routes/productRoutes");
 const { handleRefreshTokenRequest } = require("./controllers/authController");
 
@@ -25,6 +26,7 @@ server.use(express.urlencoded({ extended: true }));
 server.post("/api/v1/refresh_token", handleRefreshTokenRequest);
 server.use("/api/v1/users", userRouter);
 server.use("/api/v1/products", productRouter);
+server.use("/api/v1/config", configRouter);
 
 server.all("*", (req, res, next) => {
   return next({

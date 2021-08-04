@@ -15,9 +15,9 @@ const BasketItemComponent: React.FC<any> = ( props: any ): JSX.Element => {
                             <div>Color: Black</div>
                             <div>Serial number: 2342342323</div>
 
-                            <NumberInputComponent min={0} max={10} currentQuantity={product.quantity || 0} onNumberChange={(value: number) => handleNumberChange(product.id, product.quantity || 0, value)} />
+                            <NumberInputComponent min={0} max={10} currentQuantity={product.quantity || 0} onNumberChange={(value: number) => handleNumberChange(product._id, product.quantity || 0, value)} />
 
-                            <a onClick={() => props.removeBasketItem(product.id)}>Delete from cart</a>
+                            <a onClick={() => props.removeBasketItem(product._id)}>Delete from cart</a>
                         </div>
             </div>
 }

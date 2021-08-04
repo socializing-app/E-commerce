@@ -18,20 +18,28 @@ export const addProduct = (state: State, action: ActionWithPayload) => {
 export const updateProduct = (state: State, productID: string, increase: boolean) => {
     if ( !productID ) return state;
 
+    let isZero: boolean = false;
+
+    const products = state.products.map((product: BasketProduct) => {
+        if ( product._id === productID ) {
+            let quantity = increase ? (product.quantity as number) + 1 : (product.quantity as number) - 1;
+
+            if ( quantity < 0 ) quantity = 0;
+
+            if ( quantity === 0 ) isZero = true;
+
+            return {
+                ...product,
+                quantity
+            }
+        } else return product;
+    });
+
+    if ( isZero ) return removeProduct(state, productID);
+
     return {
         ...state,
-        products: state.products.map((product: BasketProduct) => {
-            if ( product._id === productID ) {
-                let quantity = increase ? (product.quantity as number) + 1 : (product.quantity as number) - 1;
-
-                if ( quantity < 0 ) quantity = 0;
-
-                return {
-                    ...product,
-                    quantity
-                }
-            } else return product;
-        })
+        products
     };
 }
 

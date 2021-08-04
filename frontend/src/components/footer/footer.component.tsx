@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from "./footer.component.module.scss";
 import { CompanyDetails, SocialIcon, SocialIcons } from '../../config/settings.config';
 import { IconName } from '@fortawesome/fontawesome-svg-core';
+import NavigationComponent from './navigation/navigation.component';
+import SubscriptionComponent from './subscription/subscription.component';
 
 const FooterComponent = ( props: any ) => {
     const location = useLocation();
@@ -22,20 +24,25 @@ const FooterComponent = ( props: any ) => {
     return (
         <>
             { !ignored ? (
-                <div className={styles.container}>
-                    <div className={styles.company}>{ companyName }</div>
-                    <div className={styles.socials}>
-                        { socialIcons.map((icon: SocialIcon, index: number) => (
-                            <Link to={icon.link} className={styles.link} key={`social-icon-${index}`}>
-                                <FontAwesomeIcon icon={['fab', (icon.icon) as IconName]} className="mr-2" style={{ fontSize: "3rem", color: icon.colour }} />
-                            </Link>
-                        )) }
+                <>
+                    <NavigationComponent />
+                    <SubscriptionComponent />
+
+                    <div className={styles.container}>
+                        <div className={styles.company}>{ companyName }</div>
+                        <div className={styles.socials}>
+                            { socialIcons.map((icon: SocialIcon, index: number) => (
+                                <Link to={icon.link} className={styles.link} key={`social-icon-${index}`}>
+                                    <FontAwesomeIcon icon={['fab', (icon.icon) as IconName]} className="mr-2" style={{ fontSize: "3rem", color: icon.colour }} />
+                                </Link>
+                            )) }
+                        </div>
+
+                        <hr/>
+
+                        <div className={styles.copyright}>{ copyright }</div>
                     </div>
-
-                    <hr/>
-
-                    <div className={styles.copyright}>{ copyright }</div>
-                </div>
+                </>
             ) : null }
         </>
     ) 
