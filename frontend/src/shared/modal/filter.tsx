@@ -80,7 +80,7 @@ let filterOptionsConfig = [
   }
 ]
 
-const FilterModalComponent = ( props: ModalProps ) => {
+const FilterModalComponent = ( props: any ) => {
     const { size, title, bodytext, onHide, onSubmit, closetext, submittext } = props;
     const [ filterOptions, setFilterOptions ] = useState(filterOptionsConfig);
     const [ products, setProducts ] = useState(null);
@@ -190,7 +190,7 @@ const FilterModalComponent = ( props: ModalProps ) => {
 
         <Modal.Footer>
           <Button onClick={ onHide }>{ closetext }</Button>
-          <Button onClick={ onSubmit }>{ submittext }</Button>
+          <Button onClick={ () => onSubmit(products) }>{ submittext } ({ length })</Button>
         </Modal.Footer>
 
       </Modal>

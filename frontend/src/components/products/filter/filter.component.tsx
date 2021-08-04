@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Product } from "../../../models/product.model";
 import { filterModal, simpleModal } from "../../../services/modal.service";
 import FilterModalComponent from "../../../shared/modal/filter";
 import styles from "./filter.component.module.scss";
@@ -15,8 +16,10 @@ const FilterComponent = ( props: any ) => {
         setShow(false)
     }
 
-    const onSubmit = () => {
-        console.log("on submit.")
+    const onSubmit = (products: Product[]) => {
+        console.log("on submit.", products);
+        props.handleUpdate(products);
+        setShow(false);
     }
 
     return <>
@@ -24,7 +27,7 @@ const FilterComponent = ( props: any ) => {
 
                 <button onClick={() => setShow(true)}>open</button>
                 
-                { filterModal(show, "title", "bodytext", onClose, () => onSubmit()) }
+                { filterModal(show, "title", "bodytext", onClose, (products: Product[]) => onSubmit(products)) }
            </>
 }
 
