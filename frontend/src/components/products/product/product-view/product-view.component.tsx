@@ -109,7 +109,7 @@ const ProductViewComponent = ( props: any ) => {
             <div className={styles.product__related}>
                 { relatedProducts.map((product: Product, index: number) => (
                     <div className={styles.product} key={`related-product-${index}`}>
-                        <ProductComponent />
+                        <ProductComponent product={product} />
                     </div>
                 )) }
             </div>

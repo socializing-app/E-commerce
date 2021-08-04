@@ -175,7 +175,7 @@ const FilterModalComponent = ( props: any ) => {
 
           <div className="row">
             { filterOptions.map((option: any, index: number) => {
-              return <div className={`col-${option.width} ${styles.field}`}>
+              return <div className={`col-${option.width} ${styles.field}`} key={`form-field-${index}`}>
                         <FormsComponent field={option} handleChange={handleChange} index={index} />
                         { hasValue(option) && <div onClick={() => handleClear(index)} className={styles.field__escape}>X</div> }
                      </div>

@@ -33,9 +33,9 @@ const ProductsComponent = ( props: any ) => {
 
                 { products && (
                     <div className={styles.container}>
-                        { products.map((product: Product) => (
-                            <div className={styles.product}>
-                                <ProductComponent />
+                        { products.map((product: Product, index: number) => (
+                            <div className={styles.product} key={`product-item-${index}`}>
+                                <ProductComponent product={product} />
                             </div>
                         )) }
                     </div>
