@@ -3,38 +3,21 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from "react-router-dom";
 import { Category } from "../../../models/category.model";
-
-const categories: Category[] = [
-    {
-        id: "1",
-        name: "Clothes"
-    },
-    {
-        id: "2",
-        name: "Electronics"
-    },
-    {
-        id: "3",
-        name: "Bakery"
-    },
-    {
-        id: "4",
-        name: "Cosmetics"
-    },
-    {
-        id: "5",
-        name: "Animals"
-    },
-    {
-        id: "6",
-        name: "Drinks"
-    }
-]
+import { getCategories } from '../../../services/products.service';
+import { useEffect, useState } from "react";
 
 const MenuCategoriesComponent = ( props: any ) => {
+    const [ categories, setCategories ] = useState([] as Category[]);
+
+    useEffect(() => {
+        getCategories().then((response: any) => {
+            setCategories(response.categories);
+        })
+    }, [])
+
     return <>
                 { categories.map((category: Category, index: number) => (
-                    <Link to={{ pathname: '/products', category: category.name } as any} className={styles.link} key={`category-item-${index}`}>
+                    <Link to={{ pathname: '/products', category: category } as any} className={styles.link} key={`category-item-${index}`}>
                         <ListGroup.Item className={styles.listItem}>
                             <span className={styles.listItem__span}>
                                 <FontAwesomeIcon icon={['fas', "check-circle"]} className="mr-2" style={{fontSize: "1.5rem"}} />

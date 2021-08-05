@@ -4,7 +4,7 @@ export const menu: Menu[] = [
     {
         title: "Account / Login",
         icon: "check-circle",
-        link: "/menu/categories"
+        link: "/"
     },
     {
         title: "Shopping",
@@ -14,21 +14,21 @@ export const menu: Menu[] = [
     {
         title: "My Shipments",
         icon: "check-circle",
-        link: "/menu/categories"
+        link: "/"
     },
     {
         title: "My orders",
         icon: "check-circle",
-        link: "/menu/categories"
+        link: "/"
     },
     {
         title: "Help",
         icon: "check-circle",
-        link: "/menu/categories"
+        link: "/"
     },
     {
         title: "Settings",
         icon: "check-circle",
-        link: "/menu/categories"
+        link: "/"
     }
 ]

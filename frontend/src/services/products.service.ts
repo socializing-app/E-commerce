@@ -1,10 +1,11 @@
+import { Category } from "../models/category.model";
 import * as http from "./http.service";
 
 export const getProduct = ( id: string ): Promise<unknown> => {
     return http.get(`/api/v1/products/${id}`);
 }
 
-export const getProducts = (options: any): Promise<unknown> => {
+export const getProducts = (options: any, category?: Category): Promise<unknown> => {
     let query = "";
     
     for ( let option in options ) {
@@ -24,9 +25,17 @@ export const getProducts = (options: any): Promise<unknown> => {
         }
     }
 
+    if ( category ) {
+        query += "category=" + category._id + "&";
+    }
+ 
     if ( query ) {
         query = "?" + query.substring(0, query.length - 1);
     }
 
     return http.get(`/api/v1/products${query}`);
+}
+
+export const getCategories = (): Promise<unknown> => {
+    return http.get("/api/v1/products/category/all");
 }

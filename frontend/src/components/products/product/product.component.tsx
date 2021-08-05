@@ -29,7 +29,7 @@ const ProductComponent = ( props: any ) => {
                             <StarComponent rating={productRate} spacing={".1rem"} size={"1x"} />
                         </Card.Text>
                         
-                        <Link to="/product/1">
+                        <Link to={`/product/${props.product._id}`}>
                             <Button variant="action-blue">Check out</Button>
                         </Link>
                     </Card.Body>

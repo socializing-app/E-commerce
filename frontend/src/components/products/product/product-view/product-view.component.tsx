@@ -17,10 +17,12 @@ import { BasketProduct } from '../../../../models/basket.model';
 import { getBasketProduct, State } from "../../../../store/index";
 import ReviewsComponent from "../../../reviews/reviews.component";
 import StarComponent from '../../../../shared/star/star.component';
+import { useLocation } from "react-router-dom";
 
 const ProductViewComponent = ( props: any ) => {
-    
-    const productID = "60fe57417ec2a78caf52b671";
+    const location = useLocation();
+    console.log(location)
+    const productID = location.pathname ? location.pathname.split("/")[2] : "";
     const productRate = 3.5;
     const [ serverProduct, setProduct ] = useState(initialServerProduct);
     const [ activeVariant, setActiveVariant ] = useState(initialProductVariant);
@@ -62,10 +64,10 @@ const ProductViewComponent = ( props: any ) => {
     
     return (
         <>
-            <div>Collections -&gt; Phones -&gt; <strong>Huawei P20</strong></div>
+            <div>Collections -&gt; Phones -&gt; <strong>{ activeVariant.name }</strong></div>
 
             <div className={styles.title_container}>
-                <div className={styles.title}>Huawei P20</div>
+                <div className={styles.title}>{ activeVariant.name }</div>
 
                 <StarComponent rating={productRate} spacing={".1rem"} size={"1x"} />
 

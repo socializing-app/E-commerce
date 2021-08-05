@@ -23,11 +23,9 @@ const FilterComponent = ( props: any ) => {
     }
 
     return <>
-                FilterComponent
-
-                <button onClick={() => setShow(true)}>open</button>
+                <button onClick={() => setShow(true)}>Filter</button>
                 
-                { filterModal(show, "Filter", "bodytext", onClose, (products: Product[]) => onSubmit(products)) }
+                { filterModal(show, "Filter", props.category, onClose, (products: Product[]) => onSubmit(products)) }
            </>
 }
 

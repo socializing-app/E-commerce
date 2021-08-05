@@ -72,7 +72,7 @@ let filterOptionsConfig = [
 ]
 
 const FilterModalComponent = ( props: any ) => {
-    const { size, title, bodytext, onHide, onSubmit, closetext, submittext } = props;
+    const { size, title, category, onHide, onSubmit, closetext, submittext } = props;
     const [ filterOptions, setFilterOptions ] = useState(filterOptionsConfig);
     const [ products, setProducts ] = useState(null);
     const [ length, setLength ] = useState(0);
@@ -134,7 +134,7 @@ const FilterModalComponent = ( props: any ) => {
     }
 
     useEffect(() => {
-      getProducts(filterOptions).then((response: any) => {
+      getProducts(filterOptions, category).then((response: any) => {
           console.log(response)
           setProducts(response.products);
           setLength(response.length);

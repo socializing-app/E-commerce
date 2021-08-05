@@ -10,9 +10,10 @@ const ProductsComponent = ( props: any ) => {
     const history = useHistory();
     const [ products, setProducts ] = useState(([] as Product[]));
     console.log(history)
+    const category = (history.location as any).category || null;
 
     useEffect(() => {
-        getProducts({}).then((response: any) => {
+        getProducts({}, category).then((response: any) => {
             console.log(response)
             setProducts(response.products);
         })
@@ -23,15 +24,13 @@ const ProductsComponent = ( props: any ) => {
     }
 
     return <>
-                <div>Collections -&gt; <strong>Phones</strong></div>
+                { category && <div>Collections -&gt; <strong>{ category.name }</strong></div> }
 
-                <h1>Phones</h1>
+                { category && <h1>{ category.name }</h1> }
 
-                <div>Filter - Sort</div>
+                <FilterComponent handleUpdate={handleUpdate} category={category} />
 
-                <FilterComponent handleUpdate={handleUpdate} />
-
-                { products && (
+                { products && products.length ? (
                     <div className={styles.container}>
                         { products.map((product: Product, index: number) => (
                             <div className={styles.product} key={`product-item-${index}`}>
@@ -39,7 +38,7 @@ const ProductsComponent = ( props: any ) => {
                             </div>
                         )) }
                     </div>
-                ) }
+                ) : <div>Nothing to show you mate.</div> }
            </>
 }
 

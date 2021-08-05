@@ -20,6 +20,7 @@ exports.getProducts = async (req, res, next) => {
     const maxPrice = req.query.maxprice || null;
     const colour = req.query.colour || null;
     const name = req.query.name || null;
+    const categoryID = req.query.category || null;
 
     const productQuery = {};
     const variantQuery = {};
@@ -29,6 +30,7 @@ exports.getProducts = async (req, res, next) => {
     if ( model ) productQuery.model = { $regex : new RegExp(model, "i") };
     if ( active ) productQuery.active = active;
     if ( tags ) productQuery.tags = { $in: [ ...tags.split(",") ] };
+    if ( categoryID ) productQuery.category = categoryID;
 
     productQuery.variants = { $exists: true, $ne: [] };
 
@@ -39,7 +41,7 @@ exports.getProducts = async (req, res, next) => {
     if ( colour ) variantQuery.colour = { $regex : new RegExp(colour, "i") };
     if ( name ) variantQuery.name = { $regex : new RegExp(name, "i") };
 
-    const productsFromDB = await Product.find(productQuery).populate({ "path": "variants", "match": variantQuery });
+    const productsFromDB = await Product.find(productQuery).populate({ "path": "variants", "match": variantQuery })
     
     let length = 0;
     const products = productsFromDB.filter((product) => {
@@ -48,6 +50,16 @@ exports.getProducts = async (req, res, next) => {
     });
 
     return res.status(200).json({ products, length });
+  } catch (error) {
+    return next({ error });
+  }
+};
+
+exports.getCategories = async (req, res, next) => {
+  try {
+    const categories = await Category.find();
+
+    return res.status(200).json({ categories });
   } catch (error) {
     return next({ error });
   }
