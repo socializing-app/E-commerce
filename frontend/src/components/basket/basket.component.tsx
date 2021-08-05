@@ -23,7 +23,7 @@ const BasketComponent: React.FC<Props> = ( props: Props ): JSX.Element => {
                 <h1>Your cart has { basket.products.length } items</h1>
 
                 { basket.products.map((product: BasketProduct, index: number) => (
-                    <BasketItemComponent key={`basket-item-${index}`} product={product} handleNumberChange={onHandleNumberChange}/>
+                    <BasketItemComponent key={`basket-item-${index}`} product={product} handleNumberChange={onHandleNumberChange} removeBasketItem={props.removeBasketItem} />
                 )) }
                 
                 <div className={styles.basket__total}>
@@ -40,9 +40,9 @@ const BasketComponent: React.FC<Props> = ( props: Props ): JSX.Element => {
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => {
     return {
-      increaseBasketItem: (basketID: string) => dispatch(BasketActions.IncreaseItem(basketID)),
-      decreaseBasketItem: (basketID: string) => dispatch(BasketActions.DecreaseItem(basketID)),
-      removeBasketItem: (basketID: string) => dispatch(BasketActions.RemoveItem(basketID))
+      increaseBasketItem: (productID: string) => dispatch(BasketActions.IncreaseItem(productID)),
+      decreaseBasketItem: (productID: string) => dispatch(BasketActions.DecreaseItem(productID)),
+      removeBasketItem: (productID: string) => dispatch(BasketActions.RemoveItem(productID))
     }
 }
   

@@ -1,0 +1,15 @@
+.field {
+    position: relative;
+
+    &__escape {
+        position: absolute;
+        z-index: 100;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 1px solid rgba(0,0,0,.1);
+        cursor: pointer;
+        font-size: .6rem;
+        padding: .3rem;
+    }
+}

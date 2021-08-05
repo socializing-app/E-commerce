@@ -1,0 +1,25 @@
+.radio label {
+    padding: .2rem 1rem;
+    border: 1px solid rgba(0,0,0,.1);
+    cursor: pointer;
+    border-radius: .3rem;
+    color: rgba(0,0,0,.7);
+    margin-right: .4rem;
+
+    &:hover {
+        background-color: rgba(0,0,0,.01);
+    }
+}
+
+input[type=radio]:checked + label {
+    background-color: rgba(0,0,0,.1);
+}
+
+input[type=radio] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    display: none;
+}

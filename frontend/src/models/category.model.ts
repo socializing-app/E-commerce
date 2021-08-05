@@ -1,7 +1,7 @@
 export interface Category {
-    id: string;
+    _id: string;
     name: string;
     subCategories?: any;
     thumbNail?: string;
-    discountID?: string;
+    discount?: string;
 }

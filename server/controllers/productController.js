@@ -9,6 +9,62 @@ const {
   Brand,
 } = require("../models");
 
+exports.getProducts = async (req, res, next) => {
+  try {
+    const condition = req.query.condition || null;
+    const manufacturer = req.query.manufacturer || null;
+    const model = req.query.model || null;
+    const active = req.query.active || null;
+    const tags = req.query.tags || null;
+    const minPrice = req.query.minprice || null;
+    const maxPrice = req.query.maxprice || null;
+    const colour = req.query.colour || null;
+    const name = req.query.name || null;
+    const categoryID = req.query.category || null;
+
+    const productQuery = {};
+    const variantQuery = {};
+
+    if ( condition ) productQuery.condition = condition;
+    if ( manufacturer ) productQuery.manufacturer = { $regex : new RegExp(manufacturer, "i") };
+    if ( model ) productQuery.model = { $regex : new RegExp(model, "i") };
+    if ( active ) productQuery.active = active;
+    if ( tags ) productQuery.tags = { $in: [ ...tags.split(",") ] };
+    if ( categoryID ) productQuery.category = categoryID;
+
+    productQuery.variants = { $exists: true, $ne: [] };
+
+    if ( minPrice && maxPrice ) variantQuery.price = { "$gte": minPrice, "$lte": maxPrice };
+    else if ( minPrice ) variantQuery.price = { "$gte": minPrice };
+    else if ( maxPrice ) variantQuery.price = { "$lte": maxPrice };
+
+    if ( colour ) variantQuery.colour = { $regex : new RegExp(colour, "i") };
+    if ( name ) variantQuery.name = { $regex : new RegExp(name, "i") };
+
+    const productsFromDB = await Product.find(productQuery).populate({ "path": "variants", "match": variantQuery })
+    
+    let length = 0;
+    const products = productsFromDB.filter((product) => {
+      length += product.variants.length;
+      return product.variants.length;
+    });
+
+    return res.status(200).json({ products, length });
+  } catch (error) {
+    return next({ error });
+  }
+};
+
+exports.getCategories = async (req, res, next) => {
+  try {
+    const categories = await Category.find();
+
+    return res.status(200).json({ categories });
+  } catch (error) {
+    return next({ error });
+  }
+};
+
 exports.getProduct = async (req, res, next) => {
   try {
     const { productID } = req.params;
