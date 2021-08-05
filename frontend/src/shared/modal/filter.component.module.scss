@@ -7,14 +7,9 @@
         right: 1.5rem;
         top: 50%;
         transform: translateY(-50%);
-        border: 1px solid black;
-        width: 1.5rem;
-        height: 1.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        border: 1px solid rgba(0,0,0,.1);
         cursor: pointer;
-        background-color: red;
-        color: white;
+        font-size: .6rem;
+        padding: .3rem;
     }
 }

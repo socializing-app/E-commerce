@@ -1,0 +1,12 @@
+.dropdown_toggle {
+    border: 1px solid #ced4da !important;
+    width: 100%;
+    background-color: white !important;
+    color: #495057 !important;
+
+    &:hover {
+        background-color: rgba(0,0,0,.01);
+        color: #495057;
+        border: 1px solid #ced4da;
+    }
+}

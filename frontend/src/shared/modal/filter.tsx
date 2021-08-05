@@ -52,15 +52,6 @@ let filterOptionsConfig = [
     width: "12"
   },
   {
-    name: "features",
-    placeholder: "Features",
-    label: ["Knows this", "Knows that"],
-    value: [false, false],
-    type: "select",
-    options: ["knows this", "knows that"],
-    width: "12"
-  },
-  {
     name: "minprice",
     placeholder: "Min Price",
     label: "Min Price",
@@ -170,20 +161,13 @@ const FilterModalComponent = ( props: any ) => {
         </Modal.Header>
 
         <Modal.Body>
-          <h4>{ title }</h4>
-          <p>{ bodytext }</p>
-
           <div className="row">
             { filterOptions.map((option: any, index: number) => {
-              return <div className={`col-${option.width} ${styles.field}`} key={`form-field-${index}`}>
+              return <div className={`col-${option.width} ${styles.field} my-1`} key={`form-field-${index}`}>
                         <FormsComponent field={option} handleChange={handleChange} index={index} />
-                        { hasValue(option) && <div onClick={() => handleClear(index)} className={styles.field__escape}>X</div> }
+                        { hasValue(option) && <div onClick={() => handleClear(index)} className={styles.field__escape}>RESET</div> }
                      </div>
             }) }
-          </div>
-
-          <div>
-            Total: { length }
           </div>
           
         </Modal.Body>

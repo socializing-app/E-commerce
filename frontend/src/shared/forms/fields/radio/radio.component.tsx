@@ -1,4 +1,5 @@
 import Form from 'react-bootstrap/Form';
+import styles from "./radio.component.module.scss";
 
 const RadioComponent = (props: any) => {
     const { field, handleChange, index } = props;
@@ -10,6 +11,8 @@ const RadioComponent = (props: any) => {
                 <Form.Check
                     key={`checkbox-option-${i}`}
                     inline
+                    className={styles.radio}
+                    id={field.label[i]}
                     label={field.label[i]}
                     name={field.name}
                     type="radio"
