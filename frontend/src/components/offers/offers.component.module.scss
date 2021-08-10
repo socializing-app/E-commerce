@@ -1,0 +1,29 @@
+@import "../../styles/colours.styles.scss";
+
+.image {
+    padding: var(--spacing);
+
+    img {
+        max-width: 100%;
+    }
+}
+
+.main {
+    padding: var(--spacing);
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.sub {
+    padding: var(--spacing);
+    color: theme-color("darkGrey");
+}
+
+.highlight {
+    color: theme-color("lightBlue");
+}
+
+.button {
+    margin: var(--spacing);
+    margin-top: 0;
+}
