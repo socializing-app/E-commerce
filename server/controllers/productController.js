@@ -101,6 +101,16 @@ exports.getProduct = async (req, res, next) => {
   }
 };
 
+exports.getReviews = async (req, res, next) => {
+  try {
+    const reviews = await ProductReview.find();
+
+    return res.status(200).json(reviews);
+  } catch (error) {
+    return next({error});
+  }
+} 
+
 exports.generateFakeProducts = async (req, res, next) => {
   try {
     const PRODUCT_COUNT = 10;

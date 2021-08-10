@@ -1,0 +1,50 @@
+@import "../../styles/colours.styles.scss";
+
+:root {
+    --spacing: 1rem;
+}
+
+.hero {
+    background-color: theme-color("darkBlue");
+    width: 100%;
+    padding: .5rem;
+    display: flex;
+}
+
+.link {
+    margin: 0 auto;
+}
+
+.reviews {
+    background-color: theme-color("lightBlue");
+
+    &__review {
+        padding: var(--spacing);
+        padding-top: 0;
+    }
+}
+
+.showcase {
+    background-color: theme-color("lightBlue");
+}
+
+.light {
+    color: theme-color("light");
+}
+
+.dark {
+    color: theme-color("dark");
+}
+
+.title {
+    font-size: 1.7rem;
+    font-weight: 700;
+    padding: var(--spacing);
+    padding-bottom: 0;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    padding: var(--spacing);
+    padding-top: 0;
+}

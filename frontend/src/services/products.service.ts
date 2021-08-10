@@ -1,4 +1,5 @@
 import { Category } from "../models/category.model";
+import { Review } from "../models/review.model";
 import * as http from "./http.service";
 
 export const getProduct = ( id: string ): Promise<unknown> => {
@@ -38,4 +39,8 @@ export const getProducts = (options: any, category?: Category): Promise<unknown>
 
 export const getCategories = (): Promise<unknown> => {
     return http.get("/api/v1/products/category/all");
+}
+
+export const getProductReviews = (): Promise<Review[] | any> => {
+    return http.get("/api/v1/products/reviews/all");
 }

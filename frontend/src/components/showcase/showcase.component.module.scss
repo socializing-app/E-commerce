@@ -1,0 +1,28 @@
+@import "../../styles/colours.styles.scss";
+
+.list {
+    background: transparent !important;
+}
+
+.item {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    border: 0 !important;
+}
+
+.icon {
+    color: theme-color("grey");
+    margin-right: var(--spacing);
+}
+
+.main {
+    font-size: 2rem;
+    color: theme-color("light");
+}
+
+.sub {
+    color: theme-color("lighter");
+}
