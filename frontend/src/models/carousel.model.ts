@@ -11,6 +11,7 @@ export interface Carousel {
     indicators?: boolean;
     interval?: number;
     items: CarouselItem[];
+    navigation?: boolean;
 }
 
 export const initialCarousel = {
@@ -19,6 +20,7 @@ export const initialCarousel = {
     fade: false,
     indicators: true,
     interval: 5000,
+    navigation: true,
     items: [
         {
             imageSource: "https://picsum.photos/800/400",

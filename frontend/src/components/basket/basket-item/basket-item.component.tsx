@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import NumberInputComponent from "../../../shared/number-input/number-input.component";
 import styles from "./basket-item.component.module.scss";
 
@@ -5,18 +6,22 @@ const BasketItemComponent: React.FC<any> = ( props: any ): JSX.Element => {
     const { product, handleNumberChange } = props;
 
     return  <div className={styles.product}>
-                        <div className={styles.product__image}>
+                        <Link to={`product/${product.productID}`} className={`${styles.product__image} ${styles.link}`}>
                             <img src={product.images[0]} />
-                        </div>
+                        </Link>
 
                         <div className={styles.product__details}>
-                            <div><strong>{ product.name }</strong></div>
+                            <Link to={`product/${product.productID}`} className={styles.link}>
+                                <strong>{ product.name }</strong>
+                            </Link>
                             <div>Price: £{ product.price }</div>
                             <div>Color: { product.colour }</div>
 
-                            <NumberInputComponent min={0} max={10} currentQuantity={product.quantity || 0} onNumberChange={(value: number) => handleNumberChange(product._id, product.quantity || 0, value)} />
+                            <div className="my-2">
+                                <NumberInputComponent min={0} max={10} currentQuantity={product.quantity || 0} onNumberChange={(value: number) => handleNumberChange(product._id, product.quantity || 0, value)} />
+                            </div>
 
-                            <a onClick={() => props.removeBasketItem(product._id)}>Delete from cart</a>
+                            <a onClick={() => props.removeBasketItem(product._id)} className={styles.product__delete}>Delete from cart</a>
                         </div>
             </div>
 }

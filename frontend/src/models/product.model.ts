@@ -7,6 +7,7 @@ export const initialState = {
 }
 
 export const initialProduct = {
+    _id: "",
     active: true,
     brand: "",
     category: "",
@@ -25,6 +26,7 @@ export const initialProduct = {
 }
 
 export interface Product {
+    _id: string;
     active: boolean;
     brand: string;
     category: string;

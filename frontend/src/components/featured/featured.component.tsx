@@ -16,8 +16,6 @@ const FeaturedComponent = ( props: any ) => {
     }, [])
 
     return <>
-                <h1>Our Featured Products</h1>
-
                 <div className={styles.products}>
                     { products.slice(0, 4).map((product: Product, index: number) => (
                         <ProductComponent product={product} key={`featured-product-${index}`} />

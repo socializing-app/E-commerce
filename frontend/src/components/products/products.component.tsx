@@ -1,6 +1,6 @@
 import ProductComponent from './product/product.component';
 import styles from "./products.component.module.scss";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import FilterComponent from './filter/filter.component';
 import { useEffect, useState } from 'react';
 import { getProducts } from '../../services/products.service';
@@ -23,12 +23,14 @@ const ProductsComponent = ( props: any ) => {
         setProducts(products);
     }
 
-    return <>
-                { category && <div>Collections -&gt; <strong>{ category.name }</strong></div> }
+    return <div className={styles.products}>
+                { category && <div><Link to="menu/categories">Categories</Link> -&gt; <strong className={styles.category_name}>{ category.name }</strong></div> }
 
-                { category && <h1>{ category.name }</h1> }
+                { category && <div className={styles.category_title}>{ category.name }</div> }
 
-                <FilterComponent handleUpdate={handleUpdate} category={category} />
+                <div className="mb-3">
+                    <FilterComponent handleUpdate={handleUpdate} category={category} /> 
+                </div>
 
                 { products && products.length ? (
                     <div className={styles.container}>
@@ -39,7 +41,7 @@ const ProductsComponent = ( props: any ) => {
                         )) }
                     </div>
                 ) : <div>Nothing to show you mate.</div> }
-           </>
+           </div>
 }
 
 export default ProductsComponent;

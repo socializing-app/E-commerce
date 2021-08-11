@@ -4,6 +4,8 @@
     display: flex;
     flex: 1;
     justify-content: flex-end;
+    padding: 0;
+    padding-right: var(--spacing);
 }
 
 .input {

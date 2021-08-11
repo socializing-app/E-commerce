@@ -1,9 +1,33 @@
 .basket {
     &__total {
-        background-color: grey;
+        background-color: rgba(0,0,0,.1);
         display: flex;
         justify-content: space-between;
         padding: .5rem 1rem;
         margin: .5rem 1rem;
     }
+
+    &__related {
+        display: flex;
+        overflow-x: scroll;
+
+        .product {
+            margin: 1rem;
+        }
+    }
+}
+
+.buttons {
+    padding: var(--spacing);
+
+    .button {
+        margin-right: var(--spacing);
+    }
+}
+
+.title {
+    font-size: 1.7rem;
+    font-weight: 700;
+    text-align: center;
+    padding: var(--spacing) 0;
 }

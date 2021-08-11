@@ -18,15 +18,15 @@ const ProductComponent = ( props: any ) => {
 
     console.log(props)
     return <>
-                <Card style={{ width: '13rem' }}>
+                <Card style={{ width: '13.9rem' }}>
                     <Card.Img variant="top" className={styles.card_image} src={thumbnail} />
                     <Card.Body>
                         <Card.Title className="my-1">{ variants && variants[0] && variants[0].name }</Card.Title>
                         <Card.Text className="my-1">From £{ variants && variants[0] && variants[0].price }</Card.Text>
-                        <Card.Text className="text-muted my-1">{ description }</Card.Text>
+                        <Card.Text className={`text-muted my-1 ${styles.description}`}>{ description.substring(0, 50) }...</Card.Text>
                         
-                        <Card.Text className="mt-1">
-                            <StarComponent rating={productRate} spacing={".1rem"} size={"1x"} />
+                        <Card.Text className="mt-2">
+                            <StarComponent rating={productRate} spacing={".1rem"} size={"lg"} />
                         </Card.Text>
                         
                         <Link to={`/product/${props.product._id}`}>

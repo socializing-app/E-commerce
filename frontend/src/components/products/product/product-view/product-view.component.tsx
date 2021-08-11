@@ -36,7 +36,7 @@ const ProductViewComponent = ( props: any ) => {
         const action = value > currentQuantity ? "Increase" : value < currentQuantity ? "Decrease" : null;
         switch ( action ) {
             case "Increase": {
-                if ( currentQuantity === 0 ) return props.addBasketItem(activeVariant);
+                if ( currentQuantity === 0 ) return props.addBasketItem({ ...activeVariant, productID: product._id });
                 else return props.increaseBasketItem(currentBasket?._id);
             }
             case "Decrease": {
@@ -90,7 +90,7 @@ const ProductViewComponent = ( props: any ) => {
                 )) }
             </div>
 
-            <Button variant="orange" onClick={() => props.addBasketItem(activeVariant)}>Add to basket</Button>
+            <Button variant="orange" onClick={() => props.addBasketItem({ ...activeVariant, productID: product._id })}>Add to basket</Button>
 
             <div className={styles.title}>Product Details</div>
 

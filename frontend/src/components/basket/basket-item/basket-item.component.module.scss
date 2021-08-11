@@ -1,5 +1,6 @@
 .product {
     display: flex;
+    align-items: center;
     padding: .5rem 1rem;
 
     &__image {
@@ -8,12 +9,29 @@
         border-radius: 10px;
 
         img {
-            width: 10rem;
-            height: 10rem;
+            width: 12rem;
+            height: 12rem;
+            border-radius: 10px;
         }
     }
 
     &__details {
         padding: .5rem 1rem;
     }
+
+    &__delete {
+        cursor: pointer;
+        color: rgba(0,0,0,.7);
+        text-decoration: none;
+
+        &:hover {
+            color: rgba(0,0,0,1);
+            text-decoration: none;
+        }
+    }
+}
+
+.link, .link:hover {
+    color: inherit;
+    text-decoration: inherit;
 }

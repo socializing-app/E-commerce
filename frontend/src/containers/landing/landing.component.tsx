@@ -8,10 +8,11 @@ import CarouselComponent from '../../shared/carousel/carousel.component';
 import styles from "./landing.component.module.scss";
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
+import { LandingCarousel } from '../../config/settings.config';
 
 const LandingComponent = ( props: any ) => {
     return <>
-                    <CarouselComponent {...initialCarousel} />
+                    <CarouselComponent {...LandingCarousel} />
 
                     <div className={styles.hero}>
                         <Link to="/products" className={styles.link}>
@@ -19,7 +20,15 @@ const LandingComponent = ( props: any ) => {
                         </Link>
                     </div>
 
-                    <FeaturedComponent />
+                    <div>
+                        <div className={`${styles.title} ${styles.dark}`}>Our Featured Products</div>
+
+                        <FeaturedComponent />
+
+                        <Link to="/products" className={styles.link}>
+                            <Button variant="orange" className={styles.button}>Discover More</Button>
+                        </Link>
+                    </div>
 
                     <div className={styles.reviews}>
                         <div className={`${styles.title} ${styles.light}`}>Our Products</div>
@@ -34,6 +43,10 @@ const LandingComponent = ( props: any ) => {
                         <div className={`${styles.title} ${styles.dark}`}>Our Friendly Offers</div>
 
                         <OffersComponent />
+
+                        <Link to="/products" className={styles.link}>
+                            <Button variant="orange" className={styles.button}>Invite Friends</Button>
+                        </Link>
                     </div>
 
                     <div className={styles.showcase}>
@@ -50,6 +63,10 @@ const LandingComponent = ( props: any ) => {
                         <div className={`${styles.title} ${styles.dark}`}>Our Club</div>
 
                         <ClubComponent />
+
+                        <Link to="/products" className={styles.link}>
+                            <Button variant="orange" className={styles.button}>Join Club</Button>
+                        </Link>
                     </div>
            </>
 }

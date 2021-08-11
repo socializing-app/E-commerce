@@ -4,7 +4,7 @@ import styles from "./club.component.module.scss";
 const ClubComponent = ( props: any ) => {
     return <>
                 <div className={styles.image}>
-                    <img src="http://placeimg.com/640/480" alt="Offer image"/>
+                    <img src="https://e-commerce-bucket-images.s3.eu-west-2.amazonaws.com/Screenshot+2021-06-19+at+08.20+1.png" alt="Offer image"/>
                 </div>
 
                 <div className={styles.main}>
@@ -14,8 +14,6 @@ const ClubComponent = ( props: any ) => {
                 <div className={styles.sub}>
                     The Club is free to join, and we love treating our members.
                 </div>
-
-                <Button variant="orange" className={styles.button}>Join Club</Button>
            </>
 }
 

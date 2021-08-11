@@ -1,3 +1,5 @@
+import { Carousel, initialCarousel } from "../models/carousel.model"
+
 export interface SocialIcon {
     name: string;
     icon: string;
@@ -34,4 +36,22 @@ export const SocialIcons: SocialIcon[] = [
 export const CompanyDetails: Company = {
     name: "Hungry Team",
     copyright: "© 2021 The Hungry Team International Limited. Registered office: London, UK"
+}
+
+export const LandingCarousel: Carousel = {
+    ...initialCarousel,
+    navigation: false,
+    indicators: false,
+    controls: false,
+    items: [
+        {
+            imageSource: "https://picsum.photos/800/400"
+        },
+        {
+            imageSource: "https://picsum.photos/800/400"
+        },
+        {
+            imageSource: "https://picsum.photos/800/400"
+        }
+    ]
 }

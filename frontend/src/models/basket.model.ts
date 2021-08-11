@@ -2,6 +2,7 @@ import { ProductVariant } from "./product.model";
 
 export interface BasketProduct extends ProductVariant {
     quantity: number;
+    productID: number;
 }
 
 export interface State {

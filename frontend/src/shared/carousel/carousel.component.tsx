@@ -4,7 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { Carousel as CarouselModel, CarouselItem } from "../../models/carousel.model";
 
 const CarouselComponent = (props: CarouselModel) => {
-    const { controls, defaultActiveIndex, fade, indicators, interval, items } = props;
+    const { controls, defaultActiveIndex, fade, indicators, interval, items, navigation } = props;
     const [index, setIndex] = useState(defaultActiveIndex);
 
     console.log("carousel: ", props)
@@ -30,13 +30,15 @@ const CarouselComponent = (props: CarouselModel) => {
                 ) }
             </Carousel>
 
-            <ListGroup horizontal>
-                { items.map((item: CarouselItem, index: number) => 
-                    <ListGroup.Item onClick={ () => handleSelect(index) } style={{ padding: ".1rem" }} key={`list-item-${index}`}>
-                        <img className="d-block w-100" src={item.imageSource} alt={`carousel-list-group-item-${index}`}/>
-                    </ListGroup.Item>
-                )}
-            </ListGroup>
+            { navigation && (
+                <ListGroup horizontal>
+                    { items.map((item: CarouselItem, index: number) => 
+                        <ListGroup.Item onClick={ () => handleSelect(index) } style={{ padding: ".1rem" }} key={`list-item-${index}`}>
+                            <img className="d-block w-100" src={item.imageSource} alt={`carousel-list-group-item-${index}`}/>
+                        </ListGroup.Item>
+                    )}
+                </ListGroup>
+            ) }
         </>
     )
 }
