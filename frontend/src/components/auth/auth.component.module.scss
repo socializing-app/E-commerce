@@ -1,0 +1,57 @@
+@import "../../styles/colours.styles.scss";
+
+.title {
+    font-size: 1.7rem;
+    font-weight: 700;
+    padding: var(--spacing) 0;
+    padding-bottom: 0;
+}
+
+.subtitle {
+    color: rgba(0,0,0,.7);
+}
+
+.line {
+    display: flex;
+    align-items: center;
+    margin: var(--spacing);
+    width: 100%;
+    color: rgba(0,0,0,.7);
+
+    span:first-of-type, span:last-of-type {
+        width: calc(50% - 4.5rem);
+        height: 1px;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    span:first-of-type {
+        margin-right: var(--spacing);
+    }
+
+    span:last-of-type {
+        margin-left: var(--spacing);
+    }
+}
+
+.button {
+    width: calc(100% - 2 * var(--spacing));
+    margin: var(--spacing);
+    margin-bottom: 0;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+        flex: 1;
+    }
+}
+
+.link {
+    margin-top: 1rem;
+    color: theme-color("darkBlue");
+    cursor: pointer;
+
+    &:hover {
+        color: theme-color("lightBlue");
+    }
+}

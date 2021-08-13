@@ -12,6 +12,7 @@ export interface User {
     profileImagePath: string;
     tokenVersion: number;
     updatedAt: string;
+    accessToken: string;
     _id: string;
 }
 
@@ -29,5 +30,6 @@ export const initialUser: User = {
     profileImagePath: "",
     tokenVersion: 0,
     updatedAt: "",
+    accessToken: "",
     _id: ""
 }

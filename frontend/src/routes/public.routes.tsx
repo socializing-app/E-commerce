@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import MenuComponent from "../components/menu/menu.component";
 import MenuCategoriesComponent from "../components/menu/menu-categories/menu-categories.component";
 import AuthComponent from "../components/auth/auth.component";
+import DashboardComponent from "../containers/profile/dashboard.component";
 
 const PublicRoutes = () => {
     return (
@@ -31,6 +32,9 @@ const PublicRoutes = () => {
             </Route>
             <Route path="/product/:id" exact>
                 <ProductViewComponent />
+            </Route>
+            <Route path="/dashboard" exact>
+                <DashboardComponent />
             </Route>
         </Switch>
     )

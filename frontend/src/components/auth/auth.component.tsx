@@ -6,9 +6,11 @@ import { useState } from 'react';
 import { Dispatch } from 'redux';
 import { NotificationMessage } from '../../models/notification.model';
 import * as NotificationActions from "../../store/actions/notification.action";
-import * as BasketActions from "../../store/actions/basket.action";
+import * as UserActions from "../../store/actions/user.action";
 import { connect, ConnectedProps } from 'react-redux';
-import { BasketProduct } from '../../models/basket.model';
+import styles from "./auth.component.module.scss";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { User } from '../../models/user.model';
 
 const AuthComponent: React.FC<Props> = ( props: Props ): JSX.Element => {
     const [isLogin, setIsLogin] = useState(false);
@@ -17,27 +19,34 @@ const AuthComponent: React.FC<Props> = ( props: Props ): JSX.Element => {
 
     return <Container>
                 <Container>
-                    <h1>{ !isLogin ? 'Create a new account' : 'Please log into your account' }</h1>
-                    <p>and never stop collecting points for your purchases.</p>
-                </Container>
-                
-                <Container>
-                    <Button onClick={() => handleClick(true)}>Login</Button>
-                    <Button onClick={() => handleClick(false)}>Register</Button>
+                    <div className={styles.title}>{ !isLogin ? 'Create a new account' : 'Please log into your account' }</div>
+                    <p className={styles.subtitle}>and never stop collecting points for your purchases.</p>
                 </Container>
 
-                { !isLogin ? <RegisterComponent onSendNotification={props.sendNotification} /> : 
-                             <LoginComponent onSendNotification={props.sendNotification} /> }
+                { !isLogin ? <RegisterComponent onSendNotification={props.sendNotification} onLoginUser={props.loginUser} /> : 
+                             <LoginComponent onSendNotification={props.sendNotification} onLoginUser={props.loginUser} /> }
+
+                <Container>
+                    <div className={styles.link} onClick={() => handleClick(!isLogin)}>{ !isLogin ? 'Have an account? Please log in here' : 'Need an account? Please sign up here' }</div>
+                </Container>
+
+                <div className={styles.line}>
+                    <span></span>
+                    <span>Or you can</span>
+                    <span></span>
+                </div>
+
+                <Button variant="facebook" className={styles.button}>
+                    <FontAwesomeIcon icon={['fab', "facebook-square"]} style={{fontSize: "1.5rem"}} /> 
+                    <span>{ isLogin ? 'Log in' : 'Sign up' } with Facebook</span>
+                </Button>
            </Container>
 }
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => {
     return {
       sendNotification: (notification: NotificationMessage) => dispatch(NotificationActions.displayMessage(notification)),
-      addBasketItem: (item: BasketProduct) => dispatch(BasketActions.AddItem(item)),
-      increaseBasketItem: (basketID: string) => dispatch(BasketActions.IncreaseItem(basketID)),
-      decreaseBasketItem: (basketID: string) => dispatch(BasketActions.DecreaseItem(basketID)),
-      removeBasketItem: (basketID: string) => dispatch(BasketActions.RemoveItem(basketID))
+      loginUser: (user: User) => dispatch(UserActions.loginUser(user))
     }
 }
   

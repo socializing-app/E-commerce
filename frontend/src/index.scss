@@ -1,17 +1,23 @@
 @import "./styles/colours.styles.scss";
 
-.btn-action-blue {
-  background-color: theme-color("darkBlue") !important;
-  color: theme-color("light") !important;
+.btn {
   border: 0 !important;
   border-radius: 10px !important;
-}
 
-.btn-orange {
-  background-color: theme-color("orange") !important;
-  color: theme-color("light") !important;
-  border: 0 !important;
-  border-radius: 10px !important;
+  &-action-blue {
+    background-color: theme-color("darkBlue") !important;
+    color: theme-color("light") !important; 
+  }
+
+  &-orange {
+    background-color: theme-color("orange") !important;
+    color: theme-color("light") !important;
+  }
+
+  &-facebook {
+    background-color: rgb(66,103,178) !important;
+    color: theme-color("light") !important;
+  }
 }
 
 @import '~bootstrap/scss/bootstrap.scss';

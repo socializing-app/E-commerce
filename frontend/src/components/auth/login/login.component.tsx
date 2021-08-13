@@ -4,9 +4,12 @@ import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import { initialLoginModel } from "../../../models/form.model";
 import { signin } from '../../../services/auth.service';
+import { User } from '../../../models/user.model';
+import { useHistory } from 'react-router-dom';
 
 const LoginComponent: React.FC<any> = (props: any): JSX.Element => {
     const [loginForm, setLoginForm] = useState(initialLoginModel);
+    const history = useHistory();
 
     const performChange = ( field: string, value: string ): void => {
         const validatorResult: string | null = (loginForm as any)[field].validator(value);
@@ -39,6 +42,10 @@ const LoginComponent: React.FC<any> = (props: any): JSX.Element => {
 
         signin(payload, ( response: any ) => {
             props.onSendNotification({ title: "Login success", message: "You have logged in successfully", type: "success" });
+            const user: User = { ...response.user, accessToken: response.accessToken };
+            props.onLoginUser(user);
+            history.push("/");
+            console.log(response);
         }, (response: any) => {
             props.onSendNotification({ title: "Login error", message: response.error.message, type: "error" });
         })
@@ -70,7 +77,7 @@ const LoginComponent: React.FC<any> = (props: any): JSX.Element => {
                         <Form.Control.Feedback type="invalid">{ loginForm.password.error }</Form.Control.Feedback>
                     </Form.Group>
 
-                    <Button type="button" onClick={handleSubmit}>Sign in</Button>
+                    <Button variant="orange" type="button" onClick={handleSubmit}>Sign in</Button>
                 </Form>
            </Container>
 }

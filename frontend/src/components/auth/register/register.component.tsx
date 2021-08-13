@@ -4,9 +4,12 @@ import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import { initialRegisterModel } from "../../../models/form.model";
 import { signup } from '../../../services/auth.service';
+import { User } from '../../../models/user.model';
+import { useHistory } from 'react-router-dom';
 
 const RegisterComponent: React.FC<any> = (props: any): JSX.Element => {
     const [registerForm, setRegisterForm] = useState(initialRegisterModel);
+    const history = useHistory();
 
     const performChange = ( field: string, value: string ): void => {
         const validatorResult: string | null = (registerForm as any)[field].validator(value);
@@ -37,8 +40,12 @@ const RegisterComponent: React.FC<any> = (props: any): JSX.Element => {
             if ( !(registerForm as any)[field].valid ) return;
         }
 
-        signup(payload).then((res: any) => {
+        signup(payload).then((response: any) => {
             props.onSendNotification({ title: "Registration success", message: "You have registered successfully", type: "success" });
+            console.log(response)
+            const user: User = { ...response.user, accessToken: response.accessToken };
+            props.onLoginUser(user);
+            history.push("/");
         }, (response: any) => {
             props.onSendNotification({ title: "Registration error", message: response.error.message, type: "error" });
         });
@@ -98,7 +105,7 @@ const RegisterComponent: React.FC<any> = (props: any): JSX.Element => {
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
 
-                    <Button type="button" onClick={handleSubmit}>Sign up</Button>
+                    <Button variant="orange" type="button" onClick={handleSubmit}>Sign up</Button>
                 </Form>
            </Container>
 }

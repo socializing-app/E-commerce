@@ -5,5 +5,7 @@ export const ignoredHeader: string[] = [
 
 export const ignoredFooter: string[] = [
     "/menu",
-    "/menu/categories"
+    "/menu/categories",
+    "/auth",
+    "/dashboard"
 ]
