@@ -7,6 +7,7 @@ export const reducer = (state: State = initialState, action: ActionWithPayload):
     switch( action.type ) {
       case userAction.LOGIN: return methods.loginUser(state, action);
       case userAction.LOGOUT: return methods.logoutUser(state);
+      case userAction.UPDATE: return methods.updateUser(state, action);
       default: return state;
     }
 }

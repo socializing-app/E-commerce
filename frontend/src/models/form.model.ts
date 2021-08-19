@@ -1,5 +1,14 @@
 import { validation, validators } from "../config/validators.config";
 
+export interface BuildForm {
+    name: string,
+    placeholder: string,
+    value: any,
+    options: any[],
+    type: string,
+    width: string
+}
+
 export interface FormField {
     value: string;
     touched?: boolean;

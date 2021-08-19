@@ -28,7 +28,7 @@ const rootReducer = combineReducers({
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
 const Store = () => {
-    const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk, logger)));
+    const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)));
     const persistor = persistStore(store);
 
     return { store, persistor };

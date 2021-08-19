@@ -8,6 +8,7 @@ import MenuComponent from "../components/menu/menu.component";
 import MenuCategoriesComponent from "../components/menu/menu-categories/menu-categories.component";
 import AuthComponent from "../components/auth/auth.component";
 import DashboardComponent from "../containers/profile/dashboard.component";
+import ProfileComponent from "../containers/profile/profile/profile.component";
 
 const PublicRoutes = () => {
     return (
@@ -35,6 +36,10 @@ const PublicRoutes = () => {
             </Route>
             <Route path="/dashboard" exact>
                 <DashboardComponent />
+            </Route>
+
+            <Route path="/dashboard/profile" exact>
+                <ProfileComponent />
             </Route>
         </Switch>
     )

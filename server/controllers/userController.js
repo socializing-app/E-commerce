@@ -42,6 +42,7 @@ exports.getUser = async (req, res, next) => {
 };
 
 exports.updateUser = async (req, res, next) => {
+  console.log("here", req.body)
   try {
     if (req.body.password || req.body.confirmPassword) {
       return next({
@@ -58,7 +59,7 @@ exports.updateUser = async (req, res, next) => {
       return acc;
     }, {});
     const updatedUser = await User.findByIdAndUpdate(
-      req.user.id,
+      req.body.id,
       filteredFields,
       {
         new: true,

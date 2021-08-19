@@ -7,5 +7,6 @@ export const ignoredFooter: string[] = [
     "/menu",
     "/menu/categories",
     "/auth",
-    "/dashboard"
+    "/dashboard",
+    "/dashboard/profile"
 ]
