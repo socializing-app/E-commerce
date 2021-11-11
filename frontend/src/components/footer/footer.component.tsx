@@ -29,18 +29,21 @@ const FooterComponent = ( props: any ) => {
                     <SubscriptionComponent />
 
                     <div className={styles.container}>
-                        <div className={styles.company}>{ companyName }</div>
-                        <div className={styles.socials}>
-                            { socialIcons.map((icon: SocialIcon, index: number) => (
-                                <Link to={icon.link} className={styles.link} key={`social-icon-${index}`}>
-                                    <FontAwesomeIcon icon={['fab', (icon.icon) as IconName]} className="mr-2" style={{ fontSize: "3rem", color: icon.colour }} />
-                                </Link>
-                            )) }
+                        <img src="https://e-commerce-bucket-images.s3.eu-west-2.amazonaws.com/thomas-m-evans-sBaGplnso94-unsplash.jpg" alt=""/>
+                        <div className={styles.content}>
+                            <div className={styles.company}>{ companyName }</div>
+                            <div className={styles.socials}>
+                                { socialIcons.map((icon: SocialIcon, index: number) => (
+                                    <Link to={icon.link} className={styles.link} key={`social-icon-${index}`}>
+                                        <FontAwesomeIcon icon={['fab', (icon.icon) as IconName]} className="mr-2" style={{ fontSize: "3rem", color: icon.colour }} />
+                                    </Link>
+                                )) }
+                            </div>
+
+                            <hr/>
+
+                            <div className={styles.copyright}>{ copyright }</div>
                         </div>
-
-                        <hr/>
-
-                        <div className={styles.copyright}>{ copyright }</div>
                     </div>
                 </>
             ) : null }

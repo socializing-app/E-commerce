@@ -7,7 +7,7 @@ import { getCroppedImg } from '../../services/crop.service';
 import styles from "./upload.component.module.scss";
 import { FileUploader } from "react-drag-drop-files";
 
-const fileTypes = ["JPG", "PNG", "GIF"];
+const fileTypes = ["JPG", "JPEG", "PNG", "GIF"];
 
 const UploadComponent = ( props: any ) => {
     const { size, title, onHide, onSubmit, closetext, submittext } = props;
@@ -23,6 +23,7 @@ const UploadComponent = ( props: any ) => {
     const showCroppedImage = useCallback(async () => {
       const croppedImage: any = await getCroppedImg(imageSrc, croppedAreaPixels)
       onSubmit(croppedImage);
+      setImageSrc("");
     }, [imageSrc, croppedAreaPixels])
 
     function readFile(file: any) {

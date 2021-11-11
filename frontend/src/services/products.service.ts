@@ -33,8 +33,13 @@ export const getProducts = (options: any, category?: Category): Promise<unknown>
     if ( query ) {
         query = "?" + query.substring(0, query.length - 1);
     }
-
+console.log(query);
     return http.get(`/api/v1/products${query}`);
+}
+
+export const addProduct = (form: any): any => {
+    console.log(form)
+    return http.post("/api/v1/products/new", form);
 }
 
 export const getCategories = (): Promise<unknown> => {

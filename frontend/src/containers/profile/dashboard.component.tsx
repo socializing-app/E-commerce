@@ -27,7 +27,7 @@ const DashboardComponent = (props: Props) => {
     const menu: Menu[] = [
         {
             title: "Profile",
-            icon: "check-circle",
+            icon: "user",
             link: "/dashboard/profile"
         },
         {

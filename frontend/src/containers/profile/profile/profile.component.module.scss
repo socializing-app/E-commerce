@@ -2,15 +2,21 @@
 
 .profile {
     position: relative;
+    margin-top: 3rem;
 
     &__header {
-        background-color: theme-color("dark");
-        height: 20rem;
+        background-color: white;
+        height: 17rem;
         padding: var(--spacing);
+
+        @media (min-width: 992px) {
+            margin-top: 1rem;
+            width: 66%;
+            margin-left: 17%;
+        }
     }
 
     &__title {
-        color: theme-color("light");
         display: flex;
         justify-content: space-between;
 
@@ -45,9 +51,10 @@
                 box-sizing: content-box;
                 width: 8rem;
                 height: 8rem;
-                background-color: theme-color("light");
+                background-color: rgba(0,0,0,.1);
                 border-radius: 50%;
-                border: 2px solid theme-color("lighter");
+                border: 2px solid white;
+                box-shadow: 0 0 0 2px rgba(0,0,0,.1);
                 overflow: hidden;
 
                 img {
@@ -60,7 +67,6 @@
         }
 
         &_name {
-            color: theme-color("light");
             padding-top: var(--spacing);
             font-weight: 700;
             font-size: 1.5rem;
@@ -68,15 +74,17 @@
 
         &_icon {
             position: absolute;
-            font-size: 3rem;
+            padding: .6rem;
             right: 0;
             bottom: 0;
-            color: theme-color("light");
-            background-color: theme-color("dark");
-            border: 1px solid theme-color("dark");
-            padding-left: .1rem;
-            padding-right: .1rem;
+            color: white;
+            background-color: rgb(48, 61, 77);
+            width: 2.5rem !important;
+            height: 2.5rem;
             border-radius: .3rem;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px rgba(0,0,0,.1);
+            cursor: pointer;
         }
     }
 
@@ -86,9 +94,13 @@
         z-index: 100;
         top: 18rem;
         background-color: theme-color("light");
-        border-top-left-radius: 2rem;
-        border-top-right-radius: 2rem;
-        padding-top: 2.4rem;
+        padding-top: 1rem;
+
+        @media (min-width: 992px) {
+            width: 66%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
     }
 }
 

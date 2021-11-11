@@ -2,14 +2,19 @@
 
 .dashboard {
     position: relative;
+    margin-top: 3rem;
 
     &__header {
-        background-color: theme-color("dark");
-        height: 14rem;
+        background-color: white;
+        height: 11rem;
+
+        @media (min-width: 992px) {
+            width: 66%;
+            margin-left: 17%;
+        }
     }
 
     &__title {
-        color: theme-color("light");
         padding: var(--spacing);
         font-size: 1.3rem;
         font-weight: 700;
@@ -31,10 +36,11 @@
             box-sizing: content-box;
             width: 4rem;
             height: 4rem;
-            background-color: theme-color("light");
+            background-color: rgba(0,0,0,.1);
             border-radius: 50%;
             margin-right: var(--spacing);
-            border: 2px solid theme-color("lighter");
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px rgba(0,0,0,.1);
             overflow: hidden;
 
             img {
@@ -46,12 +52,10 @@
         }
 
         &_name {
-            color: theme-color("light");
             font-weight: 700;
         }
 
         &_icon {
-            color: theme-color("light");
         }
     }
 
@@ -59,16 +63,19 @@
         position: absolute;
         width: 100%;
         z-index: 100;
-        top: 11.5rem;
+        top: 12rem;
         background-color: theme-color("light");
-        border-top-left-radius: 2rem;
-        border-top-right-radius: 2rem;
-        padding-top: 2.4rem;
+
+        @media (min-width: 992px) {
+            width: 66%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
     }
 }
 
-.list {
-    border-bottom: 5px solid rgba(0,0,0,.04);
+.list:not(:last-of-type) {
+    border-bottom: 15px solid rgb(238, 238, 238);
     border-radius: 0;
 }
 
@@ -78,7 +85,7 @@
     justify-content: space-between;
     cursor: pointer;
     border: 0 !important;
-    border-bottom: 1px solid rgba(0,0,0,.04) !important;
+    border-bottom: 1px solid rgb(238, 238, 238) !important;
 
     .signout {
         color: theme-color("orange");

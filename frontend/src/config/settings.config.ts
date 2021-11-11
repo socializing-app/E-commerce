@@ -55,3 +55,6 @@ export const LandingCarousel: Carousel = {
         }
     ]
 }
+
+export const LoadingStyles = "display: flex; margin: 10rem auto; justify-content: center;";
+export const LoadingColour = "rgba(0,0,0,.5)";

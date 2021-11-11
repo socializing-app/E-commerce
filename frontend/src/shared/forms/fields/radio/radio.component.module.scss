@@ -4,11 +4,15 @@
     cursor: pointer;
     border-radius: .3rem;
     color: rgba(0,0,0,.7);
-    margin-right: .4rem;
+    margin-right: .1rem;
 
     &:hover {
         background-color: rgba(0,0,0,.01);
     }
+}
+
+.label {
+    padding-right: 1rem;
 }
 
 input[type=radio]:checked + label {

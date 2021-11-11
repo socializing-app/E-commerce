@@ -1,32 +1,86 @@
 .product {
     display: flex;
     align-items: center;
-    padding: .5rem 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px dashed rgba(0,0,0,.1);
 
     &__image {
-        background-color: white;
-        box-shadow: 0px 5px 15px rgba(0,0,0,.09);
-        border-radius: 10px;
+        width: 12rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-right: 1rem;
 
         img {
-            width: 12rem;
-            height: 12rem;
-            border-radius: 10px;
+            width: 9rem;
+            height: 9rem;
+            background-color: white;
+            border-radius: .3rem;
         }
     }
 
     &__details {
         padding: .5rem 1rem;
-    }
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+        border-left: 1px solid rgba(0,0,0,.05);
 
-    &__delete {
-        cursor: pointer;
-        color: rgba(0,0,0,.7);
-        text-decoration: none;
+        .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
 
-        &:hover {
-            color: rgba(0,0,0,1);
-            text-decoration: none;
+        .name {
+            padding-bottom: 1rem;
+        }
+
+        .meta {
+            display: flex;
+            align-items: center;
+            height: 2rem;
+        }
+
+        .colour {
+            width: 4rem;
+            height: 2rem;
+            border-radius: .3rem;
+        }
+
+        .quantity {
+            padding-left: 1rem;
+            margin-left: 1rem;
+            border-left: 1px solid rgba(0,0,0,.05);
+        }
+
+        .delete {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 1.6rem;
+            color: rgba(0,0,0,.5);
+            cursor: pointer;
+        }
+
+        .save {
+            margin-top: 1rem;
+            border: 1px solid rgba(0,0,0,.05);
+            background-color: white;
+            padding: .3rem .5rem;
+            border-radius: .3rem;
+            color: rgba(0,0,0,.7);
+            width: 10rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .icon {
+                margin-right: .5rem;
+                color: rgba(0,0,0,.3);
+            }
         }
     }
 }

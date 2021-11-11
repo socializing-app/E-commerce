@@ -5,6 +5,12 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: [true, "Category name is required."],
   },
+  lowercasename: {
+    type: String
+  },
+  thumbnail: {
+    type: String
+  },
   discount: [
     {
       type: mongoose.Schema.Types.ObjectId,

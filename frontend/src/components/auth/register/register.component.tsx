@@ -51,8 +51,7 @@ const RegisterComponent: React.FC<any> = (props: any): JSX.Element => {
         });
     };
 
-    return <Container>
-                <Form>
+    return <Form>
                     <Form.Group controlId="firstName">
                         <Form.Label>First name</Form.Label>
                         <Form.Control type="text" 
@@ -106,8 +105,8 @@ const RegisterComponent: React.FC<any> = (props: any): JSX.Element => {
                     </Form.Group>
 
                     <Button variant="orange" type="button" onClick={handleSubmit}>Sign up</Button>
-                </Form>
-           </Container>
+            </Form>
+           
 }
 
 export default RegisterComponent;

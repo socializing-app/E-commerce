@@ -14,7 +14,7 @@ const SelectComponent = (props: any) => {
                     name={field.name}
                     type="checkbox"
                     checked={field.value[i]} 
-                    onChange={(event: any) => handleChange(event.target.checked, index, i)}
+                    onChange={(event: any) => handleChange(event.target.checked, index, "selection", i)}
                 />
             )) }
         </div>

@@ -10,6 +10,7 @@ export const initialProduct = {
     _id: "",
     active: true,
     brand: "",
+    name: "",
     category: "",
     condition: "",
     description: "",
@@ -21,6 +22,7 @@ export const initialProduct = {
     tags: [],
     thumbnail: "",
     variants: [],
+    related: [],
     createdAt: new Date(),
     updatedAt: new Date()
 }
@@ -28,6 +30,7 @@ export const initialProduct = {
 export interface Product {
     _id: string;
     active: boolean;
+    name: string;
     brand: string;
     category: string;
     condition: string;
@@ -36,6 +39,7 @@ export interface Product {
     manufacturer: string;
     model: string;
     reviews: ProductReview[];
+    related: Product[];
     subCategory: string;
     tags: string[];
     thumbnail: string;
@@ -46,37 +50,21 @@ export interface Product {
 
 export interface ProductVariant {
     _id: string;
-    name: string;
     price: number;
     colour?: string;
     images?: string[];
-    createdAt?: Date;
-    updatedAt?: Date;
+    name?: string;
 }
 
 export const initialProductVariant = {
     _id: "",
-    name: "",
     price: 0,
     colour: "",
     images: [],
-    createdAt: new Date(),
-    updatedAt: new Date()
+    name: ""
 }
 
 export interface ProductBrand {}
 export interface ProductCategory {}
 export interface ProductDiscount {}
 export interface ProductReview {}
-
-export interface serverProduct {
-    product: Product;
-    reviews: ProductReview[];
-    relatedProducts: Product[];
-}
-
-export const initialServerProduct = {
-    product: initialProduct,
-    reviews: [],
-    relatedProducts: []
-}

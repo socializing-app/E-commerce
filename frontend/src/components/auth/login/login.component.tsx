@@ -51,8 +51,7 @@ const LoginComponent: React.FC<any> = (props: any): JSX.Element => {
         })
     };
 
-    return <Container>
-                <Form>
+    return <Form>
                     <Form.Group controlId="email">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="text" 
@@ -78,8 +77,7 @@ const LoginComponent: React.FC<any> = (props: any): JSX.Element => {
                     </Form.Group>
 
                     <Button variant="orange" type="button" onClick={handleSubmit}>Sign in</Button>
-                </Form>
-           </Container>
+            </Form>
 }
 
 export default LoginComponent;

@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Carousel as CarouselModel, CarouselItem } from "../../models/carousel.model";
+import { Carousel as CarouselModel, CarouselItem, initialCarousel } from "../../models/carousel.model";
+import styles from "./carousel.component.module.scss";
 
 const CarouselComponent = (props: CarouselModel) => {
-    const { controls, defaultActiveIndex, fade, indicators, interval, items, navigation } = props;
+    const { controls, defaultActiveIndex, fade, indicators, interval, navigation } = initialCarousel;
+    const { items } = props;
     const [index, setIndex] = useState(defaultActiveIndex);
-
-    console.log("carousel: ", props)
     
     const handleSelect = (selectedIndex: number) => {
         setIndex(selectedIndex);
@@ -15,9 +15,9 @@ const CarouselComponent = (props: CarouselModel) => {
 
     return (
         <>
-            <Carousel activeIndex={index} onSelect={handleSelect} fade={fade} controls={controls} indicators={indicators}>
+            <Carousel activeIndex={index} onSelect={handleSelect} fade={fade} controls={controls} indicators={indicators} className={styles.items}>
                 { items.map((item: CarouselItem, index: number) =>
-                    <Carousel.Item interval={interval} key={`carousel-item-${index}`}>
+                    <Carousel.Item interval={interval} key={`carousel-item-${index}`} className={styles.item}>
                         <img className="d-block w-100" src={item.imageSource} alt={`carousel-item-${index}`}/>
                         
                         { item.captionTitle && (
@@ -29,12 +29,12 @@ const CarouselComponent = (props: CarouselModel) => {
                     </Carousel.Item>
                 ) }
             </Carousel>
-
+           
             { navigation && (
-                <ListGroup horizontal>
-                    { items.map((item: CarouselItem, index: number) => 
-                        <ListGroup.Item onClick={ () => handleSelect(index) } style={{ padding: ".1rem" }} key={`list-item-${index}`}>
-                            <img className="d-block w-100" src={item.imageSource} alt={`carousel-list-group-item-${index}`}/>
+                <ListGroup horizontal className={styles.listitems}>
+                    { items.map((item: CarouselItem, ind: number) => 
+                        <ListGroup.Item onClick={ () => handleSelect(ind) } className={`${styles.listitem} ${index === ind ? styles.activeitem : ""}`} key={`list-item-${ind}`}>
+                            <img src={item.imageSource} alt={`carousel-list-group-item-${ind}`}/>
                         </ListGroup.Item>
                     )}
                 </ListGroup>

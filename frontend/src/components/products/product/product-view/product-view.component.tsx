@@ -6,7 +6,7 @@ import { getCarouselItems, initialCarousel } from '../../../../models/carousel.m
 import NumberInputComponent from "../../../../shared/number-input/number-input.component";
 import { getProduct } from '../../../../services/products.service';
 import { useEffect, useState } from 'react';
-import { initialProductVariant, initialServerProduct, Product, ProductVariant } from "../../../../models/product.model";
+import { initialProductVariant, initialProduct, Product, ProductVariant } from "../../../../models/product.model";
 import ProductComponent from "../product.component";
 import { Dispatch } from 'redux';
 import { NotificationMessage } from '../../../../models/notification.model';
@@ -18,17 +18,23 @@ import { getBasketProduct, State } from "../../../../store/index";
 import ReviewsComponent from "../../../reviews/reviews.component";
 import StarComponent from '../../../../shared/star/star.component';
 import { useLocation } from "react-router-dom";
+import ScaleLoader from "react-spinners/ScaleLoader";
+import { LoadingColour, LoadingStyles } from "../../../../config/settings.config";
 
 const ProductViewComponent = ( props: any ) => {
     const location = useLocation();
     console.log(location)
     const productID = location.pathname ? location.pathname.split("/")[2] : "";
     const productRate = 3.5;
-    const [ serverProduct, setProduct ] = useState(initialServerProduct);
+    const [ product, setProduct ] = useState(initialProduct);
     const [ activeVariant, setActiveVariant ] = useState(initialProductVariant);
+    const [ loading, setLoading ] = useState(true);
+    const [ carouselLoading, setCarouselLoading ] = useState(true);
+
     const currentBasket = useSelector(( state: State ) => getBasketProduct(state, activeVariant._id));
 
-    const { product, reviews, relatedProducts } = serverProduct;
+    console.log(currentBasket)
+
     let carouselImages: string[] = activeVariant && activeVariant.images ? activeVariant.images : [];
 
     const handleNumberChange = (value: number) => {
@@ -36,7 +42,7 @@ const ProductViewComponent = ( props: any ) => {
         const action = value > currentQuantity ? "Increase" : value < currentQuantity ? "Decrease" : null;
         switch ( action ) {
             case "Increase": {
-                if ( currentQuantity === 0 ) return props.addBasketItem({ ...activeVariant, productID: product._id });
+                if ( currentQuantity === 0 ) return props.addBasketItem({ ...activeVariant, productID: product._id, name: product.name });
                 else return props.increaseBasketItem(currentBasket?._id);
             }
             case "Decrease": {
@@ -47,10 +53,12 @@ const ProductViewComponent = ( props: any ) => {
     }
 
     useEffect(() => {
-        getProduct(productID).then((response: any) => {
-            console.log(response)
-            setProduct(response);
-            setActiveVariant(response.product.variants[0]);
+        getProduct(productID).then((product: any) => {
+            console.log(product)
+            setProduct(product);
+            setActiveVariant(product.variants[0]);
+            setLoading(false);
+            setCarouselLoading(false);
         })
     }, [])
 
@@ -59,66 +67,106 @@ const ProductViewComponent = ( props: any ) => {
      }, [activeVariant])
 
     const handleChangeVariant = (index: number) => {
+        setCarouselLoading(true);
         setActiveVariant(product.variants[index]);
+        setTimeout(() => setCarouselLoading(false), 500);
     }
     
     return (
         <>
-            <div>Collections -&gt; Phones -&gt; <strong>{ activeVariant.name }</strong></div>
+            { loading ? <ScaleLoader loading={loading} css={LoadingStyles} color={LoadingColour} /> : (
+                <div className={`container ${styles.container}`}>
 
-            <div className={styles.title_container}>
-                <div className={styles.title}>{ activeVariant.name }</div>
+                    <div className={styles.subcontainer}>
+                        <div className={styles.carouselContainer}>
+                            { carouselLoading ? <ScaleLoader loading={carouselLoading} css={LoadingStyles} color={LoadingColour} /> : (
+                                <CarouselComponent items={getCarouselItems(carouselImages)} />
+                            ) }
+                        </div>
+                        
+                        <div className={styles.details_container}>
+                            <div className={styles.name}>{ product.name }</div>
+                            <div className={styles.instock}>Currently in Stock</div>
+                            <div className={styles.price}>£{ activeVariant.price }</div>
 
-                <StarComponent rating={productRate} spacing={".1rem"} size={"1x"} />
+                            <div className={styles.reviews}>
+                                <StarComponent rating={productRate} spacing={".1rem"} size={"1x"} />
+                                <div className={styles.reviews_number}>(52 Reviews)</div>
+                            </div>
 
-                <div>52 Reviews</div>
-            </div>
+                            <div className={styles.colour_container}>
+                                <div className={styles.colour}>Colour</div>
 
-            { activeVariant._id && <CarouselComponent { ...initialCarousel } items={getCarouselItems(carouselImages)} /> }
+                                <div className={styles.variant_container}>
+                                    { product.variants.map((variant: ProductVariant, index: number) => (
+                                        <div key={`product-variant-${index}`} 
+                                            onClick={() => handleChangeVariant(index)} 
+                                            style={{ backgroundColor: variant.colour }}
+                                            className={`${styles.variant_colour} ${variant._id === activeVariant._id ? styles.activevariant : ""}`}></div>
+                                    )) }
+                                </div>
+                            </div>
 
-            <div className={styles.pricing}>
-                <div className={styles.title}>Price: <strong className={styles.title__highlight}>£{ activeVariant.price }</strong></div>
-                <NumberInputComponent className={styles.number} min={0} max={10} currentQuantity={currentBasket?.quantity || 0} onNumberChange={(value: number) => handleNumberChange(value)} />
-            </div>
-
-            <div className={styles.variant__container}>
-                { product.variants.map((variant: ProductVariant, index: number) => (
-                    <div key={`product-variant-${index}`} 
-                        onClick={() => handleChangeVariant(index)} 
-                        style={{ backgroundColor: variant.colour }}
-                        className={styles.variant__colour}></div>
-                )) }
-            </div>
-
-            <Button variant="orange" onClick={() => props.addBasketItem({ ...activeVariant, productID: product._id })}>Add to basket</Button>
-
-            <div className={styles.title}>Product Details</div>
-
-            <div className={styles.product__details}>
-                <div>Model: { product.model }</div>
-                <div>Brand: { product.brand }</div>
-                <div>Manufacturer: { product.manufacturer }</div>
-                <div>Condition: { product.condition }</div>
-                <div>Category: { product.category }</div>
-            </div>
-
-            <div className={styles.title}>Description</div>
-
-            <div className={styles.product__details}>{ product.description }</div>
-
-            <div className={styles.title}>Related Products</div>
-
-            <div className={styles.product__related}>
-                { relatedProducts.map((product: Product, index: number) => (
-                    <div className={styles.product} key={`related-product-${index}`}>
-                        <ProductComponent product={product} />
+                            <NumberInputComponent className={styles.number} min={0} max={10} currentQuantity={currentBasket?.quantity || 0} onNumberChange={(value: number) => handleNumberChange(value)} />
+    
+                            <div className={styles.pricing}>
+                                <Button variant="orange" disabled={currentBasket?.quantity !== undefined && currentBasket?.quantity > 0} onClick={() => props.addBasketItem({ ...activeVariant, productID: product._id, name: product.name })}>Add to basket</Button>
+                            </div>
+                        </div>
                     </div>
-                )) }
-            </div>
 
-            <div className={styles.title}>Reviews</div>
+                    <div className={styles.panel}>
+                        <div className={styles.title}>Product Details</div>
 
-            <ReviewsComponent reviews={reviews} />
+                        <div className={styles.table_container}>
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Information</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Model</td>
+                                        <td>{ product.model }</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Manufacturer</td>
+                                        <td>{ product.manufacturer }</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Condition</td>
+                                        <td>{ product.condition }</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div className={styles.panel}>
+                        <div className={styles.title}>Description</div>
+
+                        <div className={styles.product__details}>{ product.description }</div>
+                    </div>
+
+                    <div className={styles.panel}>
+                        <div className={styles.title}>Related Products</div>
+
+                        <div className={styles.product__related}>
+                            { product.related.map((product: Product, index: number) => (
+                                <div className={styles.product} key={`related-product-${index}`}>
+                                    <ProductComponent product={product} />
+                                </div>
+                            )) }
+                        </div>
+                    </div>
+
+                    {/* <div className={styles.title}>Reviews</div> */}
+
+                    {/* <ReviewsComponent reviews={reviews} /> */}
+                </div>
+            ) }
         </> 
     )
 }

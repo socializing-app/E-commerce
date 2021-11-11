@@ -30,10 +30,6 @@ const SubscriptionComponent = ( props: any ) => {
                     <Form.Control type="text" placeholder="Enter your email address" name="email" value={email} onChange={handleChange} />
                     <button className="btn-orange" onClick={handleSubmit}>Sign Up</button>
                 </InputGroup>
-
-                <div className={styles.remark}>
-                    This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply. You can unsubscribe at any time. Huel Privacy Policy
-                </div>
            </div>
 }
 

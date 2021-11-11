@@ -8,6 +8,25 @@
     }
 }
 
+@media (min-width: 992px) {
+    .container {
+        display: flex;
+        background-color: white;
+    }
+
+    .image {
+        width: 50%;
+    }
+    
+    .text_container {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+ 
 .main {
     padding: var(--spacing);
     padding-bottom: 0;

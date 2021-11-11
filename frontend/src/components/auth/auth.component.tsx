@@ -17,30 +17,29 @@ const AuthComponent: React.FC<Props> = ( props: Props ): JSX.Element => {
 
     const handleClick = ( value: boolean ): void => ( isLogin !== value ) ? setIsLogin(!isLogin) : undefined;
 
-    return <Container>
-                <Container>
-                    <div className={styles.title}>{ !isLogin ? 'Create a new account' : 'Please log into your account' }</div>
-                    <p className={styles.subtitle}>and never stop collecting points for your purchases.</p>
-                </Container>
+    return  <div className={styles.auth_container}>
+                
+                <div className={styles.title}>{ !isLogin ? 'Create a new account' : 'Please log into your account' }</div>
+                <p className={styles.subtitle}>and never stop collecting points for your purchases.</p>
 
                 { !isLogin ? <RegisterComponent onSendNotification={props.sendNotification} onLoginUser={props.loginUser} /> : 
-                             <LoginComponent onSendNotification={props.sendNotification} onLoginUser={props.loginUser} /> }
+                            <LoginComponent onSendNotification={props.sendNotification} onLoginUser={props.loginUser} /> }
 
-                <Container>
-                    <div className={styles.link} onClick={() => handleClick(!isLogin)}>{ !isLogin ? 'Have an account? Please log in here' : 'Need an account? Please sign up here' }</div>
-                </Container>
-
+                <div className={styles.link} onClick={() => handleClick(!isLogin)}>{ !isLogin ? 'Have an account? Please log in here' : 'Need an account? Please sign up here' }</div>
+            
                 <div className={styles.line}>
                     <span></span>
                     <span>Or you can</span>
                     <span></span>
                 </div>
 
-                <Button variant="facebook" className={styles.button}>
+                <Button variant="facebook" className={styles.button} disabled>
                     <FontAwesomeIcon icon={['fab', "facebook-square"]} style={{fontSize: "1.5rem"}} /> 
                     <span>{ isLogin ? 'Log in' : 'Sign up' } with Facebook</span>
                 </Button>
-           </Container>
+                
+            </div>
+           
 }
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => {

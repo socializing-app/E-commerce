@@ -54,22 +54,13 @@ const ProfileComponent = (props: Props) => {
         }
     ]
 
-    const updateValue = (value: any, index: number) => {
-        return form.map((option: any, i: number) => {
-          if ( index === i ) return { ...option, value }
-          return option;
-        })
-    }
-
-    const handleChange = (value: any, index: number) => setForm(updateValue(value, index));
-
     const handleImageArrived = (image: any) => {
         // this base64 string can be uploaded to Amazon S3
         console.log(image)
         setShow(false)
     }
 
-    const updateProfile = () => {
+    const updateProfile = (form: any) => {
         let payload: any = { id: user._id };
         form.forEach((field: any) => payload[field.name] = field.value);
 
@@ -85,7 +76,6 @@ const ProfileComponent = (props: Props) => {
                 <div className={styles.profile__header}>
                     <div className={styles.profile__title}>
                         <Link to="/dashboard" className={styles.profile__title_back}><FontAwesomeIcon onClick={() => setShow(true)} icon={['fas', "arrow-left"]} /></Link>
-                        <div className={styles.profile__title_save} onClick={updateProfile}>Save</div>
                     </div>
                     <div className={styles.profile__userinfo}>
                         <div>
@@ -94,7 +84,7 @@ const ProfileComponent = (props: Props) => {
                                     <img src="https://picsum.photos/800/400" alt=""/>
                                 </div>
 
-                                <FontAwesomeIcon onClick={() => setShow(true)} icon={['fas', "pen-square"]} className={styles.profile__userinfo_icon} />
+                                <FontAwesomeIcon onClick={() => setShow(true)} icon={['fas', "pen"]} className={styles.profile__userinfo_icon} />
                             </div>
                             <div className={styles.profile__userinfo_name}>{ user.firstName } { user.lastName }</div>
                         </div>
@@ -102,11 +92,7 @@ const ProfileComponent = (props: Props) => {
                 </div>
 
                 <div className={styles.profile__body}>
-                    { form.map((field: any, index: number) => (
-                        <div className={styles.field} key={`form-field-${index}`}>
-                            <FormsComponent field={field} handleChange={handleChange} index={index} />
-                        </div>
-                    )) }
+                    <FormsComponent fields={form} onSave={(form: any) => updateProfile(form)} />
                 </div>
 
                 { uploadModal(show, "Choose your photo",  () => setShow(false), handleImageArrived) }

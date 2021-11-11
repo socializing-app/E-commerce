@@ -5,10 +5,13 @@ import FilterComponent from './filter/filter.component';
 import { useEffect, useState } from 'react';
 import { getProducts } from '../../services/products.service';
 import { Product } from '../../models/product.model';
+import ScaleLoader from "react-spinners/ScaleLoader";
+import { LoadingColour, LoadingStyles } from '../../config/settings.config';
 
 const ProductsComponent = ( props: any ) => {
     const history = useHistory();
     const [ products, setProducts ] = useState(([] as Product[]));
+    const [ loading, setLoading ] = useState(true);
     console.log(history)
     const category = (history.location as any).category || null;
 
@@ -16,6 +19,7 @@ const ProductsComponent = ( props: any ) => {
         getProducts({}, category).then((response: any) => {
             console.log(response)
             setProducts(response.products);
+            setLoading(false);
         })
     }, [])
 
@@ -32,15 +36,19 @@ const ProductsComponent = ( props: any ) => {
                     <FilterComponent handleUpdate={handleUpdate} category={category} /> 
                 </div>
 
-                { products && products.length ? (
-                    <div className={styles.container}>
-                        { products.map((product: Product, index: number) => (
-                            <div className={styles.product} key={`product-item-${index}`}>
-                                <ProductComponent product={product} />
+                { loading ? <ScaleLoader loading={loading} css={LoadingStyles} color={LoadingColour} /> : (
+                    <>
+                        { products && products.length ? (
+                            <div className={styles.container}>
+                                { products.map((product: Product, index: number) => (
+                                    <div className={styles.product} key={`product-item-${index}`}>
+                                        <ProductComponent product={product} />
+                                    </div>
+                                )) }
                             </div>
-                        )) }
-                    </div>
-                ) : <div>Nothing to show you mate.</div> }
+                        ) : <div>Nothing to show you mate.</div> }
+                    </>
+                ) }
            </div>
 }
 

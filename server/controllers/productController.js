@@ -1,13 +1,6 @@
 const faker = require("faker");
-const {
-  Product,
-  Variant,
-  Stock,
-  ProductReview,
-  Category,
-  SubCategory,
-  Brand,
-} = require("../models");
+const { Product, Variant, Stock, ProductReview, Category, SubCategory, Brand } = require("../models");
+const { uploadBase64ToAmazon } = require("../utils/aws");
 
 exports.getProducts = async (req, res, next) => {
   try {
@@ -65,12 +58,73 @@ exports.getCategories = async (req, res, next) => {
   }
 };
 
+exports.addProduct = async (req, res, next) => {
+  try {
+    
+    const { name, description, baseprice, condition, category, manufacturer, model } = req.body;
+    const alternativeNames = [ name.toLowerCase(), name.replace(/[^a-zA-Z ]/g, ""), name.replace(/\s/g, ""), name.replace(/[^a-zA-Z ]/g, "").replace(/\s/g, "") ];
+
+    const product = await Product.find({ lowercasename: { $in : alternativeNames } });
+    
+    if ( product && product.length ) {
+      return next({ statusCode: 404, message: "The product with the provided name exists." });
+    }
+
+    const newProduct = {
+      name,
+      lowercasename: name.toLowerCase(),
+      description,
+      manufacturer,
+      baseprice,
+      model,
+      condition,
+      active: true,
+      tags: []
+    };
+
+    const thumbnailLink = await uploadBase64ToAmazon(req.body.thumbnail[0], `thumbnail`);
+    const thumbnail = thumbnailLink.link;
+    const categoryID = await Category.find({ name: category }, '_id');
+    const images = [];
+
+    req.body.variants.filter((variant) => variant.images.length).forEach(async ( variant, index ) => {
+      variant.images.forEach(async (image, ind) => images.push(uploadBase64ToAmazon(image, `image-name-${ind}`, `variant-${index}`)));
+    });
+
+    Promise.all(images).then(async (uploads) => {
+      
+      const variants = req.body.variants.map((variant, index) => {
+        const variantImages = [];
+
+        uploads.forEach(upload => {
+          if ( +upload.id.split("-")[1] === index ) {
+            variantImages.push(upload.link);
+          }
+        })
+
+        return {
+          ...variant,
+          images: variantImages
+        }
+      })
+
+      newProduct.thumbnail = thumbnail;
+      newProduct.variants = variants;
+      newProduct.category = categoryID[0]._id;
+
+      const addedProduct = await Product.create(newProduct);
+
+      return res.status(200).json(addedProduct);
+    });
+  } catch (error) {
+    return next({ error });
+  }
+};
+
 exports.getProduct = async (req, res, next) => {
   try {
     const { productID } = req.params;
-    const product = await Product.findById(productID).populate(
-      "variants brandID subCategoryID"
-    );
+    const product = await Product.findById(productID).populate("reviews").lean();
 
     if (!product) {
       return next({
@@ -79,22 +133,18 @@ exports.getProduct = async (req, res, next) => {
       });
     }
 
+    // calculate the product rate
+
+    // Currently related products return the products under the same category
     const relatedProducts = await Product.find({
-      category: product.category._id,
-      subCategory: product.subCategory._id,
+      category: product.category._id
     }).limit(10);
 
-    const reviews = await ProductReview.find({ product: productID })
-      .populate("user")
-      .limit(5);
-
-      console.log(reviews)
-
-    return res.status(200).json({
-      product,
-      reviews: reviews || [],
-      relatedProducts: relatedProducts || [],
-    });
+    console.log(relatedProducts);
+    product.related = relatedProducts;
+    const reviews = await ProductReview.find({ product: productID }).populate("user").limit(5);
+    product.reviews = reviews;
+    return res.status(200).json(product);
   } catch (error) {
     console.log(error);
     return next({ error });

@@ -18,7 +18,7 @@ export const initialCarousel = {
     controls: true,
     defaultActiveIndex: 0,
     fade: false,
-    indicators: true,
+    indicators: false,
     interval: 5000,
     navigation: true,
     items: [

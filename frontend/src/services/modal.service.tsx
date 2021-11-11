@@ -25,8 +25,9 @@ export const simpleModal = ( show: boolean,
 
 export const uploadModal = ( show: boolean, 
                              title: string, 
-                             toggle: (event: boolean) => void, 
-                             handleSubmit: (image: any) => void,
+                             toggle: (event: any) => any, 
+                             handleSubmit: (image: any) => any,
+                             imageSrc: string = "",
                              closetext: string = "Close",
                              submittext: string = "Submit",
                              size: typeof modalSize = "lg" ): JSX.Element => {
@@ -35,6 +36,7 @@ export const uploadModal = ( show: boolean,
                             onHide={ () => toggle(false) } 
                             onSubmit={ handleSubmit } 
                             title={ title } 
+                            imageSrc={ imageSrc }
                             closetext={ closetext }
                             submittext={ submittext } />
 }

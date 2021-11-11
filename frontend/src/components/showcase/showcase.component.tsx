@@ -6,27 +6,33 @@ const ShowcaseComponent = ( props: any ) => {
     return <>
                 <ListGroup className={styles.list}>
                     <ListGroup.Item className={styles.item}>
-                        <FontAwesomeIcon size={'5x'} icon={["fas", "coffee"]} className={styles.icon} />
+                        <div className={styles.icon_container}>
+                            <FontAwesomeIcon icon={["fas", "shield-alt"]} className={styles.icon} />
+                        </div>
 
-                        <div>
-                            <div className={styles.main}>Reliability</div>
-                            <p className={styles.sub}>There are more things to say here of course, because we are so fantastic. Honestly, I just don’t want to say anything more.</p>
+                        <div className={styles.menuelement}>
+                            <div className={styles.main}>We Produce. You Enjoy.</div>
+                            <p className={styles.sub}>Never missed an order. We truly amaze our eaters with our quality and delivery time.</p>
                         </div>
                     </ListGroup.Item>
                     <ListGroup.Item className={styles.item}>
-                        <FontAwesomeIcon size={'5x'} icon={["fas", "coffee"]} className={styles.icon} />
+                        <div className={styles.icon_container}>
+                            <FontAwesomeIcon icon={["fas", "chart-bar"]} className={styles.icon} />
+                        </div>
 
-                        <div>
-                            <div className={styles.main}>Performance</div>
-                            <p className={styles.sub}>There are more things to say here of course, because we are so fantastic. Honestly, I just don’t want to say anything more.</p>
+                        <div className={styles.menuelement}>
+                            <div className={styles.main}>Like It Fast</div>
+                            <p className={styles.sub}>You order any time. And the super factory produces your great stuff.</p>
                         </div>
                     </ListGroup.Item>
                     <ListGroup.Item className={styles.item}>
-                        <FontAwesomeIcon size={'5x'} icon={["fas", "coffee"]} className={styles.icon} />
+                        <div className={styles.icon_container}>
+                            <FontAwesomeIcon icon={["fas", "hand-holding-usd"]} className={styles.icon} />
+                        </div>
 
-                        <div>
-                            <div className={styles.main}>Cheap Prices</div>
-                            <p className={styles.sub}>There are more things to say here of course, because we are so fantastic. Honestly, I just don’t want to say anything more.</p>
+                        <div className={styles.menuelement}>
+                            <div className={styles.main}>Affordable Chillies</div>
+                            <p className={styles.sub}>Hey. There is a massive range of chillies from the lowest prices you can think of.</p>
                         </div>
                     </ListGroup.Item>
                 </ListGroup>

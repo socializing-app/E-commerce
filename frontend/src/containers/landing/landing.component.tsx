@@ -12,61 +12,61 @@ import { LandingCarousel } from '../../config/settings.config';
 
 const LandingComponent = ( props: any ) => {
     return <>
-                    <CarouselComponent {...LandingCarousel} />
+                    {/* <CarouselComponent {...LandingCarousel} /> */}
 
                     <div className={styles.hero}>
-                        <Link to="/products" className={styles.link}>
-                            <Button variant="orange" className={styles.button}>Shop Now</Button>
-                        </Link>
+                        <img src="https://e-commerce-bucket-images.s3.eu-west-2.amazonaws.com/thomas-m-evans-sBaGplnso94-unsplash.jpg" alt=""/>
+                        <div className={styles.hero_action}>
+                            <div className={styles.main_title}>Smoking hot?</div>
+                            <div className={styles.inspiration}>Ready to Eat. <span>Order any time. Delivered to your door.</span></div>
+                        </div>
                     </div>
 
-                    <div>
-                        <div className={`${styles.title} ${styles.dark}`}>Our Featured Products</div>
+                    <div className={styles.products}>
+                        <div className={`${styles.title} ${styles.dark}`}>Eaters Are Loving <span>These</span>.</div>
+                        <div className={styles.squares}><div></div><div></div><div></div><div></div><div></div></div>
 
                         <FeaturedComponent />
 
-                        <Link to="/products" className={styles.link}>
+                        <Link to="/products" className={`${styles.link} ${styles.discover}`}>
                             <Button variant="orange" className={styles.button}>Discover More</Button>
                         </Link>
                     </div>
 
                     <div className={styles.reviews}>
-                        <div className={`${styles.title} ${styles.light}`}>Our Products</div>
-                        <div className={`${styles.subtitle} ${styles.light}`}>Reviewed and assessed by our customers</div>
+                        <div className={`${styles.title} ${styles.light}`}>Quality Confirmed.</div>
 
                         <div className={styles.reviews__review}>
                             <FeaturedReviewsComponent />
                         </div>
                     </div>
                     
-                    <div>
-                        <div className={`${styles.title} ${styles.dark}`}>Our Friendly Offers</div>
+                    <div className="bg-white">
+                        <div className={`${styles.title} ${styles.dark}`}>Friendly We are. <span>Sometimes</span>.</div>
 
                         <OffersComponent />
-
-                        <Link to="/products" className={styles.link}>
-                            <Button variant="orange" className={styles.button}>Invite Friends</Button>
-                        </Link>
                     </div>
 
                     <div className={styles.showcase}>
-                        <div className={`${styles.title} ${styles.light}`}>Why we think we are great</div>
+                        <div className={styles.showcase_image}>
+                            <img src="https://e-commerce-bucket-images.s3.eu-west-2.amazonaws.com/albert-vincent-wu-N39zZ5wFR7c-unsplash.jpg" alt=""/>
+                        </div>
                         
-                        <ShowcaseComponent />
+                        <div className={styles.showcase_details}>
+                            <div className={`${styles.title} ${styles.tasty}`}>Spicy. But <span>Tasty</span>.</div>
+                            
+                            <ShowcaseComponent />
 
-                        <Link to="/products" className={styles.link}>
-                            <Button variant="orange" className={styles.button}>Shop Now</Button>
-                        </Link>
+                            <Link to="/products" className={styles.link}>
+                                <Button variant="red" className={styles.red_button}>Shop Now</Button>
+                            </Link>
+                        </div>
                     </div>
                     
-                    <div>
-                        <div className={`${styles.title} ${styles.dark}`}>Our Club</div>
+                    <div className={styles.ourclub}>
+                        <div className={`${styles.title} ${styles.dark}`}>Want to join us?</div>
 
                         <ClubComponent />
-
-                        <Link to="/products" className={styles.link}>
-                            <Button variant="orange" className={styles.button}>Join Club</Button>
-                        </Link>
                     </div>
            </>
 }

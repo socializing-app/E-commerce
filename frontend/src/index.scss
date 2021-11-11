@@ -1,8 +1,9 @@
 @import "./styles/colours.styles.scss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 .btn {
   border: 0 !important;
-  border-radius: 10px !important;
 
   &-action-blue {
     background-color: theme-color("darkBlue") !important;
@@ -11,6 +12,11 @@
 
   &-orange {
     background-color: theme-color("orange") !important;
+    color: theme-color("light") !important;
+  }
+
+  &-red {
+    background-color: rgb(147, 29, 27) !important;
     color: theme-color("light") !important;
   }
 
@@ -24,11 +30,15 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Roboto Slab', serif !important;
+  // font-family: 'Caveat', cursive !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  background: rgb(247, 244, 250);
+  min-height: 100vh;
 }
 
 code {

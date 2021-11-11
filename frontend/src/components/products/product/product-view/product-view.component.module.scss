@@ -1,5 +1,117 @@
 @import "../../../../styles/colours.styles.scss";
 
+.container {
+    margin-top: 3rem;
+    
+    @media (max-width: 992px) {
+        margin-top: 3rem;
+        padding: 0 !important;
+    }
+
+    .subcontainer {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+
+        @media (min-width: 992px) {
+            flex-direction: row;
+        }
+
+        .carouselContainer {
+            background-color: white;
+            width: 100%;
+
+            @media (min-width: 992px) {
+                width: 30rem;
+                height: 38.7rem;
+            }
+        }
+
+        .details_container {
+            width: 100%;
+            padding: 1rem;
+            background-color: white;
+
+            @media (min-width: 992px) {
+                width: calc(100% - 30rem);
+            }
+
+            .name {
+                font-size: 2rem;
+                font-weight: 700;
+                color: theme-color("orange");
+                line-height: 2rem;
+            }
+
+            .instock {
+                color: rgba(0,0,0,.6);
+            }
+
+            .price {
+                font-size: 3rem;
+                font-weight: 700;
+            }
+
+            .reviews {
+                display: flex;
+                align-items: center;
+
+                &_number {
+                    margin-left: .5rem;
+                    color: rgba(0,0,0,.6);
+                }
+            }
+
+            .colour_container {
+                display: flex;
+                flex-direction: column;
+                margin: 1rem 0;
+                margin-top: 2rem;
+                border-top: 1px solid rgba(0,0,0,.1);
+                border-bottom: 1px solid rgba(0,0,0,.1);
+                padding: .5rem;
+
+                .colour {
+                    font-weight: 500;
+                    margin: 1rem 0;
+                    margin-top: .5rem;
+                }
+                
+                .variant_container {
+                    display: flex;
+                    margin-bottom: .5rem;
+
+                    .activevariant {
+                        border: 3px solid white;
+                        box-shadow: 0 0 0 .1rem theme-color("orange");
+                    }
+                }
+
+                .variant_colour {
+                    width: 3rem;
+                    height: 3rem;
+                    margin-right: .5rem;
+                    cursor: pointer;
+                    transition: all .1s ease;
+                }
+            }
+
+            .pricing {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem 0;
+                width: 100%;
+
+                button {
+                    width: 100%;
+                    height: 3rem;
+                }
+            }
+        }
+    }
+}
+
 .product__details {
     padding: 1rem .5rem;
 }
@@ -13,41 +125,26 @@
     margin: 1rem;
 }
 
-.variant__container {
-    border-top: 1px solid rgba(0,0,0,.1);
-    border-bottom: 1px solid rgba(0,0,0,.1);
-    margin-bottom: .5rem;
-}
-
-.variant {
-    &__container {
-        display: flex;
-        padding: .5rem;
-    }
-
-    &__colour {
-        width: 3rem;
-        height: 3rem;
-        margin-right: .5rem;
-        cursor: pointer;
-    }
-}
-
-.title_container {
-    display: flex;
-    align-items: center;
-}
-
-.pricing {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-    width: 100%;
-}
-
 .number {
     display: flex;
+}
+
+.panel {
+    background-color: white;
+    padding: 2rem;
+    margin-top: 1rem;
+}
+
+.table_container {
+    margin-top: 1rem;
+}
+
+table tr, table th, table thead {
+    border-top: 0 !important;
+}
+
+table th {
+    border-top: 1px solid rgba(0,0,0,.05) !important;
 }
 
 .title {

@@ -6,6 +6,7 @@ const db = require("./models");
 const userRouter = require("./routes/userRoutes");
 const configRouter = require("./routes/configRoutes");
 const productRouter = require("./routes/productRoutes");
+const categoryRouter = require("./routes/category");
 const { handleRefreshTokenRequest } = require("./controllers/authController");
 
 const server = express();
@@ -19,13 +20,14 @@ server.use(
 );
 server.use(cookieParser());
 
-server.use(express.json());
-server.use(express.urlencoded({ extended: true }));
+server.use(express.json({limit: '50mb'}));
+server.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // Routes
 server.post("/api/v1/refresh_token", handleRefreshTokenRequest);
 server.use("/api/v1/users", userRouter);
 server.use("/api/v1/products", productRouter);
+server.use("/api/v1/category", categoryRouter);
 server.use("/api/v1/config", configRouter);
 
 server.all("*", (req, res, next) => {
@@ -38,9 +40,12 @@ server.all("*", (req, res, next) => {
 // Global error handler
 server.use((err, req, res, next) => {
   const { statusCode, message } = err;
+
+  const errorMessage = message || err.error.message;
+  
   res.status(statusCode || 500).json({
     error: {
-      message: message || "Unknown error occurred.",
+      message: errorMessage || "Unknown error occurred.",
     },
   });
 });

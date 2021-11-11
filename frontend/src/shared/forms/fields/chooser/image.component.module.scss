@@ -1,0 +1,44 @@
+.images {
+    margin: .5rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 10rem);
+    grid-gap: 1rem;
+
+    .image {
+        width: 10rem;
+        height: 10rem;
+        border: 1px dashed rgba(0,0,0,.1);
+        border-radius: 1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all .3s ease;
+
+        &:hover {
+            border: 1px dashed rgb(6, 126, 6);
+            background-color: rgba(6, 126, 6, .1);
+        }
+
+        .plus {
+            width: 3rem;
+            height: 3rem;
+            border: 1px solid rgba(0,0,0,.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;  
+            border-radius: 50%;      
+            transition: all .3s ease; 
+            
+            &:hover {
+                background: rgb(6, 126, 6);
+                color: white;
+            }
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+}

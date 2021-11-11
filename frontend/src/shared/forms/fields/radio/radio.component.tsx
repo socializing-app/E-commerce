@@ -3,10 +3,10 @@ import styles from "./radio.component.module.scss";
 
 const RadioComponent = (props: any) => {
     const { field, handleChange, index } = props;
-
+    
     return (
-        <div>
-            <div>{ field.placeholder }</div>
+        <>
+            <Form.Label className={styles.label}>{ field.placeholder }: </Form.Label>
             { field.options.map((option: any, i: number) => (
                 <Form.Check
                     key={`checkbox-option-${i}`}
@@ -17,10 +17,10 @@ const RadioComponent = (props: any) => {
                     name={field.name}
                     type="radio"
                     checked={field.value[i]} 
-                    onChange={(event: any) => handleChange(event.target.checked, index, i)}
+                    onChange={(event: any) => handleChange(event.target.checked, index, "selection", i)}
                 />
             )) }
-        </div>
+        </>
     )
 }
 

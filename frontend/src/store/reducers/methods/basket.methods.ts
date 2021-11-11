@@ -15,13 +15,13 @@ export const addProduct = (state: State, action: ActionWithPayload) => {
     };
 }
 
-export const updateProduct = (state: State, productID: string, increase: boolean) => {
-    if ( !productID ) return state;
+export const updateProduct = (state: State, variantID: string, increase: boolean) => {
+    if ( !variantID ) return state;
 
     let isZero: boolean = false;
 
     const products = state.products.map((product: BasketProduct) => {
-        if ( product._id === productID ) {
+        if ( product._id === variantID ) {
             let quantity = increase ? (product.quantity as number) + 1 : (product.quantity as number) - 1;
 
             if ( quantity < 0 ) quantity = 0;
@@ -35,7 +35,7 @@ export const updateProduct = (state: State, productID: string, increase: boolean
         } else return product;
     });
 
-    if ( isZero ) return removeProduct(state, productID);
+    if ( isZero ) return removeProduct(state, variantID);
 
     return {
         ...state,
@@ -43,10 +43,10 @@ export const updateProduct = (state: State, productID: string, increase: boolean
     };
 }
 
-export const removeProduct = (state: State, productID: string) => {
-    if ( !productID ) return state;
+export const removeProduct = (state: State, variantID: string) => {
+    if ( !variantID ) return state;
 
-    const updatedProducts = state.products.filter((product: BasketProduct) => product._id !== productID);
+    const updatedProducts = state.products.filter((product: BasketProduct) => product._id !== variantID);
 
     return {
         ...state,

@@ -6,7 +6,9 @@ export interface BuildForm {
     value: any,
     options: any[],
     type: string,
-    width: string
+    width: string,
+    maxSubforms?: number;
+    id?: string;
 }
 
 export interface FormField {

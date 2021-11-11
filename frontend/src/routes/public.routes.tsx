@@ -9,6 +9,9 @@ import MenuCategoriesComponent from "../components/menu/menu-categories/menu-cat
 import AuthComponent from "../components/auth/auth.component";
 import DashboardComponent from "../containers/profile/dashboard.component";
 import ProfileComponent from "../containers/profile/profile/profile.component";
+import AdminDashboardComponent from "../containers/admin/dashboard.component";
+import NewProductComponent from "../containers/admin/products/new.component";
+import NewCategoryComponent from "../containers/admin/categories/new.component";
 
 const PublicRoutes = () => {
     return (
@@ -40,6 +43,16 @@ const PublicRoutes = () => {
 
             <Route path="/dashboard/profile" exact>
                 <ProfileComponent />
+            </Route>
+
+            <Route path="/admin/dashboard" exact>
+                <AdminDashboardComponent />
+            </Route>
+            <Route path="/admin/products/new" exact>
+                <AdminDashboardComponent />
+            </Route>
+            <Route path="/admin/categories/new" exact>
+                <AdminDashboardComponent />
             </Route>
         </Switch>
     )
