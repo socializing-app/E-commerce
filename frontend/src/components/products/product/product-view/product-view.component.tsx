@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import CarouselComponent from "../../../../shared/carousel/carousel.component";
 import { getCarouselItems, initialCarousel } from '../../../../models/carousel.model';
 import NumberInputComponent from "../../../../shared/number-input/number-input.component";
-import { getProduct } from '../../../../services/products.service';
+import { getProduct, getProductReviews } from '../../../../services/products.service';
 import { useEffect, useState } from 'react';
 import { initialProductVariant, initialProduct, Product, ProductVariant } from "../../../../models/product.model";
 import ProductComponent from "../product.component";
@@ -19,7 +19,8 @@ import ReviewsComponent from "../../../reviews/reviews.component";
 import StarComponent from '../../../../shared/star/star.component';
 import { useLocation } from "react-router-dom";
 import ScaleLoader from "react-spinners/ScaleLoader";
-import { LoadingColour, LoadingStyles } from "../../../../config/settings.config";
+import { LoadingColour, LoadingStyles, CarouselLoadingStyles } from "../../../../config/settings.config";
+import { Review } from "../../../../models/review.model";
 
 const ProductViewComponent = ( props: any ) => {
     const location = useLocation();
@@ -27,6 +28,7 @@ const ProductViewComponent = ( props: any ) => {
     const productID = location.pathname ? location.pathname.split("/")[2] : "";
     const productRate = 3.5;
     const [ product, setProduct ] = useState(initialProduct);
+    const [ reviews, setReviews ] = useState([] as Review[]);
     const [ activeVariant, setActiveVariant ] = useState(initialProductVariant);
     const [ loading, setLoading ] = useState(true);
     const [ carouselLoading, setCarouselLoading ] = useState(true);
@@ -59,7 +61,9 @@ const ProductViewComponent = ( props: any ) => {
             setActiveVariant(product.variants[0]);
             setLoading(false);
             setCarouselLoading(false);
-        })
+        });
+
+        getProductReviews(productID).then((reviews: Review[]) => setReviews(reviews));
     }, [])
 
     useEffect(() => { 
@@ -75,11 +79,11 @@ const ProductViewComponent = ( props: any ) => {
     return (
         <>
             { loading ? <ScaleLoader loading={loading} css={LoadingStyles} color={LoadingColour} /> : (
-                <div className={`container ${styles.container}`}>
+                <div className={`${styles.container}`}>
 
                     <div className={styles.subcontainer}>
                         <div className={styles.carouselContainer}>
-                            { carouselLoading ? <ScaleLoader loading={carouselLoading} css={LoadingStyles} color={LoadingColour} /> : (
+                            { carouselLoading ? <ScaleLoader loading={carouselLoading} css={CarouselLoadingStyles} color={LoadingColour} /> : (
                                 <CarouselComponent items={getCarouselItems(carouselImages)} />
                             ) }
                         </div>
@@ -110,7 +114,7 @@ const ProductViewComponent = ( props: any ) => {
                             <NumberInputComponent className={styles.number} min={0} max={10} currentQuantity={currentBasket?.quantity || 0} onNumberChange={(value: number) => handleNumberChange(value)} />
     
                             <div className={styles.pricing}>
-                                <Button variant="orange" disabled={currentBasket?.quantity !== undefined && currentBasket?.quantity > 0} onClick={() => props.addBasketItem({ ...activeVariant, productID: product._id, name: product.name })}>Add to basket</Button>
+                                <Button variant="dark" disabled={currentBasket?.quantity !== undefined && currentBasket?.quantity > 0} onClick={() => props.addBasketItem({ ...activeVariant, productID: product._id, name: product.name })}>Add to basket</Button>
                             </div>
                         </div>
                     </div>
@@ -162,9 +166,13 @@ const ProductViewComponent = ( props: any ) => {
                         </div>
                     </div>
 
-                    {/* <div className={styles.title}>Reviews</div> */}
+                    { reviews.length && (
+                        <div className={styles.panel}>
+                            <div className={styles.title}>Reviews</div>
 
-                    {/* <ReviewsComponent reviews={reviews} /> */}
+                            <ReviewsComponent reviews={reviews} />
+                        </div> 
+                    ) }
                 </div>
             ) }
         </> 

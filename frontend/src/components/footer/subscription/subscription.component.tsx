@@ -3,6 +3,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import styles from "./subscription.component.module.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
 
 const SubscriptionComponent = ( props: any ) => {
     const [email, setEmail] = useState("");
@@ -19,16 +20,16 @@ const SubscriptionComponent = ( props: any ) => {
     return <div className={styles.container}>
                 <div className={styles.header}>
                     <FontAwesomeIcon icon={['fas', "mail-bulk"]} className="mr-2" style={{fontSize: "1.5rem"}} />
-                    <div className={styles.header__title}>Join Our VIP list</div>
+                    <div className={styles.header__title}>Excited about the chillies? <span>Join The Mailing List</span></div>
                 </div>
 
                 <div className={styles.subtitle}>
-                    Never miss out on new products, exclusive offers, and more when you join the Hungry Team mailing list.
+                    Never miss out on new chillies, exclusive offers, and more when you join the Smoking Hot mailing list.
                 </div>
 
                 <InputGroup>
                     <Form.Control type="text" placeholder="Enter your email address" name="email" value={email} onChange={handleChange} />
-                    <button className="btn-orange" onClick={handleSubmit}>Sign Up</button>
+                    <Button variant="red" onClick={handleSubmit} className={styles.button}>Sign Up</Button>
                 </InputGroup>
            </div>
 }

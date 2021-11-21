@@ -13,26 +13,11 @@ let filterOptionsConfig = [
     width: "12"
   },
   {
-    name: "manufacturer",
-    placeholder: "Manufacturer",
+    name: "rate",
+    placeholder: "Rate (greater than or equal to)",
+    label: "Rate (greater than or equal to)",
     value: "",
-    type: "textbox",
-    options: [],
-    width: "12"
-  },
-  {
-    name: "model",
-    placeholder: "Models",
-    value: "",
-    type: "textbox",
-    options: [],
-    width: "12"
-  },
-  {
-    name: "colour",
-    placeholder: "Colour",
-    value: "",
-    type: "colorchooser",
+    type: "number",
     options: [],
     width: "12"
   },

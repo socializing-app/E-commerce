@@ -20,23 +20,23 @@ const AuthComponent: React.FC<Props> = ( props: Props ): JSX.Element => {
     return  <div className={styles.auth_container}>
                 
                 <div className={styles.title}>{ !isLogin ? 'Create a new account' : 'Please log into your account' }</div>
-                <p className={styles.subtitle}>and never stop collecting points for your purchases.</p>
+                <div className={`${styles.alertinfo}`}>There is a lot to do here. You can read about your favourite chillies and you can purchase them. It is really easy. And you have the chance to give your reviews so we can improve our services. You can collect points and sign up to our newsletter and there is so much more!<span>That's Handy <FontAwesomeIcon icon={['fas', "pepper-hot"]} style={{fontSize: "1.2rem", color: "rgb(147, 29, 27)"}} /></span></div>
 
                 { !isLogin ? <RegisterComponent onSendNotification={props.sendNotification} onLoginUser={props.loginUser} /> : 
                             <LoginComponent onSendNotification={props.sendNotification} onLoginUser={props.loginUser} /> }
 
                 <div className={styles.link} onClick={() => handleClick(!isLogin)}>{ !isLogin ? 'Have an account? Please log in here' : 'Need an account? Please sign up here' }</div>
             
-                <div className={styles.line}>
+                {/* <div className={styles.line}>
                     <span></span>
                     <span>Or you can</span>
                     <span></span>
-                </div>
+                </div> */}
 
-                <Button variant="facebook" className={styles.button} disabled>
+                {/* <Button variant="facebook" className={styles.button} disabled>
                     <FontAwesomeIcon icon={['fab', "facebook-square"]} style={{fontSize: "1.5rem"}} /> 
                     <span>{ isLogin ? 'Log in' : 'Sign up' } with Facebook</span>
-                </Button>
+                </Button> */}
                 
             </div>
            

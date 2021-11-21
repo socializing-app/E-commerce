@@ -1,8 +1,9 @@
+import { Product } from "./product.model";
 import { User } from "./user.model";
 
 export interface Review {
     _id: string;
-    product: string;
+    product: any;
     productRate: number;
     text: string;
     images: string[];

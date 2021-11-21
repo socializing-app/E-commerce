@@ -1,6 +1,7 @@
 .toast {
     transition: transform .3s ease-in-out;
 	animation: toast-in-right .3s;
+	z-index: 10000;
 }
 
 @keyframes toast-in-right {

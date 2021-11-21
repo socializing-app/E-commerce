@@ -49,7 +49,7 @@ const FormsComponent = (props: any) => {
 
             { props.onSave && (
                 <div className={styles.buttonContainer}>
-                    <Button variant="orange" type="button" onClick={() => props.onSave(form)}>Save</Button>
+                    <Button variant="red" type="button" onClick={() => props.onSave(form)}>Save</Button>
                 </div>
             ) }
         </>

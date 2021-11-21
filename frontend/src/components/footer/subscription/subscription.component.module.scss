@@ -1,7 +1,8 @@
+@import "../../../styles/colours.styles.scss";
+
 .container {
-    padding: 1rem;
-    background-color: white;
-    color: black;
+    padding: 3rem 0;
+    color: white;
 }
 
 .header {
@@ -9,18 +10,32 @@
     align-items: center;
 
     &__title {
-        font-size: 1.3rem;
+        font-size: 2rem;
         font-weight: 600;
+
+        span {
+            color: theme-color("red");
+        }
     }
 }
 
 .subtitle {
     padding-top: .5rem;
     padding-bottom: 2rem;
+    color: rgba(255, 255, 255, .7);
 }
 
 .remark {
     padding-top: 2rem;
     padding-bottom: .5rem;
     font-size: .8rem;
+}
+
+input {
+    height: 4rem !important;
+}
+
+.button {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
 }

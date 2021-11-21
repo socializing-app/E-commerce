@@ -26,13 +26,13 @@ const FilterComponent = ( props: any ) => {
 
     return <>
                 <div className={styles.buttons}>
-                    <Button variant="orange" className={styles.button} onClick={() => setShow(true)}>
+                    <Button variant="red" className={styles.button} onClick={() => setShow(true)}>
                         <FontAwesomeIcon icon={["fas", "filter"]} className={styles.icon} />
                         <span>Filter</span>
                     </Button>
 
                     {/* sorting the products, so is this gonna be a modal? I think it is */}
-                    <Button variant="orange" className={styles.button} onClick={() => setShow(true)}>
+                    <Button variant="red" className={styles.button} onClick={() => setShow(true)}>
                         <FontAwesomeIcon icon={["fas", "sort"]} className={styles.icon} />
                         <span>Sort</span>
                     </Button>

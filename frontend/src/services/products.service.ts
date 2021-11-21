@@ -46,6 +46,14 @@ export const getCategories = (): Promise<unknown> => {
     return http.get("/api/v1/products/category/all");
 }
 
-export const getProductReviews = (): Promise<Review[] | any> => {
-    return http.get("/api/v1/products/reviews/all");
+export const getAllReviews = (): Promise<Review[] | any> => {
+    return http.get("/api/v1/reviews/all");
+}
+
+export const getFeaturedReviews = (): Promise<Review[] | any> => {
+    return http.get("/api/v1/reviews/featured");
+}
+
+export const getProductReviews = (id: string): Promise<Review[] | any> => {
+    return http.get(`/api/v1/reviews/product/${id}`);
 }

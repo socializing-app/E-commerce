@@ -1,7 +1,6 @@
 .container {
     background: white;
-    height: 3rem;
-    border-bottom: 1px solid rgba(0,0,0,.1);
+    height: 5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,10 +12,59 @@
 }
 
 .action_icons {
-    padding-left: .5rem;
+    padding: .5rem;
+}
+
+.action_list {
+    ul {
+        list-style-type: none;
+        display: flex;
+        margin: 1rem;
+
+        li {
+            margin-right: 1rem;
+        }
+    }
 }
 
 .link, .link:hover {
     color: inherit;
     text-decoration: inherit;
+    transition: all .3s ease;
+    
+    &:hover {
+        color:rgb(147, 29, 27);
+    }
+}
+
+.logocontainer {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.logoname {
+    font-size: 2rem;
+    color: rgb(29, 27, 32);
+    font-weight: 500;
+    margin-right: 1rem;
+
+    span {
+        color: rgb(147, 29, 27);
+        font-weight: 900;
+    }
+}
+
+.logo {
+    width: 4rem;
+    height: 4rem;
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.importantlink {
+    color: rgb(147, 29, 27);
 }

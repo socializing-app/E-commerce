@@ -1,8 +1,19 @@
 @import '../../../styles/colours.styles.scss';
 
+.card {
+    width: 17rem !important;
+    border: 0 !important;
+}
+
 .card_image {
-    width: 13.9rem;
-    height: 13.9rem;
+    width: 17rem;
+    height: 17rem;
+}
+
+.card_body {
+    background-color: theme-color("dark");
+    color: white;
+    border: 1px solid white;
 }
 
 .star {
@@ -12,4 +23,5 @@
 
 .description {
     font-size: .8rem;
+    min-height: 2.375rem;
 }

@@ -2,124 +2,124 @@ const faker = require("faker");
 const { Product, Variant, Stock, ProductReview, Category, SubCategory, Brand } = require("../models");
 const { uploadBase64ToAmazon } = require("../utils/aws");
 
-exports.getProducts = async (req, res, next) => {
-  try {
-    const condition = req.query.condition || null;
-    const manufacturer = req.query.manufacturer || null;
-    const model = req.query.model || null;
-    const active = req.query.active || null;
-    const tags = req.query.tags || null;
-    const minPrice = req.query.minprice || null;
-    const maxPrice = req.query.maxprice || null;
-    const colour = req.query.colour || null;
-    const name = req.query.name || null;
-    const categoryID = req.query.category || null;
+// exports.getProducts = async (req, res, next) => {
+//   try {
+//     const condition = req.query.condition || null;
+//     const manufacturer = req.query.manufacturer || null;
+//     const model = req.query.model || null;
+//     const active = req.query.active || null;
+//     const tags = req.query.tags || null;
+//     const minPrice = req.query.minprice || null;
+//     const maxPrice = req.query.maxprice || null;
+//     const colour = req.query.colour || null;
+//     const name = req.query.name || null;
+//     const categoryID = req.query.category || null;
 
-    const productQuery = {};
-    const variantQuery = {};
+//     const productQuery = {};
+//     const variantQuery = {};
 
-    if ( condition ) productQuery.condition = condition;
-    if ( manufacturer ) productQuery.manufacturer = { $regex : new RegExp(manufacturer, "i") };
-    if ( model ) productQuery.model = { $regex : new RegExp(model, "i") };
-    if ( active ) productQuery.active = active;
-    if ( tags ) productQuery.tags = { $in: [ ...tags.split(",") ] };
-    if ( categoryID ) productQuery.category = categoryID;
+//     if ( condition ) productQuery.condition = condition;
+//     if ( manufacturer ) productQuery.manufacturer = { $regex : new RegExp(manufacturer, "i") };
+//     if ( model ) productQuery.model = { $regex : new RegExp(model, "i") };
+//     if ( active ) productQuery.active = active;
+//     if ( tags ) productQuery.tags = { $in: [ ...tags.split(",") ] };
+//     if ( categoryID ) productQuery.category = categoryID;
 
-    productQuery.variants = { $exists: true, $ne: [] };
+//     productQuery.variants = { $exists: true, $ne: [] };
 
-    if ( minPrice && maxPrice ) variantQuery.price = { "$gte": minPrice, "$lte": maxPrice };
-    else if ( minPrice ) variantQuery.price = { "$gte": minPrice };
-    else if ( maxPrice ) variantQuery.price = { "$lte": maxPrice };
+//     if ( minPrice && maxPrice ) variantQuery.price = { "$gte": minPrice, "$lte": maxPrice };
+//     else if ( minPrice ) variantQuery.price = { "$gte": minPrice };
+//     else if ( maxPrice ) variantQuery.price = { "$lte": maxPrice };
 
-    if ( colour ) variantQuery.colour = { $regex : new RegExp(colour, "i") };
-    if ( name ) variantQuery.name = { $regex : new RegExp(name, "i") };
+//     if ( colour ) variantQuery.colour = { $regex : new RegExp(colour, "i") };
+//     if ( name ) variantQuery.name = { $regex : new RegExp(name, "i") };
 
-    const productsFromDB = await Product.find(productQuery).populate({ "path": "variants", "match": variantQuery })
+//     const productsFromDB = await Product.find(productQuery).populate({ "path": "variants", "match": variantQuery })
     
-    let length = 0;
-    const products = productsFromDB.filter((product) => {
-      length += product.variants.length;
-      return product.variants.length;
-    });
+//     let length = 0;
+//     const products = productsFromDB.filter((product) => {
+//       length += product.variants.length;
+//       return product.variants.length;
+//     });
 
-    return res.status(200).json({ products, length });
-  } catch (error) {
-    return next({ error });
-  }
-};
+//     return res.status(200).json({ products, length });
+//   } catch (error) {
+//     return next({ error });
+//   }
+// };
 
-exports.getCategories = async (req, res, next) => {
-  try {
-    const categories = await Category.find();
+// exports.getCategories = async (req, res, next) => {
+//   try {
+//     const categories = await Category.find();
 
-    return res.status(200).json({ categories });
-  } catch (error) {
-    return next({ error });
-  }
-};
+//     return res.status(200).json({ categories });
+//   } catch (error) {
+//     return next({ error });
+//   }
+// };
 
-exports.addProduct = async (req, res, next) => {
-  try {
+// exports.addProduct = async (req, res, next) => {
+//   try {
     
-    const { name, description, baseprice, condition, category, manufacturer, model } = req.body;
-    const alternativeNames = [ name.toLowerCase(), name.replace(/[^a-zA-Z ]/g, ""), name.replace(/\s/g, ""), name.replace(/[^a-zA-Z ]/g, "").replace(/\s/g, "") ];
+//     const { name, description, baseprice, condition, category, manufacturer, model } = req.body;
+//     const alternativeNames = [ name.toLowerCase(), name.replace(/[^a-zA-Z ]/g, ""), name.replace(/\s/g, ""), name.replace(/[^a-zA-Z ]/g, "").replace(/\s/g, "") ];
 
-    const product = await Product.find({ lowercasename: { $in : alternativeNames } });
+//     const product = await Product.find({ lowercasename: { $in : alternativeNames } });
     
-    if ( product && product.length ) {
-      return next({ statusCode: 404, message: "The product with the provided name exists." });
-    }
+//     if ( product && product.length ) {
+//       return next({ statusCode: 404, message: "The product with the provided name exists." });
+//     }
 
-    const newProduct = {
-      name,
-      lowercasename: name.toLowerCase(),
-      description,
-      manufacturer,
-      baseprice,
-      model,
-      condition,
-      active: true,
-      tags: []
-    };
+//     const newProduct = {
+//       name,
+//       lowercasename: name.toLowerCase(),
+//       description,
+//       manufacturer,
+//       baseprice,
+//       model,
+//       condition,
+//       active: true,
+//       tags: []
+//     };
 
-    const thumbnailLink = await uploadBase64ToAmazon(req.body.thumbnail[0], `thumbnail`);
-    const thumbnail = thumbnailLink.link;
-    const categoryID = await Category.find({ name: category }, '_id');
-    const images = [];
+//     const thumbnailLink = await uploadBase64ToAmazon(req.body.thumbnail[0], `thumbnail`);
+//     const thumbnail = thumbnailLink.link;
+//     const categoryID = await Category.find({ name: category }, '_id');
+//     const images = [];
 
-    req.body.variants.filter((variant) => variant.images.length).forEach(async ( variant, index ) => {
-      variant.images.forEach(async (image, ind) => images.push(uploadBase64ToAmazon(image, `image-name-${ind}`, `variant-${index}`)));
-    });
+//     req.body.variants.filter((variant) => variant.images.length).forEach(async ( variant, index ) => {
+//       variant.images.forEach(async (image, ind) => images.push(uploadBase64ToAmazon(image, `image-name-${ind}`, `variant-${index}`)));
+//     });
 
-    Promise.all(images).then(async (uploads) => {
+//     Promise.all(images).then(async (uploads) => {
       
-      const variants = req.body.variants.map((variant, index) => {
-        const variantImages = [];
+//       const variants = req.body.variants.map((variant, index) => {
+//         const variantImages = [];
 
-        uploads.forEach(upload => {
-          if ( +upload.id.split("-")[1] === index ) {
-            variantImages.push(upload.link);
-          }
-        })
+//         uploads.forEach(upload => {
+//           if ( +upload.id.split("-")[1] === index ) {
+//             variantImages.push(upload.link);
+//           }
+//         })
 
-        return {
-          ...variant,
-          images: variantImages
-        }
-      })
+//         return {
+//           ...variant,
+//           images: variantImages
+//         }
+//       })
 
-      newProduct.thumbnail = thumbnail;
-      newProduct.variants = variants;
-      newProduct.category = categoryID[0]._id;
+//       newProduct.thumbnail = thumbnail;
+//       newProduct.variants = variants;
+//       newProduct.category = categoryID[0]._id;
 
-      const addedProduct = await Product.create(newProduct);
+//       const addedProduct = await Product.create(newProduct);
 
-      return res.status(200).json(addedProduct);
-    });
-  } catch (error) {
-    return next({ error });
-  }
-};
+//       return res.status(200).json(addedProduct);
+//     });
+//   } catch (error) {
+//     return next({ error });
+//   }
+// };
 
 exports.getProduct = async (req, res, next) => {
   try {
@@ -161,125 +161,125 @@ exports.getReviews = async (req, res, next) => {
   }
 } 
 
-exports.generateFakeProducts = async (req, res, next) => {
-  try {
-    const PRODUCT_COUNT = 10;
-    const VARIANT_COUNT = 2;
-    const REVIEW_COUNT = 2;
-    let productData;
-    for (let i = 0; i < PRODUCT_COUNT; i++) {
-      productData = {
-        thumbnail: faker.image.imageUrl(),
-        manufacturer: faker.company.companyName(),
-        model: faker.commerce.department(),
-        description: faker.commerce.productDescription(),
-        condition: "new",
-        active: true,
-        tags: [
-          faker.commerce.product(),
-          faker.commerce.product(),
-          faker.commerce.product(),
-        ],
-      };
-      console.log("before product");
-      const newProduct = await Product.create(productData);
-      console.log("after product");
+// exports.generateFakeProducts = async (req, res, next) => {
+//   try {
+//     const PRODUCT_COUNT = 10;
+//     const VARIANT_COUNT = 2;
+//     const REVIEW_COUNT = 2;
+//     let productData;
+//     for (let i = 0; i < PRODUCT_COUNT; i++) {
+//       productData = {
+//         thumbnail: faker.image.imageUrl(),
+//         manufacturer: faker.company.companyName(),
+//         model: faker.commerce.department(),
+//         description: faker.commerce.productDescription(),
+//         condition: "new",
+//         active: true,
+//         tags: [
+//           faker.commerce.product(),
+//           faker.commerce.product(),
+//           faker.commerce.product(),
+//         ],
+//       };
+//       console.log("before product");
+//       const newProduct = await Product.create(productData);
+//       console.log("after product");
 
-      const productStockData = {
-        product: newProduct._id,
-        quantity: faker.datatype.number(),
-      };
-      console.log("before stock");
-      await Stock.create(productStockData);
-      console.log("after stock");
+//       const productStockData = {
+//         product: newProduct._id,
+//         quantity: faker.datatype.number(),
+//       };
+//       console.log("before stock");
+//       await Stock.create(productStockData);
+//       console.log("after stock");
 
-      let variantData;
-      for (let y = 0; y < VARIANT_COUNT; y++) {
-        variantData = {
-          name: faker.commerce.product(),
-          colour: faker.commerce.color(),
-          price: faker.commerce.price(),
-          images: [
-            faker.image.imageUrl(),
-            faker.image.imageUrl(),
-            faker.image.imageUrl(),
-            faker.image.imageUrl(),
-          ],
-        };
-        console.log("before variant");
-        const newVariant = await Variant.create(variantData);
-        console.log("after variant");
-        newProduct.variants.push(newVariant._id);
-        await newProduct.save();
-      }
-      let reviewData;
-      for (let x = 0; x < REVIEW_COUNT; x++) {
-        reviewData = {
-          productRate: Math.floor(Math.random() * 5) + 1,
-          deliveryRate: Math.floor(Math.random() * 5) + 1,
-          experienceRate: Math.floor(Math.random() * 5) + 1,
-          text: faker.lorem.paragraphs(3),
-          product: newProduct._id,
-        };
-        console.log("before productReview");
-        await ProductReview.create(reviewData);
-        console.log("after productReview");
-      }
-    }
+//       let variantData;
+//       for (let y = 0; y < VARIANT_COUNT; y++) {
+//         variantData = {
+//           name: faker.commerce.product(),
+//           colour: faker.commerce.color(),
+//           price: faker.commerce.price(),
+//           images: [
+//             faker.image.imageUrl(),
+//             faker.image.imageUrl(),
+//             faker.image.imageUrl(),
+//             faker.image.imageUrl(),
+//           ],
+//         };
+//         console.log("before variant");
+//         const newVariant = await Variant.create(variantData);
+//         console.log("after variant");
+//         newProduct.variants.push(newVariant._id);
+//         await newProduct.save();
+//       }
+//       let reviewData;
+//       for (let x = 0; x < REVIEW_COUNT; x++) {
+//         reviewData = {
+//           productRate: Math.floor(Math.random() * 5) + 1,
+//           deliveryRate: Math.floor(Math.random() * 5) + 1,
+//           experienceRate: Math.floor(Math.random() * 5) + 1,
+//           text: faker.lorem.paragraphs(3),
+//           product: newProduct._id,
+//         };
+//         console.log("before productReview");
+//         await ProductReview.create(reviewData);
+//         console.log("after productReview");
+//       }
+//     }
 
-    return res.send("Products were created successfully.");
-  } catch (error) {
-    console.log(error);
-    return res.send("Generating products failed.");
-  }
-};
+//     return res.send("Products were created successfully.");
+//   } catch (error) {
+//     console.log(error);
+//     return res.send("Generating products failed.");
+//   }
+// };
 
-exports.generateCategories = async (req, res, next) => {
-  try {
-    // product points to subcategories
-    const categoryOne = await Category.create({ name: "Category One" });
-    const categoryTwo = await Category.create({ name: "Category Two" });
+// exports.generateCategories = async (req, res, next) => {
+//   try {
+//     // product points to subcategories
+//     const categoryOne = await Category.create({ name: "Category One" });
+//     const categoryTwo = await Category.create({ name: "Category Two" });
 
-    const subCatOne = await SubCategory.create({
-      name: "SubCat One",
-      category: categoryOne._id,
-    });
-    const subCatTwo = await SubCategory.create({
-      name: "SubCat Two",
-      category: categoryOne._id,
-    });
-    const subCatThree = await SubCategory.create({
-      name: "SubCat Three",
-      category: categoryTwo._id,
-    });
-    const subCatFour = await SubCategory.create({
-      name: "SubCat Four",
-      category: categoryTwo._id,
-    });
+//     const subCatOne = await SubCategory.create({
+//       name: "SubCat One",
+//       category: categoryOne._id,
+//     });
+//     const subCatTwo = await SubCategory.create({
+//       name: "SubCat Two",
+//       category: categoryOne._id,
+//     });
+//     const subCatThree = await SubCategory.create({
+//       name: "SubCat Three",
+//       category: categoryTwo._id,
+//     });
+//     const subCatFour = await SubCategory.create({
+//       name: "SubCat Four",
+//       category: categoryTwo._id,
+//     });
 
-    const brandOne = await Brand.create({ name: "Brand One" });
-    const brandTwo = await Brand.create({ name: "Brand Two" });
+//     const brandOne = await Brand.create({ name: "Brand One" });
+//     const brandTwo = await Brand.create({ name: "Brand Two" });
 
-    const productsOne = await Product.find({}).limit(10);
-    const productsTwo = await Product.find({}).skip(10);
+//     const productsOne = await Product.find({}).limit(10);
+//     const productsTwo = await Product.find({}).skip(10);
 
-    productsOne.forEach(async (product) => {
-      product.category = categoryOne._id;
-      product.subCategory = subCatTwo._id;
-      product.brand = brandOne._id;
-      await product.save();
-    });
+//     productsOne.forEach(async (product) => {
+//       product.category = categoryOne._id;
+//       product.subCategory = subCatTwo._id;
+//       product.brand = brandOne._id;
+//       await product.save();
+//     });
 
-    productsTwo.forEach(async (product) => {
-      product.category = categoryTwo._id;
-      product.subCategory = subCatFour._id;
-      product.brand = brandTwo._id;
-      await product.save();
-    });
+//     productsTwo.forEach(async (product) => {
+//       product.category = categoryTwo._id;
+//       product.subCategory = subCatFour._id;
+//       product.brand = brandTwo._id;
+//       await product.save();
+//     });
 
-    return res.send("Categories were created successfully");
-  } catch (error) {
-    console.log(error);
-    return res.send("Generating categories failed.");
-  }
-};
+//     return res.send("Categories were created successfully");
+//   } catch (error) {
+//     console.log(error);
+//     return res.send("Generating categories failed.");
+//   }
+// };

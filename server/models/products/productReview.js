@@ -6,19 +6,19 @@ const productReviewSchema = new mongoose.Schema(
       type: Number,
       required: [true, "productRate is required."],
       min: [1, "Rating must be 1 or above."],
-      max: [5, "Rating must be 5 or belove."],
+      max: [5, "Rating must be 5 or below."],
     },
     deliveryRate: {
       type: Number,
       required: [true, "deliveryRate is required."],
       min: [1, "Rating must be 1 or above."],
-      max: [5, "Rating must be 5 or belove."],
+      max: [5, "Rating must be 5 or below."],
     },
     experienceRate: {
       type: Number,
       required: [true, "experienceRate is required."],
       min: [1, "Rating must be 1 or above."],
-      max: [5, "Rating must be 5 or belove."],
+      max: [5, "Rating must be 5 or below."],
     },
     text: String,
     images: [

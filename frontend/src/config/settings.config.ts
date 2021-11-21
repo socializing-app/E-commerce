@@ -34,8 +34,8 @@ export const SocialIcons: SocialIcon[] = [
 ]
 
 export const CompanyDetails: Company = {
-    name: "Hungry Team",
-    copyright: "© 2021 The Hungry Team International Limited. Registered office: London, UK"
+    name: "Smoking Hot",
+    copyright: "© 2021 The Smoking Hot International Limited. Registered office: London, UK"
 }
 
 export const LandingCarousel: Carousel = {
@@ -56,5 +56,6 @@ export const LandingCarousel: Carousel = {
     ]
 }
 
-export const LoadingStyles = "display: flex; margin: 10rem auto; justify-content: center;";
+export const CarouselLoadingStyles = "display: flex; margin: 18.5rem auto; justify-content: center; width: 30rem;";
+export const LoadingStyles = "display: flex; justify-content: center; align-items: center; position: absolute; top: 5rem; z-index: 25000; width: 100vw; left: 0; height: calc(100vh - 5rem);  background: white;";
 export const LoadingColour = "rgba(0,0,0,.5)";

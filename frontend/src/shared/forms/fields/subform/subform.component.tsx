@@ -46,7 +46,7 @@ console.log(updatedForm)
                 )) }
             </div>
 
-            { ( field.options.length !== field.maxSubforms ) && <Button variant="action-blue" type="button" onClick={() => increaseSubForms()}>Add more { field.placeholder }</Button> }
+            { ( field.options.length !== field.maxSubforms ) && <Button variant="dark" type="button" onClick={() => increaseSubForms()}>Add more { field.placeholder }</Button> }
         </>
     )
 }

@@ -70,6 +70,10 @@ const productSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Brand",
     },
+    rate: {
+      type: Number,
+      default: 0
+    },
     reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "ProductReview" }],
     discounts: [{}],
   },

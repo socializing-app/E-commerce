@@ -5,8 +5,10 @@ const cookieParser = require("cookie-parser");
 const db = require("./models");
 const userRouter = require("./routes/userRoutes");
 const configRouter = require("./routes/configRoutes");
-const productRouter = require("./routes/productRoutes");
+const productRouter = require("./routes/products");
 const categoryRouter = require("./routes/category");
+const reviewsRouter = require("./routes/reviews");
+const utilRouter = require("./routes/utils");
 const { handleRefreshTokenRequest } = require("./controllers/authController");
 
 const server = express();
@@ -27,8 +29,10 @@ server.use(express.urlencoded({ extended: true, limit: '50mb' }));
 server.post("/api/v1/refresh_token", handleRefreshTokenRequest);
 server.use("/api/v1/users", userRouter);
 server.use("/api/v1/products", productRouter);
+server.use("/api/v1/reviews", reviewsRouter);
 server.use("/api/v1/category", categoryRouter);
 server.use("/api/v1/config", configRouter);
+server.use("/api/v1/utils", utilRouter);
 
 server.all("*", (req, res, next) => {
   return next({

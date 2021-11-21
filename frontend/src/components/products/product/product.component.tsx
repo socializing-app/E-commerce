@@ -8,29 +8,26 @@ import { Link } from 'react-router-dom';
 const ProductComponent = ( props: any ) => {
     const thumbnail = props.product && props.product.thumbnail || null;
     const variants = props.product && props.product.variants || null;
+    const name = props.product.name || null;
     const description = props.product && props.product.description || null;
-    // Need name for product, because all variants will have the same name.
-    // Need currency for product.
-    // Need base price for product as *from.
-    // Need rate calculated onto a product property.
-    // Need review id and all reviews for that to show how many reviews came in for each product.
-    const productRate = 3.5;
+    const productRate = props.product && props.product.rate || 0;
+    const reviewsLength = props.product && props.product.reviews.length || 0;
 
-    console.log(props)
     return <>
-                <Card style={{ width: '13.9rem' }}>
+                <Card style={{ width: '13.9rem' }} className={styles.card}>
                     <Card.Img variant="top" className={styles.card_image} src={thumbnail} />
-                    <Card.Body>
-                        <Card.Title className="my-1">{ variants && variants[0] && variants[0].name }</Card.Title>
+                    <Card.Body className={styles.card_body}>
+                        <Card.Title className="my-1">{ name }</Card.Title>
                         <Card.Text className="my-1">From £{ variants && variants[0] && variants[0].price }</Card.Text>
                         <Card.Text className={`text-muted my-1 ${styles.description}`}>{ description.substring(0, 50) }...</Card.Text>
                         
-                        <Card.Text className="mt-2">
-                            <StarComponent rating={productRate} spacing={".1rem"} size={"lg"} />
+                        <Card.Text className="mt-2 d-flex align-items-center">
+                            <StarComponent rating={productRate} spacing={".1rem"} size={"sm"} />
+                            <span className="ml-2">({ reviewsLength })</span>
                         </Card.Text>
                         
                         <Link to={`/product/${props.product._id}`}>
-                            <Button variant="action-blue">Check out</Button>
+                            <Button variant="light">Let me see</Button>
                         </Link>
                     </Card.Body>
                 </Card>

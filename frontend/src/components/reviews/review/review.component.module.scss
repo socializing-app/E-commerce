@@ -1,20 +1,19 @@
 @import '../../../styles/colours.styles.scss';
 
 .container {
-    border: 1px solid rgba(0,0,0,.08);
     border-radius: .5rem;
     background-color: theme-color("light");
+    padding: 0 !important;
 }
 
 .header {
     display: flex;
     align-items: center;
-    padding: 1rem 0;
 
     &__image {
         width: 5rem;
         height: 5rem;
-        margin-right: 2rem;
+        margin: 1rem;
 
         img {
             max-width: 100%;
@@ -26,14 +25,12 @@
     &__info {
         display: flex;
         flex-direction: column;
+        padding: 1rem;
+        padding-bottom: 2rem;
 
         &_name {
             font-size: 2rem;
             font-weight: 700;
-        }
-
-        &_location {
-            color: rgba(0,0,0,.5);
         }
     }
 }
@@ -53,6 +50,10 @@
 
 .review {
     width: 100%;
-    padding: 1rem 0;
-    padding-top: 0;
+    padding: 1rem;
+    background-color: theme-color("dark");
+    color: rgba(255, 255, 255, .7);
+    border: 1px solid white;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
 }

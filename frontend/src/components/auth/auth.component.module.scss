@@ -1,14 +1,20 @@
 @import "../../styles/colours.styles.scss";
 
 .auth_container {
-    background-color: white;
+    background-color: theme-color("dark");
+    color: white;
     padding: 1rem;
-    padding-top: 3rem;
+    padding-top: 5rem;
+    min-height: 100vh;
 
     @media (min-width: 992px) {
+        height: unset;
         width: 66%;
-        margin: 0 auto;
-        padding-top: 4rem;
+        margin-left: 17%;
+        padding: 2rem;
+        padding-top: 7rem;
+        // border: 1px solid white;
+        border-radius: .3rem;
     }
 }
 
@@ -17,21 +23,37 @@
     font-weight: 700;
 }
 
-.subtitle {
-    color: rgba(0,0,0,.7);
+.alertinfo {
+    background-color: theme-color("dark");
+    color: rgba(255, 255, 255,.5);
+    margin: 1rem 0;
+    border: 1px solid white;
+    padding: 1rem;
+    border-radius: .3rem;
+    position: relative;
+
+    span {
+        position: absolute;
+        display: block;
+        background: theme-color("dark");
+        color: white;
+        bottom: -1rem;
+        right: 3rem;
+        padding: .3rem 1rem;
+    }
 }
 
 .line {
     display: flex;
     align-items: center;
     width: 100%;
-    color: rgba(0,0,0,.7);
+    color: rgba(255,255,255,.7);
     margin-top: 1rem;
 
     span:first-of-type, span:last-of-type {
         width: calc(50% - 4.5rem);
         height: 1px;
-        border-bottom: 1px solid rgba(0,0,0,.1);
+        border-bottom: 1px solid rgba(255,255,255,.1);
     }
 
     span:first-of-type {

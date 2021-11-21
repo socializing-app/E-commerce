@@ -1,14 +1,15 @@
 $theme-colors: (
-  "orange": rgb(29, 27, 32),
+  "dark": rgb(27, 28, 30),
+  "orange": rgb(213,111,62),
   "orangeMedium": rgba(213,111,62, .7),
   "orangeLight": rgba(213,111,62, .5),
   "lightBlue": rgb(137, 82, 0),
   "darkBlue": rgb(12,112,133),
   "light": rgb(255,255,255),
   "lighter": rgba(255,255,255, .5),
-  "dark": rgb(23,34,46),
   "grey": rgb(134,122,122),
-  "darkGrey": rgb(79,85,91)
+  "darkGrey": rgb(79,85,91),
+  "red": rgb(147, 29, 27)
 );
 
 @import '~bootstrap/scss/bootstrap.scss';

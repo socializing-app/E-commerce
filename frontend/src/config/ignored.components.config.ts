@@ -15,5 +15,6 @@ export const ignoredFooter: string[] = [
     "/basket",
     "/admin/dashboard",
     "/admin/categories/new",
-    "/admin/products/new"
+    "/admin/products/new",
+    "/products"
 ]

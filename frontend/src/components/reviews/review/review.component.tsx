@@ -4,27 +4,20 @@ import { Review } from '../../../models/review.model';
 
 const ReviewComponent: React.FC<Review> = ( props: Review ): JSX.Element => {
     const username: string = props.user ? props.user.firstName + " " + props.user.lastName : "No User Info";
+    const profileImagePath: string = props.user && props.user.profileImagePath !== "avatar.jpg" ? props.user.profileImagePath : "http://placeimg.com/480/480";
 
     return (
         <div className={styles.container}>
             <div className={styles.header}>
                 <div className={styles.header__image}>
-                    <img src="http://placeimg.com/480/480" alt=""/>
+                    <img src={profileImagePath} alt=""/>
                 </div>
 
                 <div className={styles.header__info}>
                     <div className={styles.header__info_name}>{ username }</div>
-                    <div className={styles.header__info_title}>Regular Buyer</div>
-                    <div className={styles.header__info_location}>London, UK</div>
+                    <StarComponent rating={props.productRate} spacing={".1rem"} size={"1x"} />
                 </div>
             </div>
-
-            <div className={styles.rating}>
-                <div className={styles.rating__name}>Excellent</div>
-                <StarComponent rating={props.productRate} spacing={".1rem"} size={"1x"} />
-            </div>
-
-            <hr/>
 
             <div className={styles.review}>
                 { props.text }

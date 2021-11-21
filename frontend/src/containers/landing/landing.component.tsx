@@ -12,8 +12,6 @@ import { LandingCarousel } from '../../config/settings.config';
 
 const LandingComponent = ( props: any ) => {
     return <>
-                    {/* <CarouselComponent {...LandingCarousel} /> */}
-
                     <div className={styles.hero}>
                         <img src="https://e-commerce-bucket-images.s3.eu-west-2.amazonaws.com/thomas-m-evans-sBaGplnso94-unsplash.jpg" alt=""/>
                         <div className={styles.hero_action}>
@@ -23,31 +21,31 @@ const LandingComponent = ( props: any ) => {
                     </div>
 
                     <div className={styles.products}>
-                        <div className={`${styles.title} ${styles.dark}`}>Eaters Are Loving <span>These</span>.</div>
-                        <div className={styles.squares}><div></div><div></div><div></div><div></div><div></div></div>
+                        <div className={`${styles.title} ${styles.light}`}>Eaters Are Loving <span>These</span>.</div>
+                        {/* <div className={styles.squares}><div></div><div></div><div></div><div></div><div></div></div> */}
 
                         <FeaturedComponent />
 
-                        <Link to="/products" className={`${styles.link} ${styles.discover}`}>
-                            <Button variant="orange" className={styles.button}>Discover More</Button>
+                        <Link to="/products" className={`${styles.link} ${styles.discover} my-5`}>
+                            <Button variant="light" className={styles.button}>Discover More</Button>
                         </Link>
                     </div>
 
                     <div className={styles.reviews}>
-                        <div className={`${styles.title} ${styles.light}`}>Quality Confirmed.</div>
+                        <div className={`${styles.title} ${styles.light}`}>They <span>Ate</span> Chillies</div>
 
                         <div className={styles.reviews__review}>
                             <FeaturedReviewsComponent />
                         </div>
                     </div>
                     
-                    <div className="bg-white">
-                        <div className={`${styles.title} ${styles.dark}`}>Friendly We are. <span>Sometimes</span>.</div>
+                    <div className="bg-white py-5">
+                        <div className={`${styles.title} ${styles.dark}`}>Friendly We Are. <span>Sometimes</span>.</div>
 
                         <OffersComponent />
                     </div>
 
-                    <div className={styles.showcase}>
+                    <div className={`${styles.showcase}`}>
                         <div className={styles.showcase_image}>
                             <img src="https://e-commerce-bucket-images.s3.eu-west-2.amazonaws.com/albert-vincent-wu-N39zZ5wFR7c-unsplash.jpg" alt=""/>
                         </div>
@@ -63,8 +61,8 @@ const LandingComponent = ( props: any ) => {
                         </div>
                     </div>
                     
-                    <div className={styles.ourclub}>
-                        <div className={`${styles.title} ${styles.dark}`}>Want to join us?</div>
+                    <div className={`${styles.ourclub} py-5`}>
+                        <div className={`${styles.title} ${styles.dark}`}>Want To <span>Become</span> A Chilly Member?</div>
 
                         <ClubComponent />
                     </div>

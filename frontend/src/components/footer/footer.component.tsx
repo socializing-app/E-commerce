@@ -25,11 +25,10 @@ const FooterComponent = ( props: any ) => {
         <>
             { !ignored ? (
                 <>
-                    <NavigationComponent />
+                    {/* <NavigationComponent /> */}
                     <SubscriptionComponent />
 
                     <div className={styles.container}>
-                        <img src="https://e-commerce-bucket-images.s3.eu-west-2.amazonaws.com/thomas-m-evans-sBaGplnso94-unsplash.jpg" alt=""/>
                         <div className={styles.content}>
                             <div className={styles.company}>{ companyName }</div>
                             <div className={styles.socials}>
@@ -43,6 +42,10 @@ const FooterComponent = ( props: any ) => {
                             <hr/>
 
                             <div className={styles.copyright}>{ copyright }</div>
+                        </div>
+
+                        <div className={styles.mapcontainer}>
+                                <img src="https://e-commerce-bucket-images.s3.eu-west-2.amazonaws.com/Screenshot+2021-11-21+at+16.14.31.png" alt=""/>
                         </div>
                     </div>
                 </>

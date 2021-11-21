@@ -30,7 +30,7 @@ const BasketComponent: React.FC<Props> = ( props: Props ): JSX.Element => {
     }, []);
 
     return <>
-                <div className={`container ${styles.container}`}>
+                <div className={`${styles.container}`}>
                     <div className={styles.basket}>
                         <div className={styles.title_container}>
                             <div className={styles.title}>MY BAG</div>

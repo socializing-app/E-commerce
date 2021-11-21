@@ -7,6 +7,7 @@ import PublicRoutes from "../routes/public.routes";
 import HeaderComponent from "../components/header/header.component";
 import FooterComponent from "../components/footer/footer.component";
 import ToastComponent from '../shared/toast/toast.component';
+import ScrollToTop from '../services/scrollToTop.service';
 import { initialToaster } from '../models/toast.model';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -24,6 +25,7 @@ const App = () => {
   return (   
     <>
       <Router>
+        <ScrollToTop />
 			  <Switch>
           <Route path="/">
             <Suspense fallback={<div>Loading...</div>}>
